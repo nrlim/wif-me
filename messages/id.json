@@ -1,0 +1,120 @@
+{
+  "Header": {
+    "home": "Beranda",
+    "search": "Cari layanan",
+    "services": "Layanan",
+    "register": "Daftar",
+    "login": "Masuk"
+  },
+  "Currency": {
+    "title": "Mata uang",
+    "latest": "Kurs terbaru",
+    "stored": "Kurs tersimpan",
+    "fallback": "Kurs fallback",
+    "refresh": "Perbarui kurs",
+    "updated": "Update",
+    "labels": {
+      "IDR": "Rupiah Indonesia",
+      "SAR": "Saudi Riyal",
+      "USD": "US Dollar"
+    }
+  },
+  "Language": {
+    "select": "Pilih bahasa"
+  },
+  "Landing": {
+    "meta": {
+      "title": "Wif-Me | Platform Pendamping Ibadah Umrah",
+      "description": "Marketplace multi-service untuk muthawif personal, provider muthawif, transportasi, visa, dan layanan pendukung jamaah umrah mandiri."
+    },
+    "hero": {
+      "bismillah": "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيم",
+      "eyebrow": "Platform Pendamping Ibadah Umrah",
+      "titlePrefix": "Satu Platform untuk",
+      "titleHighlight": "Muthawif, Visa, dan Transportasi",
+      "description": "Wif-Me menghubungkan jamaah umrah mandiri dengan muthawif personal, provider, transportasi rute ibadah, visa processing, dan layanan pendukung dalam ekosistem terverifikasi.",
+      "primaryCta": "Susun Kebutuhan",
+      "secondaryCta": "Lihat Layanan",
+      "stats": {
+        "services": "Layanan utama terhubung",
+        "roles": "Role dalam ekosistem",
+        "currency": "Currency IDR SAR USD"
+      }
+    },
+    "searchBox": {
+      "eyebrow": "Mulai dari kebutuhan",
+      "title": "Layanan apa yang ingin disiapkan?",
+      "description": "Pilih titik awal. Detail perjalanan dapat dilengkapi pada tahap berikutnya.",
+      "label": "Jenis layanan",
+      "button": "Cari Layanan",
+      "note": "Tidak ada biaya pendaftaran. Pembayaran diproses saat booking.",
+      "pills": ["Escrow", "Verified", "3 Currency"]
+    },
+    "services": {
+      "eyebrow": "Layanan utama",
+      "title": "Bisnis utama Wif-Me dalam satu alur perjalanan.",
+      "description": "Setiap layanan dapat berdiri sendiri, namun dirancang saling berelasi agar persiapan ibadah lebih tertata.",
+      "items": [
+        { "title": "Muthawif Personal", "desc": "Booking pembimbing ibadah perorangan yang terverifikasi untuk jamaah mandiri, keluarga, atau rombongan kecil." },
+        { "title": "Provider Muthawif", "desc": "Kerja sama B2B untuk travel, komunitas, dan organisasi yang membutuhkan suplai muthawif terpercaya." },
+        { "title": "Transportasi", "desc": "Penyewaan kendaraan berbasis rute: bandara, Makkah, Madinah, ziarah, dan perjalanan antar kota." },
+        { "title": "Visa Processing", "desc": "Pengurusan visa umrah dan dokumen pendukung dengan status proses yang mudah dipantau." }
+      ]
+    },
+    "workflow": {
+      "eyebrow": "Cara kerja",
+      "title": "Platform pendamping yang menjaga alur jamaah dan penyedia tetap jelas.",
+      "description": "Dari memilih layanan sampai penyelesaian transaksi, seluruh proses dibuat mudah dipantau.",
+      "stepLabel": "Langkah {step}",
+      "items": [
+        { "step": "01", "title": "Pilih layanan", "desc": "Tentukan kebutuhan: muthawif, provider, transportasi, visa, atau layanan tambahan." },
+        { "step": "02", "title": "Bandingkan penyedia", "desc": "Lihat profil, pengalaman, harga, mata uang tampilan, dan ketersediaan jadwal." },
+        { "step": "03", "title": "Booking & escrow", "desc": "Pesanan diproses dengan pembayaran aman dan status layanan yang dapat dipantau." }
+      ]
+    },
+    "about": {
+      "title": "Dibangun untuk ekosistem ibadah yang terverifikasi.",
+      "description": "Wif-Me bukan hanya tempat mencari muthawif. Platform ini menjadi penengah antara jamaah, muthawif, provider, dan admin untuk memastikan layanan pendampingan berjalan lebih transparan.",
+      "verse": "وَأَتِمُّوا الْحَجَّ وَالْعُمْرَةَ لِلَّهِ",
+      "verseMeaning": "Dan sempurnakanlah ibadah haji dan umrah karena Allah.",
+      "verseSource": "Al-Baqarah: 196",
+      "rolesTitle": "Peran dalam Wif-Me",
+      "features": [
+        { "title": "Ekosistem Terverifikasi", "desc": "Muthawif dan provider melalui pemeriksaan dokumen, pengalaman, dan kelayakan layanan." },
+        { "title": "Escrow Payment", "desc": "Pembayaran ditahan sampai layanan berjalan sesuai kesepakatan untuk melindungi jamaah dan penyedia." },
+        { "title": "Multi-Currency", "desc": "Harga dapat ditampilkan dalam IDR, SAR, dan USD agar lebih mudah dipahami sebelum booking." },
+        { "title": "Layanan Saling Terhubung", "desc": "Kebutuhan muthawif, transportasi, visa, dan layanan tambahan dapat disusun dalam satu rencana." }
+      ],
+      "roles": [
+        { "title": "Jamaah", "desc": "Mencari dan memesan layanan pendampingan ibadah secara aman." },
+        { "title": "Muthawif", "desc": "Menawarkan jasa personal, mengatur jadwal, dan menerima booking." },
+        { "title": "Provider", "desc": "Mengelola layanan B2B untuk rombongan, travel, dan organisasi." }
+      ]
+    },
+    "join": {
+      "eyebrow": "Bergabung bersama Wif-Me",
+      "title": "Mulai sebagai jamaah, muthawif, atau provider",
+      "description": "Pilih peran yang sesuai. Penyedia jasa akan melalui proses verifikasi sebelum dapat menerima pesanan.",
+      "button": "Daftar Sekarang",
+      "cards": [
+        { "title": "Saya Jamaah", "desc": "Cari layanan pendampingan ibadah, transportasi, visa, dan kebutuhan tambahan dalam satu platform." },
+        { "title": "Saya Penyedia", "desc": "Daftarkan layanan sebagai muthawif personal atau provider untuk kebutuhan jamaah dan kerja sama B2B." }
+      ]
+    },
+    "cta": {
+      "title": "Persiapan ibadah lebih tertata",
+      "description": "Susun kebutuhan layanan umrah mandiri dari satu tempat yang aman dan terverifikasi.",
+      "button": "Mulai Sekarang"
+    },
+    "footer": {
+      "description": "Platform multi-service yang menghubungkan jamaah umrah mandiri dengan penyedia layanan pendampingan ibadah.",
+      "services": "Layanan",
+      "join": "Bergabung",
+      "contact": "Hubungi Kami",
+      "copyright": "© 2026 Wif-Me. Semua hak dilindungi undang-undang.",
+      "privacy": "Kebijakan Privasi",
+      "terms": "Syarat & Ketentuan",
+      "joinItems": ["Daftar sebagai Jamaah", "Daftar sebagai Muthawif", "Daftar sebagai Provider"]
+    }
+  }
+}

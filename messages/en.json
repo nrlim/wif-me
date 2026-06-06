@@ -1,0 +1,120 @@
+{
+  "Header": {
+    "home": "Home",
+    "search": "Find services",
+    "services": "Services",
+    "register": "Register",
+    "login": "Login"
+  },
+  "Currency": {
+    "title": "Currency",
+    "latest": "Latest rates",
+    "stored": "Saved rates",
+    "fallback": "Fallback rates",
+    "refresh": "Refresh rates",
+    "updated": "Updated",
+    "labels": {
+      "IDR": "Indonesian Rupiah",
+      "SAR": "Saudi Riyal",
+      "USD": "US Dollar"
+    }
+  },
+  "Language": {
+    "select": "Choose language"
+  },
+  "Landing": {
+    "meta": {
+      "title": "Wif-Me | Umrah Worship Companion Platform",
+      "description": "A multi-service marketplace for personal muthawif, muthawif providers, transportation, visa processing, and supporting services for independent Umrah pilgrims."
+    },
+    "hero": {
+      "bismillah": "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيم",
+      "eyebrow": "Umrah worship companion platform",
+      "titlePrefix": "One platform for",
+      "titleHighlight": "Muthawif, visas, and transportation",
+      "description": "Wif-Me connects independent Umrah pilgrims with personal muthawif, providers, route-based transportation, visa processing, and supporting services in a verified ecosystem.",
+      "primaryCta": "Plan your needs",
+      "secondaryCta": "View services",
+      "stats": {
+        "services": "Connected core services",
+        "roles": "Roles in the ecosystem",
+        "currency": "IDR SAR USD currency"
+      }
+    },
+    "searchBox": {
+      "eyebrow": "Start from your needs",
+      "title": "Which service do you want to prepare?",
+      "description": "Choose a starting point. Trip details can be completed in the next step.",
+      "label": "Service type",
+      "button": "Find Services",
+      "note": "No registration fee. Payment is processed when booking.",
+      "pills": ["Escrow", "Verified", "3 Currency"]
+    },
+    "services": {
+      "eyebrow": "Core services",
+      "title": "Wif-Me core business in one journey flow.",
+      "description": "Each service can stand alone, but they are designed to connect so worship preparation stays organized.",
+      "items": [
+        { "title": "Personal Muthawif", "desc": "Book a verified individual worship guide for independent pilgrims, families, or small groups." },
+        { "title": "Muthawif Provider", "desc": "B2B cooperation for travel agencies, communities, and organizations that need reliable muthawif supply." },
+        { "title": "Transportation", "desc": "Route-based vehicle rental for airports, Makkah, Madinah, ziyarat, and intercity travel." },
+        { "title": "Visa Processing", "desc": "Umrah visa and supporting document handling with trackable process status." }
+      ]
+    },
+    "workflow": {
+      "eyebrow": "How it works",
+      "title": "A companion platform that keeps pilgrim and provider flows clear.",
+      "description": "From service selection to transaction completion, every process is made easy to track.",
+      "stepLabel": "Step {step}",
+      "items": [
+        { "step": "01", "title": "Choose services", "desc": "Define your needs: muthawif, provider, transportation, visa, or additional services." },
+        { "step": "02", "title": "Compare providers", "desc": "Review profiles, experience, prices, display currency, and schedule availability." },
+        { "step": "03", "title": "Book & escrow", "desc": "Orders are processed with secure payment and trackable service status." }
+      ]
+    },
+    "about": {
+      "title": "Built for a verified worship ecosystem.",
+      "description": "Wif-Me is not only a place to find a muthawif. It acts as an intermediary between pilgrims, muthawif, providers, and admins to make worship assistance more transparent.",
+      "verse": "وَأَتِمُّوا الْحَجَّ وَالْعُمْرَةَ لِلَّهِ",
+      "verseMeaning": "And complete the Hajj and Umrah for Allah.",
+      "verseSource": "Al-Baqarah: 196",
+      "rolesTitle": "Roles in Wif-Me",
+      "features": [
+        { "title": "Verified Ecosystem", "desc": "Muthawif and providers go through document, experience, and service eligibility checks." },
+        { "title": "Escrow Payment", "desc": "Funds are held until services run as agreed, protecting both pilgrims and providers." },
+        { "title": "Multi-Currency", "desc": "Prices can be displayed in IDR, SAR, and USD for clearer booking decisions." },
+        { "title": "Connected Services", "desc": "Muthawif, transportation, visa, and additional needs can be arranged in one plan." }
+      ],
+      "roles": [
+        { "title": "Pilgrim", "desc": "Find and book worship assistance services safely." },
+        { "title": "Muthawif", "desc": "Offer personal services, manage schedules, and receive bookings." },
+        { "title": "Provider", "desc": "Manage B2B services for groups, travel agencies, and organizations." }
+      ]
+    },
+    "join": {
+      "eyebrow": "Join Wif-Me",
+      "title": "Start as a pilgrim, muthawif, or provider",
+      "description": "Choose the role that fits you. Service providers will complete verification before receiving orders.",
+      "button": "Register Now",
+      "cards": [
+        { "title": "I am a Pilgrim", "desc": "Find worship assistance, transportation, visa, and additional needs in one platform." },
+        { "title": "I am a Provider", "desc": "Register your service as a personal muthawif or provider for pilgrims and B2B cooperation." }
+      ]
+    },
+    "cta": {
+      "title": "Worship preparation, better organized",
+      "description": "Arrange independent Umrah service needs from one safe and verified place.",
+      "button": "Start Now"
+    },
+    "footer": {
+      "description": "A multi-service platform that connects independent Umrah pilgrims with worship assistance service providers.",
+      "services": "Services",
+      "join": "Join",
+      "contact": "Contact Us",
+      "copyright": "© 2026 Wif-Me. All rights reserved.",
+      "privacy": "Privacy Policy",
+      "terms": "Terms & Conditions",
+      "joinItems": ["Register as Pilgrim", "Register as Muthawif", "Register as Provider"]
+    }
+  }
+}

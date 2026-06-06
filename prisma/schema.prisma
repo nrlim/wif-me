@@ -1,0 +1,179 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum UserRole {
+  JAMAAH
+  MUTHAWIF
+  PROVIDER
+  ADMIN
+}
+
+enum VerificationStatus {
+  DRAFT
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum ServiceType {
+  MUTHAWIF_PERSONAL
+  PROVIDER_MUTHAWIF
+  TRANSPORTATION
+  VISA_PROCESSING
+  ADDITIONAL_SERVICE
+}
+
+enum CurrencyCode {
+  IDR
+  SAR
+  USD
+}
+
+enum BookingStatus {
+  DRAFT
+  PENDING_PAYMENT
+  CONFIRMED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+enum PaymentStatus {
+  PENDING
+  HELD_IN_ESCROW
+  RELEASED
+  REFUNDED
+  FAILED
+}
+
+enum OtpPurpose {
+  EMAIL_VERIFICATION
+  PASSWORD_RESET
+}
+
+model User {
+  id            String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  email         String         @unique @db.VarChar(255)
+  passwordHash  String         @db.VarChar(255)
+  name          String         @db.VarChar(160)
+  role          UserRole       @default(JAMAAH)
+  phone         String?        @db.VarChar(32)
+  emailVerified Boolean        @default(false)
+  emailVerifiedAt DateTime?
+  preferredCurrency CurrencyCode @default(IDR)
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  providerProfile ProviderProfile?
+  offeredServices ServiceOffering[] @relation("ServiceOwner")
+  bookings      Booking[]      @relation("CustomerBookings")
+  emailOtps     EmailOtp[]
+
+  @@index([role])
+  @@index([createdAt])
+  @@map("users")
+}
+
+model ProviderProfile {
+  id              String             @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId          String             @unique @db.Uuid
+  displayName     String             @db.VarChar(180)
+  bio             String?            @db.Text
+  languages       String[]           @default([])
+  baseCity        String?            @db.VarChar(120)
+  verificationStatus VerificationStatus @default(DRAFT)
+  verifiedAt      DateTime?
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
+  user            User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([verificationStatus])
+  @@map("provider_profiles")
+}
+
+model ServiceOffering {
+  id              String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  ownerId         String        @db.Uuid
+  type            ServiceType
+  title           String        @db.VarChar(180)
+  description     String        @db.Text
+  basePriceIdr    Decimal       @db.Decimal(14, 2)
+  routeFrom       String?       @db.VarChar(120)
+  routeTo         String?       @db.VarChar(120)
+  isActive        Boolean       @default(false)
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  owner           User          @relation("ServiceOwner", fields: [ownerId], references: [id], onDelete: Restrict)
+  bookings        Booking[]
+
+  @@index([type, isActive])
+  @@index([ownerId])
+  @@map("service_offerings")
+}
+
+model Booking {
+  id              String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  customerId      String        @db.Uuid
+  serviceOfferingId String      @db.Uuid
+  status          BookingStatus @default(DRAFT)
+  scheduledStart  DateTime
+  scheduledEnd    DateTime?
+  notes           String?       @db.Text
+  totalPriceIdr   Decimal       @db.Decimal(14, 2)
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  customer        User          @relation("CustomerBookings", fields: [customerId], references: [id], onDelete: Restrict)
+  serviceOffering ServiceOffering @relation(fields: [serviceOfferingId], references: [id], onDelete: Restrict)
+  payment         Payment?
+
+  @@index([customerId, status])
+  @@index([serviceOfferingId, scheduledStart])
+  @@map("bookings")
+}
+
+model Payment {
+  id              String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  bookingId       String        @unique @db.Uuid
+  status          PaymentStatus @default(PENDING)
+  amountIdr       Decimal       @db.Decimal(14, 2)
+  gatewayReference String?      @db.VarChar(180)
+  escrowReleasedAt DateTime?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  booking         Booking       @relation(fields: [bookingId], references: [id], onDelete: Restrict)
+
+  @@index([status])
+  @@map("payments")
+}
+
+model EmailOtp {
+  id              String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId          String        @db.Uuid
+  purpose         OtpPurpose
+  otpHash         String        @db.VarChar(128)
+  expiresAt       DateTime
+  consumedAt      DateTime?
+  attempts        Int           @default(0)
+  createdAt       DateTime      @default(now())
+  user            User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, purpose, expiresAt])
+  @@index([purpose, createdAt])
+  @@map("email_otps")
+}
+
+model ExchangeRate {
+  id              String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  baseCurrency    CurrencyCode  @default(IDR)
+  targetCurrency  CurrencyCode
+  rate            Decimal       @db.Decimal(18, 8)
+  fetchedAt       DateTime      @default(now())
+
+  @@unique([baseCurrency, targetCurrency])
+  @@index([fetchedAt])
+  @@map("exchange_rates")
+}
