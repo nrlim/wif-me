@@ -1,106 +1,98 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useState, type ReactElement } from "react";
+import { useTranslations } from "next-intl";
+import { Link, usePathname } from "@/i18n/routing";
 import { cn } from "@/lib/utils/cn";
 import {
-  LayoutDashboard,
+  BriefcaseBusiness,
+  Building2,
   CalendarDays,
-  CreditCard,
-  Settings,
-  Users,
   CarFront,
-  FileText,
-  ShieldCheck,
-  LogOut
+  ChevronDown,
+  CreditCard,
+  FolderTree,
+  LayoutDashboard,
+  ListChecks,
+  LogOut,
+  Percent,
+  ReceiptText,
+  Settings,
+  UserCheck,
+  Users,
+  WalletCards,
 } from "lucide-react";
 import { BrandMark } from "@/components/shared/brand-mark";
 
-const ROLE_NAV_ITEMS = {
-  jamaah: [
-    { label: "Overview", href: "/jamaah", icon: LayoutDashboard },
-    { label: "Booking Saya", href: "/jamaah/bookings", icon: CalendarDays },
-    { label: "Pembayaran", href: "/jamaah/payments", icon: CreditCard },
-    { label: "Pengaturan", href: "/jamaah/settings", icon: Settings },
-  ],
-  muthawif: [
-    { label: "Overview", href: "/muthawif", icon: LayoutDashboard },
-    { label: "Jadwal Saya", href: "/muthawif/schedule", icon: CalendarDays },
-    { label: "Pendapatan", href: "/muthawif/earnings", icon: CreditCard },
-    { label: "Pengaturan", href: "/muthawif/settings", icon: Settings },
-  ],
-  provider: [
-    { label: "Overview", href: "/provider", icon: LayoutDashboard },
-    { label: "Manajemen Staf", href: "/provider/staff", icon: Users },
-    { label: "Armada", href: "/provider/fleet", icon: CarFront },
-    { label: "Pendapatan", href: "/provider/earnings", icon: CreditCard },
-    { label: "Pengaturan", href: "/provider/settings", icon: Settings },
-  ],
-  admin: [
-    { label: "Overview", href: "/admin", icon: LayoutDashboard },
-    { label: "Verifikasi", href: "/admin/verifications", icon: ShieldCheck },
-    { label: "Escrow", href: "/admin/escrow", icon: CreditCard },
-    { label: "Pengguna", href: "/admin/users", icon: Users },
-    { label: "Laporan", href: "/admin/reports", icon: FileText },
-  ],
-};
+import { ROLE_NAV_ITEMS, type NavigationItem } from "@/lib/constants/navigation";
 
 type Role = keyof typeof ROLE_NAV_ITEMS;
 
-export function DashboardSidebar() {
+export function DashboardSidebar(): ReactElement {
   const pathname = usePathname();
-  
-  // Determine role from pathname to show correct links
-  // E.g., /jamaah/settings -> jamaah
-  const currentRole = (Object.keys(ROLE_NAV_ITEMS).find(role => pathname.startsWith(`/${role}`)) || "jamaah") as Role;
-  
-  const navItems = ROLE_NAV_ITEMS[currentRole];
+  const t = useTranslations("Dashboard.nav");
+  const currentRole = (Object.keys(ROLE_NAV_ITEMS).find((role) => pathname.startsWith(`/${role}`)) || "jamaah") as Role;
+  const navItems: readonly NavigationItem[] = ROLE_NAV_ITEMS[currentRole];
+  const [expandedItems, setExpandedItems] = useState<ReadonlySet<string>>(() => new Set(navItems.filter((item) => pathname.startsWith(item.href) || item.children?.some((child) => pathname.startsWith(child.href))).map((item) => item.href)));
+
+  const toggleExpanded = (href: string): void => {
+    setExpandedItems((current) => {
+      const next = new Set(current);
+      if (next.has(href)) next.delete(href);
+      else next.add(href);
+      return next;
+    });
+  };
 
   return (
-    <aside className="fixed inset-y-0 left-0 z-50 flex w-64 flex-col border-r border-[var(--border)] bg-[var(--ivory)] max-md:hidden">
+    <aside className="fixed inset-y-0 left-0 z-50 flex w-64 flex-col border-r border-[var(--border)] bg-white max-md:hidden">
       <div className="flex h-16 shrink-0 items-center px-6">
         <BrandMark />
       </div>
       <div className="flex flex-1 flex-col overflow-y-auto px-4 py-4">
-        <div className="mb-2 px-2 text-xs font-extrabold tracking-[0.1em] text-[var(--gold)] uppercase">
-          Menu Utama
-        </div>
-        <nav className="flex-1 space-y-1">
-          {navItems.map((item) => {
-            const isActive = pathname === item.href;
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={cn(
-                  "group flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-bold transition-all",
-                  isActive
-                    ? "bg-[var(--emerald)]/10 text-[var(--emerald)]"
-                    : "text-[var(--text-muted)] hover:bg-[var(--emerald-pale)] hover:text-[var(--emerald)]"
-                )}
-              >
-                <item.icon
-                  className={cn(
-                    "size-5 shrink-0",
-                    isActive ? "text-[var(--emerald)]" : "text-gray-400 group-hover:text-[var(--emerald)]"
-                  )}
-                  strokeWidth={isActive ? 2.5 : 2}
-                />
-                {item.label}
-              </Link>
-            );
-          })}
+        <div className="mb-2 px-2 text-xs font-extrabold uppercase tracking-[0.1em] text-[var(--gold)]">{t("mainMenu")}</div>
+        <nav className="flex flex-1 flex-col gap-1">
+          {navItems.map((item) => <SidebarItem key={item.href} item={item} pathname={pathname} isExpanded={expandedItems.has(item.href)} onToggle={toggleExpanded} />)}
         </nav>
       </div>
-      <div className="shrink-0 border-t border-[var(--border)] p-4">
-        <Link
-          href="/"
-          className="group flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-bold text-red-600 transition-all hover:bg-red-50"
-        >
-          <LogOut className="size-5 shrink-0" />
-          Keluar
-        </Link>
-      </div>
     </aside>
+  );
+}
+
+function SidebarItem({ item, pathname, isExpanded, onToggle }: { readonly item: NavigationItem; readonly pathname: string; readonly isExpanded: boolean; readonly onToggle: (href: string) => void }): ReactElement {
+  const t = useTranslations("Dashboard.nav");
+  const hasChildren = Boolean(item.children?.length);
+  const isActive = hasChildren && item.children ? item.children.some((child) => pathname.startsWith(child.href)) : item.href === "/admin" || item.href === "/jamaah" || item.href === "/muthawif" || item.href === "/provider" ? pathname === item.href : pathname.startsWith(item.href);
+  const Icon = item.icon;
+
+  if (!hasChildren) {
+    return <SidebarLink href={item.href} icon={Icon} label={t(item.labelKey)} isActive={isActive} />;
+  }
+
+  return (
+    <div className="flex flex-col gap-1">
+      <button type="button" onClick={() => onToggle(item.href)} aria-expanded={isExpanded} className={cn("group flex min-h-11 items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm font-bold transition-all", isActive ? "bg-[var(--emerald)]/10 text-[var(--emerald)]" : "text-[var(--text-muted)] hover:bg-[var(--emerald-pale)] hover:text-[var(--emerald)]")}>
+        <Icon className={cn("size-5 shrink-0", isActive ? "text-[var(--emerald)]" : "text-gray-400 group-hover:text-[var(--emerald)]")} strokeWidth={isActive ? 2.5 : 2} />
+        <span className="min-w-0 flex-1 truncate">{t(item.labelKey)}</span>
+        <ChevronDown className={cn("size-4 shrink-0 transition-transform", isExpanded && "rotate-180")} aria-hidden="true" />
+      </button>
+      {isExpanded ? (
+        <div className="ml-5 flex flex-col gap-1 border-l border-[var(--border)] pl-3">
+          {item.children?.map((child) => {
+            const ChildIcon = child.icon;
+            return <SidebarLink key={child.href} href={child.href} icon={ChildIcon} label={t(child.labelKey)} isActive={pathname.startsWith(child.href)} isChild />;
+          })}
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
+function SidebarLink({ href, icon: Icon, label, isActive, isChild = false }: { readonly href: string; readonly icon: any; readonly label: string; readonly isActive: boolean; readonly isChild?: boolean }): ReactElement {
+  return (
+    <Link href={href} className={cn("group flex min-h-11 items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-bold transition-all", isChild && "rounded-lg text-[0.8125rem]", isActive ? "bg-[var(--emerald)]/10 text-[var(--emerald)]" : "text-[var(--text-muted)] hover:bg-[var(--emerald-pale)] hover:text-[var(--emerald)]")}>
+      <Icon className={cn("size-5 shrink-0", isChild && "size-4", isActive ? "text-[var(--emerald)]" : "text-gray-400 group-hover:text-[var(--emerald)]")} strokeWidth={isActive ? 2.5 : 2} />
+      <span className="truncate">{label}</span>
+    </Link>
   );
 }

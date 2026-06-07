@@ -48,17 +48,33 @@
       "label": "Jenis layanan",
       "button": "Cari Layanan",
       "note": "Tidak ada biaya pendaftaran. Pembayaran diproses saat booking.",
-      "pills": ["Escrow", "Verified", "3 Currency"]
+      "pills": [
+        "Escrow",
+        "Verified",
+        "3 Currency"
+      ]
     },
     "services": {
       "eyebrow": "Layanan utama",
       "title": "Bisnis utama Wif-Me dalam satu alur perjalanan.",
       "description": "Setiap layanan dapat berdiri sendiri, namun dirancang saling berelasi agar persiapan ibadah lebih tertata.",
       "items": [
-        { "title": "Muthawif Personal", "desc": "Booking pembimbing ibadah perorangan yang terverifikasi untuk jamaah mandiri, keluarga, atau rombongan kecil." },
-        { "title": "Provider Muthawif", "desc": "Kerja sama B2B untuk travel, komunitas, dan organisasi yang membutuhkan suplai muthawif terpercaya." },
-        { "title": "Transportasi", "desc": "Penyewaan kendaraan berbasis rute: bandara, Makkah, Madinah, ziarah, dan perjalanan antar kota." },
-        { "title": "Visa Processing", "desc": "Pengurusan visa umrah dan dokumen pendukung dengan status proses yang mudah dipantau." }
+        {
+          "title": "Muthawif Personal",
+          "desc": "Booking pembimbing ibadah perorangan yang terverifikasi untuk jamaah mandiri, keluarga, atau rombongan kecil."
+        },
+        {
+          "title": "Provider Muthawif",
+          "desc": "Kerja sama B2B untuk travel, komunitas, dan organisasi yang membutuhkan suplai muthawif terpercaya."
+        },
+        {
+          "title": "Transportasi",
+          "desc": "Penyewaan kendaraan berbasis rute: bandara, Makkah, Madinah, ziarah, dan perjalanan antar kota."
+        },
+        {
+          "title": "Visa Processing",
+          "desc": "Pengurusan visa umrah dan dokumen pendukung dengan status proses yang mudah dipantau."
+        }
       ]
     },
     "workflow": {
@@ -67,9 +83,21 @@
       "description": "Dari memilih layanan sampai penyelesaian transaksi, seluruh proses dibuat mudah dipantau.",
       "stepLabel": "Langkah {step}",
       "items": [
-        { "step": "01", "title": "Pilih layanan", "desc": "Tentukan kebutuhan: muthawif, provider, transportasi, visa, atau layanan tambahan." },
-        { "step": "02", "title": "Bandingkan penyedia", "desc": "Lihat profil, pengalaman, harga, mata uang tampilan, dan ketersediaan jadwal." },
-        { "step": "03", "title": "Booking & escrow", "desc": "Pesanan diproses dengan pembayaran aman dan status layanan yang dapat dipantau." }
+        {
+          "step": "01",
+          "title": "Pilih layanan",
+          "desc": "Tentukan kebutuhan: muthawif, provider, transportasi, visa, atau layanan tambahan."
+        },
+        {
+          "step": "02",
+          "title": "Bandingkan penyedia",
+          "desc": "Lihat profil, pengalaman, harga, mata uang tampilan, dan ketersediaan jadwal."
+        },
+        {
+          "step": "03",
+          "title": "Booking & escrow",
+          "desc": "Pesanan diproses dengan pembayaran aman dan status layanan yang dapat dipantau."
+        }
       ]
     },
     "about": {
@@ -80,15 +108,36 @@
       "verseSource": "Al-Baqarah: 196",
       "rolesTitle": "Peran dalam Wif-Me",
       "features": [
-        { "title": "Ekosistem Terverifikasi", "desc": "Muthawif dan provider melalui pemeriksaan dokumen, pengalaman, dan kelayakan layanan." },
-        { "title": "Escrow Payment", "desc": "Pembayaran ditahan sampai layanan berjalan sesuai kesepakatan untuk melindungi jamaah dan penyedia." },
-        { "title": "Multi-Currency", "desc": "Harga dapat ditampilkan dalam IDR, SAR, dan USD agar lebih mudah dipahami sebelum booking." },
-        { "title": "Layanan Saling Terhubung", "desc": "Kebutuhan muthawif, transportasi, visa, dan layanan tambahan dapat disusun dalam satu rencana." }
+        {
+          "title": "Ekosistem Terverifikasi",
+          "desc": "Muthawif dan provider melalui pemeriksaan dokumen, pengalaman, dan kelayakan layanan."
+        },
+        {
+          "title": "Escrow Payment",
+          "desc": "Pembayaran ditahan sampai layanan berjalan sesuai kesepakatan untuk melindungi jamaah dan penyedia."
+        },
+        {
+          "title": "Multi-Currency",
+          "desc": "Harga dapat ditampilkan dalam IDR, SAR, dan USD agar lebih mudah dipahami sebelum booking."
+        },
+        {
+          "title": "Layanan Saling Terhubung",
+          "desc": "Kebutuhan muthawif, transportasi, visa, dan layanan tambahan dapat disusun dalam satu rencana."
+        }
       ],
       "roles": [
-        { "title": "Jamaah", "desc": "Mencari dan memesan layanan pendampingan ibadah secara aman." },
-        { "title": "Muthawif", "desc": "Menawarkan jasa personal, mengatur jadwal, dan menerima booking." },
-        { "title": "Provider", "desc": "Mengelola layanan B2B untuk rombongan, travel, dan organisasi." }
+        {
+          "title": "Jamaah",
+          "desc": "Mencari dan memesan layanan pendampingan ibadah secara aman."
+        },
+        {
+          "title": "Muthawif",
+          "desc": "Menawarkan jasa personal, mengatur jadwal, dan menerima booking."
+        },
+        {
+          "title": "Provider",
+          "desc": "Mengelola layanan B2B untuk rombongan, travel, dan organisasi."
+        }
       ]
     },
     "join": {
@@ -97,8 +146,14 @@
       "description": "Pilih peran yang sesuai. Penyedia jasa akan melalui proses verifikasi sebelum dapat menerima pesanan.",
       "button": "Daftar Sekarang",
       "cards": [
-        { "title": "Saya Jamaah", "desc": "Cari layanan pendampingan ibadah, transportasi, visa, dan kebutuhan tambahan dalam satu platform." },
-        { "title": "Saya Penyedia", "desc": "Daftarkan layanan sebagai muthawif personal atau provider untuk kebutuhan jamaah dan kerja sama B2B." }
+        {
+          "title": "Saya Jamaah",
+          "desc": "Cari layanan pendampingan ibadah, transportasi, visa, dan kebutuhan tambahan dalam satu platform."
+        },
+        {
+          "title": "Saya Penyedia",
+          "desc": "Daftarkan layanan sebagai muthawif personal atau provider untuk kebutuhan jamaah dan kerja sama B2B."
+        }
       ]
     },
     "cta": {
@@ -114,7 +169,810 @@
       "copyright": "© 2026 Wif-Me. Semua hak dilindungi undang-undang.",
       "privacy": "Kebijakan Privasi",
       "terms": "Syarat & Ketentuan",
-      "joinItems": ["Daftar sebagai Jamaah", "Daftar sebagai Muthawif", "Daftar sebagai Provider"]
+      "joinItems": [
+        "Daftar sebagai Jamaah",
+        "Daftar sebagai Muthawif",
+        "Daftar sebagai Provider"
+      ]
+    }
+  },
+  "Dashboard": {
+    "nav": {
+      "mainMenu": "Menu utama",
+      "logout": "Keluar",
+      "roles": {
+        "jamaah": {
+          "overview": "Overview",
+          "bookings": "Booking Saya",
+          "payments": "Pembayaran",
+          "settings": "Pengaturan"
+        },
+        "muthawif": {
+          "overview": "Overview",
+          "schedule": "Jadwal Saya",
+          "earnings": "Pendapatan",
+          "settings": "Pengaturan"
+        },
+        "provider": {
+          "overview": "Overview",
+          "staff": "Manajemen Staf",
+          "fleet": "Armada",
+          "earnings": "Pendapatan",
+          "settings": "Pengaturan"
+        },
+        "admin": {
+          "overview": "Overview",
+          "services": "Manage Layanan",
+          "profile": "Profile",
+          "partners": "Muthawif & Provider",
+          "escrow": "Escrow Payment",
+          "reports": "Laporan",
+          "serviceCategories": "Kategori layanan",
+          "serviceItems": "Daftar layanan",
+          "muthawif": "Muthawif",
+          "providers": "Provider",
+          "transactions": "Transaksi",
+          "escrowHolding": "Escrow",
+          "withdrawals": "Penarikan",
+          "fees": "Komisi & fee",
+          "charges": "Charge tambahan",
+          "financeSettings": "Biaya & charge"
+        }
+      },
+      "more": "Menu",
+      "mobileNav": "Navigasi dashboard mobile",
+      "openMenu": "Buka menu dashboard",
+      "closeMenu": "Tutup menu dashboard"
+    },
+    "header": {
+      "openSidebar": "Buka menu samping",
+      "searchLabel": "Pencarian dashboard",
+      "searchPlaceholder": "Cari data dashboard...",
+      "notifications": "Lihat notifikasi",
+      "userName": "{role} User",
+      "roles": {
+        "jamaah": "Jamaah",
+        "muthawif": "Muthawif",
+        "provider": "Provider",
+        "admin": "Admin"
+      }
+    },
+    "charts": {
+      "transactions": "Transaksi",
+      "services": "Layanan Aktif"
+    }
+  },
+  "Admin": {
+    "overview": {
+      "eyebrow": "Dashboard admin",
+      "title": "Kontrol awal untuk layanan, penyedia, dan escrow.",
+      "description": "MVP admin difokuskan pada kategori layanan yang tampil di landing page, verifikasi muthawif/provider, serta pemantauan dana escrow.",
+      "stats": {
+        "services": {
+          "label": "Kategori layanan",
+          "note": "Aktif di landing page"
+        },
+        "partners": {
+          "label": "Penyedia terdaftar",
+          "note": "Personal dan provider"
+        },
+        "escrow": {
+          "label": "Dana escrow",
+          "note": "Saldo sedang ditahan"
+        },
+        "verification": {
+          "label": "Antrian review",
+          "note": "Butuh tindakan admin"
+        }
+      },
+      "services": {
+        "eyebrow": "Layanan tersedia",
+        "title": "Kategori layanan publik",
+        "action": "Kelola layanan",
+        "items": {
+          "muthawifPersonal": {
+            "title": "Muthawif Personal",
+            "desc": "Pendamping personal untuk jamaah mandiri, keluarga, dan rombongan kecil.",
+            "status": "Aktif"
+          },
+          "providerMuthawif": {
+            "title": "Provider Muthawif",
+            "desc": "Kerja sama B2B dengan travel, komunitas, dan organisasi.",
+            "status": "Aktif"
+          },
+          "transportation": {
+            "title": "Transportasi",
+            "desc": "Armada dan rute bandara, Makkah, Madinah, ziarah, dan antar kota.",
+            "status": "Aktif"
+          },
+          "visaProcessing": {
+            "title": "Visa Processing",
+            "desc": "Pengurusan visa dan dokumen pendukung yang dapat dipantau.",
+            "status": "Aktif"
+          },
+          "additionalServices": {
+            "title": "Layanan Tambahan",
+            "desc": "Kebutuhan pendukung yang dapat disambungkan ke booking utama.",
+            "status": "Draft"
+          }
+        },
+        "count": "{count} layanan"
+      },
+      "queue": {
+        "eyebrow": "Antrian prioritas",
+        "title": "Perlu ditindaklanjuti",
+        "items": {
+          "muthawif": {
+            "title": "Verifikasi muthawif",
+            "count": "7",
+            "desc": "Dokumen pengalaman dan identitas menunggu review."
+          },
+          "provider": {
+            "title": "Review provider",
+            "count": "5",
+            "desc": "Profil perusahaan dan paket layanan perlu dicek."
+          },
+          "escrow": {
+            "title": "Release escrow",
+            "count": "3",
+            "desc": "Permintaan pencairan dana menunggu validasi."
+          }
+        }
+      },
+      "charts": {
+        "trendTitle": "Tren Aktivitas 7 Hari Terakhir",
+        "distributionTitle": "Distribusi Layanan"
+      }
+    },
+    "services": {
+      "eyebrow": "Manage layanan",
+      "title": "Kategori dan layanan yang dipilih jamaah.",
+      "description": "Admin dapat mengatur jenis layanan sekaligus item layanan yang muncul saat jamaah membuka detail kategori.",
+      "addCategory": "Tambah",
+      "fields": {
+        "order": "Urutan",
+        "providers": "Penyedia",
+        "priceModel": "Model harga",
+        "category": "Kategori",
+        "services": "Layanan",
+        "code": "Kode",
+        "service": "Layanan",
+        "basePrice": "Harga dasar",
+        "duration": "Durasi"
+      },
+      "actions": {
+        "edit": "Edit",
+        "manageDisplay": "Atur tampilan",
+        "editService": "Edit",
+        "delete": "Hapus"
+      },
+      "items": {
+        "muthawifPersonal": {
+          "title": "Muthawif Personal",
+          "desc": "Pendamping personal untuk jamaah mandiri, keluarga, dan rombongan kecil.",
+          "status": "Aktif"
+        },
+        "providerMuthawif": {
+          "title": "Provider Muthawif",
+          "desc": "Kerja sama B2B dengan travel, komunitas, dan organisasi.",
+          "status": "Aktif"
+        },
+        "transportation": {
+          "title": "Transportasi",
+          "desc": "Armada dan rute bandara, Makkah, Madinah, ziarah, dan antar kota.",
+          "status": "Aktif"
+        },
+        "visaProcessing": {
+          "title": "Visa Processing",
+          "desc": "Pengurusan visa dan dokumen pendukung yang dapat dipantau.",
+          "status": "Aktif"
+        },
+        "additionalServices": {
+          "title": "Layanan Tambahan",
+          "desc": "Kebutuhan pendukung yang dapat disambungkan ke booking utama.",
+          "status": "Draft"
+        }
+      },
+      "priceModels": {
+        "currency": "IDR / SAR",
+        "b2b": "B2B",
+        "route": "Rute",
+        "document": "Dokumen",
+        "custom": "Kustom"
+      },
+      "addService": "Tambah",
+      "statuses": {
+        "active": "Aktif",
+        "draft": "Draft"
+      },
+      "categoryTable": {
+        "title": "Kategori layanan",
+        "description": "Lapisan pertama yang dipilih jamaah dari landing page atau pencarian."
+      },
+      "serviceTable": {
+        "title": "Layanan yang disediakan platform",
+        "description": "Item detail yang muncul setelah jamaah membuka kategori layanan."
+      },
+      "currency": {
+        "idr": "Rp {value, number}"
+      },
+      "durations": {
+        "oneDay": "1 hari",
+        "threeDays": "3 hari",
+        "fiveDays": "5 hari",
+        "perGroup": "Per rombongan",
+        "perTrip": "Per perjalanan",
+        "intercity": "Antar kota",
+        "businessDays": "5–7 hari kerja",
+        "perDay": "Per hari",
+        "once": "Sekali proses"
+      },
+      "provided": {
+        "personalUmrahBasic": {
+          "title": "Pendampingan Umrah Harian",
+          "desc": "Muthawif personal untuk tawaf, sai, dan bimbingan doa pada hari pelaksanaan umrah."
+        },
+        "familyMuthawif": {
+          "title": "Pendampingan Keluarga",
+          "desc": "Paket muthawif untuk keluarga kecil dengan penyesuaian ritme lansia atau anak."
+        },
+        "groupMuthawif": {
+          "title": "Muthawif Rombongan Kecil",
+          "desc": "Pendamping untuk rombongan mandiri dengan briefing manasik ringkas sebelum ibadah."
+        },
+        "travelMuthawifSupply": {
+          "title": "Supply Muthawif Travel",
+          "desc": "Penyediaan beberapa muthawif untuk travel atau komunitas dengan jadwal rombongan."
+        },
+        "hotelToHaramShuttle": {
+          "title": "Shuttle Hotel ke Haram",
+          "desc": "Transportasi pendek dari area hotel menuju Masjidil Haram sesuai titik jemput."
+        },
+        "airportTransfer": {
+          "title": "Transfer Bandara",
+          "desc": "Penjemputan atau pengantaran bandara Jeddah/Madinah menuju hotel jamaah."
+        },
+        "makkahMadinahRoute": {
+          "title": "Rute Makkah–Madinah",
+          "desc": "Perjalanan antar kota untuk jamaah atau keluarga dengan kendaraan terjadwal."
+        },
+        "umrahVisaRegular": {
+          "title": "Visa Umrah Reguler",
+          "desc": "Pengurusan visa umrah dengan pemeriksaan dokumen dan update status proses."
+        },
+        "documentReview": {
+          "title": "Review Dokumen Visa",
+          "desc": "Pemeriksaan awal paspor, foto, dan dokumen pendukung sebelum pengajuan."
+        },
+        "wheelchairSupport": {
+          "title": "Bantuan Kursi Roda",
+          "desc": "Pendampingan mobilitas untuk jamaah yang membutuhkan bantuan tambahan."
+        },
+        "simCardAssistance": {
+          "title": "Bantuan SIM Card",
+          "desc": "Bantuan pembelian dan aktivasi SIM card lokal saat tiba di Arab Saudi."
+        }
+      },
+      "categoryPage": {
+        "title": "Kategori layanan",
+        "description": "Kelola lapisan kategori yang pertama kali dipilih jamaah. Setiap layanan detail wajib terhubung ke salah satu kategori ini."
+      },
+      "itemPage": {
+        "title": "Daftar layanan",
+        "description": "Kelola layanan detail yang muncul di dalam kategori, termasuk harga dasar, status, dan relasi kategorinya."
+      },
+      "form": {
+        "key": "Key internal",
+        "slug": "Slug URL",
+        "title": "Nama tampil",
+        "description": "Deskripsi",
+        "status": "Status",
+        "save": "Simpan",
+        "cancel": "Batal",
+        "categoryCreateEyebrow": "Tambah kategori",
+        "categoryCreateTitle": "Tambah kategori layanan",
+        "categoryCreateDescription": "Kategori menjadi tree utama sebelum jamaah memilih layanan detail.",
+        "categoryEditEyebrow": "Edit kategori",
+        "categoryEditTitle": "Edit {category}",
+        "categoryEditDescription": "Perubahan kategori akan memengaruhi pengelompokan layanan yang tampil ke jamaah.",
+        "itemCreateEyebrow": "Tambah layanan",
+        "itemCreateTitle": "Tambah layanan platform",
+        "itemCreateDescription": "Setiap layanan wajib memilih kategori agar relasi katalog tetap jelas.",
+        "itemEditEyebrow": "Edit layanan",
+        "itemEditTitle": "Edit {service}",
+        "itemEditDescription": "Pastikan kategori, harga dasar, dan status layanan tetap akurat."
+      },
+      "delete": {
+        "confirm": "Hapus",
+        "categoryEyebrow": "Hapus kategori",
+        "categoryTitle": "Hapus {category}?",
+        "categoryDescription": "Tindakan ini disiapkan untuk menghapus kategori. Pastikan tidak ada layanan aktif yang masih bergantung pada kategori ini.",
+        "itemEyebrow": "Hapus layanan",
+        "itemTitle": "Hapus {service}?",
+        "itemDescription": "Tindakan ini disiapkan untuk menghapus layanan dari katalog jamaah. Riwayat booking nantinya harus tetap tersimpan."
+      }
+    },
+    "profile": {
+      "eyebrow": "Profile admin",
+      "name": "Admin Wif-Me",
+      "role": "Pengelola platform",
+      "description": "Gunakan halaman ini untuk menjaga keamanan akun admin sebelum fitur audit dan akses tim diperluas.",
+      "security": {
+        "title": "Akses sensitif",
+        "desc": "Perubahan password perlu divalidasi di server dan tercatat dalam audit log pada tahap integrasi backend."
+      },
+      "changePassword": {
+        "title": "Change password",
+        "desc": "Perbarui password secara berkala untuk menjaga akses panel admin.",
+        "current": "Password saat ini",
+        "next": "Password baru",
+        "confirm": "Konfirmasi password baru",
+        "helper": "Gunakan minimal 12 karakter dengan kombinasi huruf, angka, dan simbol.",
+        "submit": "Simpan password"
+      },
+      "activity": {
+        "title": "Aktivitas keamanan",
+        "items": {
+          "login": {
+            "title": "Login terakhir",
+            "desc": "Sesi admin aktif dari perangkat utama."
+          },
+          "password": {
+            "title": "Password",
+            "desc": "Belum ada perubahan pada 30 hari terakhir."
+          },
+          "session": {
+            "title": "Sesi aktif",
+            "desc": "Kelola sesi perangkat akan tersedia pada fase berikutnya."
+          }
+        }
+      }
+    },
+    "partners": {
+      "eyebrow": "Manage penyedia",
+      "title": "Personal muthawif dan provider dalam satu antrean.",
+      "description": "Pantau status verifikasi, jumlah booking, serta kesiapan layanan dari penyedia personal maupun organisasi.",
+      "summary": {
+        "personal": {
+          "label": "Muthawif personal",
+          "value": "28"
+        },
+        "provider": {
+          "label": "Provider aktif",
+          "value": "17"
+        },
+        "review": {
+          "label": "Menunggu review",
+          "value": "12"
+        }
+      },
+      "table": {
+        "title": "Daftar penyedia",
+        "partner": "Penyedia",
+        "service": "Layanan",
+        "city": "Kota",
+        "bookings": "Booking",
+        "status": "Status",
+        "action": "Aksi",
+        "review": "Review"
+      },
+      "types": {
+        "personal": "Personal",
+        "provider": "Provider"
+      },
+      "statuses": {
+        "verified": "Terverifikasi",
+        "review": "Review",
+        "paused": "Dijeda"
+      },
+      "services": {
+        "muthawifPersonal": "Muthawif Personal",
+        "providerMuthawif": "Provider Muthawif",
+        "transportation": "Transportasi",
+        "visaProcessing": "Visa Processing",
+        "additionalServices": "Layanan Tambahan"
+      },
+      "cities": {
+        "makkah": "Makkah",
+        "jeddah": "Jeddah",
+        "madinah": "Madinah"
+      },
+      "items": {
+        "abdullah": {
+          "name": "Abdullah Al-Makki"
+        },
+        "hijrahTravel": {
+          "name": "Hijrah Amanah Travel"
+        },
+        "safaTransport": {
+          "name": "Safa Transport"
+        },
+        "aminah": {
+          "name": "Aminah Binti Yusuf"
+        },
+        "rawdahGroup": {
+          "name": "Rawdah Group Services"
+        },
+        "haramainFleet": {
+          "name": "Haramain Fleet"
+        }
+      },
+      "muthawifPage": {
+        "eyebrow": "Manage muthawif",
+        "title": "Muthawif personal dalam antrean operasional.",
+        "description": "Pantau verifikasi, kota basis, layanan utama, dan performa booking muthawif personal.",
+        "tableTitle": "Daftar muthawif"
+      },
+      "providerPage": {
+        "eyebrow": "Manage provider",
+        "title": "Provider organisasi dan armada layanan.",
+        "description": "Kelola provider B2B, transportasi, dan organisasi yang memasok layanan ke ekosistem Wif-Me.",
+        "tableTitle": "Daftar provider"
+      },
+      "actions": {
+        "add": "Tambah",
+        "edit": "Edit",
+        "delete": "Hapus",
+        "save": "Simpan",
+        "cancel": "Batal"
+      },
+      "form": {
+        "name": "Nama",
+        "muthawifCreateEyebrow": "Tambah muthawif",
+        "muthawifCreateTitle": "Tambah muthawif personal",
+        "muthawifCreateDescription": "Daftarkan muthawif personal yang akan masuk antrean verifikasi admin.",
+        "muthawifEditEyebrow": "Edit muthawif",
+        "muthawifEditTitle": "Edit {name}",
+        "muthawifEditDescription": "Perbarui status, kota basis, dan layanan utama muthawif personal.",
+        "providerCreateEyebrow": "Tambah provider",
+        "providerCreateTitle": "Tambah provider",
+        "providerCreateDescription": "Daftarkan organisasi penyedia layanan yang bekerja sama dengan Wif-Me.",
+        "providerEditEyebrow": "Edit provider",
+        "providerEditTitle": "Edit {name}",
+        "providerEditDescription": "Perbarui status, kota basis, dan layanan utama provider."
+      },
+      "delete": {
+        "title": "Hapus {name}?",
+        "description": "Tindakan ini akan menghapus data dari daftar operasional admin. Pastikan tidak ada proses verifikasi atau booking aktif yang masih berjalan."
+      }
+    },
+    "escrow": {
+      "eyebrow": "Manage escrow payment",
+      "title": "Pantau dana yang ditahan, direview, dan dicairkan.",
+      "description": "MVP escrow menampilkan status transaksi lintas layanan agar admin dapat mengawal penyelesaian booking secara aman.",
+      "balance": {
+        "label": "Saldo escrow aktif",
+        "note": "Nominal simulasi untuk kebutuhan MVP dashboard."
+      },
+      "policy": {
+        "hold": {
+          "title": "Dana ditahan",
+          "desc": "Pembayaran jamaah masuk ke escrow sampai layanan berjalan sesuai kesepakatan."
+        },
+        "release": {
+          "title": "Release terverifikasi",
+          "desc": "Pencairan diproses setelah bukti layanan dan konfirmasi pihak terkait lengkap."
+        },
+        "refund": {
+          "title": "Refund terkontrol",
+          "desc": "Pengembalian dana perlu alasan jelas dan jejak keputusan admin."
+        }
+      },
+      "table": {
+        "title": "Transaksi escrow",
+        "id": "ID",
+        "service": "Layanan",
+        "customer": "Pemesan",
+        "amount": "Nominal",
+        "status": "Status",
+        "action": "Aksi",
+        "review": "Review"
+      },
+      "services": {
+        "muthawifPersonal": "Muthawif Personal",
+        "providerMuthawif": "Provider Muthawif",
+        "transportation": "Transportasi",
+        "visaProcessing": "Visa Processing",
+        "additionalServices": "Layanan Tambahan"
+      },
+      "customers": {
+        "keluargaRahman": "Keluarga Rahman",
+        "travelAmanah": "Travel Amanah",
+        "nabila": "Nabila Putri"
+      },
+      "statuses": {
+        "held": "Ditahan",
+        "releaseReview": "Review release",
+        "released": "Dicairkan"
+      },
+      "review": {
+        "description": "Periksa bukti layanan dan status booking sebelum dana escrow dirilis.",
+        "back": "Kembali",
+        "release": "Release dana",
+        "title": "Review escrow {id}"
+      }
+    },
+    "list": {
+      "search": "Cari",
+      "searchPlaceholder": "Cari nama, kode, atau layanan",
+      "filter": "Filter",
+      "sort": "Urutkan",
+      "apply": "Terapkan",
+      "all": "Semua",
+      "latest": "Terbaru",
+      "oldest": "Terlama",
+      "highest": "Nilai terbesar",
+      "previous": "Sebelumnya",
+      "next": "Berikutnya",
+      "page": "Menampilkan 1–5 dari 5 data",
+      "status": "Status",
+      "pageServices": "Menampilkan 1–10 dari 11 layanan",
+      "pageProviders": "Menampilkan 1–4 dari 4 provider"
+    },
+    "finance": {
+      "actions": {
+        "detail": "Detail",
+        "review": "Review",
+        "edit": "Edit",
+        "add": "Tambah",
+        "save": "Simpan",
+        "back": "Kembali",
+        "delete": "Hapus",
+        "approve": "Setujui"
+      },
+      "transactions": {
+        "eyebrow": "Manage transaksi",
+        "title": "Transaksi lintas layanan.",
+        "description": "Pantau pembayaran jamaah dari semua layanan sebelum masuk escrow, selesai, atau refund."
+      },
+      "withdrawals": {
+        "eyebrow": "Manage penarikan",
+        "title": "Penarikan dana penyedia.",
+        "description": "Review permintaan pencairan dari muthawif dan provider sebelum dana dirilis.",
+        "reviewDescription": "Validasi rekening, nominal, dan status penyelesaian layanan sebelum menyetujui penarikan.",
+        "reviewTitle": "Review penarikan {id}"
+      },
+      "fees": {
+        "eyebrow": "Pengaturan biaya",
+        "title": "Atur komisi dan biaya operasional.",
+        "description": "Konfigurasi biaya utama yang memengaruhi pendapatan platform dan pencairan penyedia.",
+        "rules": {
+          "platformCommission": {
+            "title": "Komisi platform",
+            "desc": "Persentase komisi default dari layanan marketplace."
+          },
+          "providerCommission": {
+            "title": "Komisi provider",
+            "desc": "Komisi khusus untuk kerja sama provider B2B."
+          },
+          "withdrawalFee": {
+            "title": "Biaya penarikan",
+            "desc": "Biaya flat untuk setiap permintaan pencairan dana."
+          }
+        },
+        "addTitle": "Tambah aturan biaya",
+        "editTitle": "Edit aturan biaya",
+        "addDescription": "Atur nama biaya, nilai, dan status penerapan.",
+        "deleteTitle": "Hapus {name}?",
+        "deleteDescription": "Aturan biaya yang dihapus tidak lagi digunakan pada transaksi baru."
+      },
+      "charges": {
+        "eyebrow": "Pengaturan charge",
+        "title": "Atur biaya charge tambahan.",
+        "description": "Biaya tambahan yang muncul karena payment gateway, kurs, atau proses prioritas.",
+        "rules": {
+          "paymentGateway": {
+            "title": "Charge payment gateway",
+            "desc": "Biaya pemrosesan dari kanal pembayaran."
+          },
+          "currencySpread": {
+            "title": "Spread kurs",
+            "desc": "Margin kecil untuk risiko perubahan kurs multi-currency."
+          },
+          "urgentProcessing": {
+            "title": "Charge proses prioritas",
+            "desc": "Biaya tambahan untuk proses dokumen atau layanan mendesak."
+          }
+        },
+        "addTitle": "Tambah charge",
+        "editTitle": "Edit charge",
+        "addDescription": "Atur charge tambahan yang muncul di proses pembayaran atau operasional.",
+        "deleteTitle": "Hapus {name}?",
+        "deleteDescription": "Charge yang dihapus tidak lagi digunakan pada transaksi baru."
+      },
+      "settings": {
+        "name": "Nama biaya",
+        "value": "Nilai",
+        "status": "Status"
+      },
+      "ruleStatuses": {
+        "active": "Aktif",
+        "draft": "Draft"
+      },
+      "transactionStatuses": {
+        "paid": "Dibayar",
+        "escrow": "Escrow",
+        "completed": "Selesai",
+        "refunded": "Refund"
+      },
+      "withdrawalStatuses": {
+        "review": "Review",
+        "approved": "Disetujui",
+        "paid": "Dibayar",
+        "rejected": "Ditolak"
+      },
+      "table": {
+        "id": "ID",
+        "service": "Layanan",
+        "customer": "Jamaah",
+        "partner": "Penyedia",
+        "amount": "Nominal",
+        "status": "Status",
+        "action": "Aksi"
+      },
+      "services": {
+        "muthawifPersonal": "Muthawif Personal",
+        "providerMuthawif": "Provider Muthawif",
+        "transportation": "Transportasi",
+        "visaProcessing": "Visa Processing",
+        "additionalServices": "Layanan Tambahan"
+      },
+      "customers": {
+        "keluargaRahman": "Keluarga Rahman",
+        "travelAmanah": "Travel Amanah",
+        "nabila": "Nabila Putri"
+      },
+      "partners": {
+        "abdullah": "Abdullah Al-Makki",
+        "hijrahTravel": "Hijrah Amanah Travel",
+        "safaTransport": "Safa Transport",
+        "aminah": "Aminah Binti Yusuf"
+      },
+      "detail": {
+        "title": "Detail transaksi {id}",
+        "description": "Ringkasan transaksi, layanan, jamaah, nominal, dan status pembayaran."
+      }
+    }
+  },
+  "Auth": {
+    "form": {
+      "submitting": "Memproses...",
+      "errors": {
+        "generic": "Permintaan belum dapat diproses. Periksa data lalu coba lagi.",
+        "network": "Koneksi bermasalah. Coba beberapa saat lagi."
+      }
+    },
+    "verifyEmail": {
+      "eyebrow": "Verifikasi email",
+      "title": "Masukkan kode OTP.",
+      "description": "Kode verifikasi sudah dikirim ke {email}. Periksa kotak masuk atau folder spam.",
+      "otpLabel": "Kode OTP",
+      "submit": "Verifikasi email",
+      "submitting": "Memverifikasi...",
+      "backToLogin": "Kembali masuk",
+      "errors": {
+        "invalid": "Kode OTP tidak valid atau sudah kedaluwarsa.",
+        "network": "Koneksi bermasalah. Coba beberapa saat lagi."
+      }
+    },
+    "resetPassword": {
+      "eyebrow": "Reset kata sandi",
+      "title": "Atur kata sandi baru.",
+      "description": "Kode reset sudah dikirim ke {email}. Masukkan OTP dan kata sandi baru.",
+      "otpLabel": "Kode OTP",
+      "passwordLabel": "Kata sandi baru",
+      "passwordPlaceholder": "Minimal 8 karakter dengan huruf dan angka",
+      "submit": "Simpan kata sandi",
+      "submitting": "Menyimpan...",
+      "backToLogin": "Kembali masuk",
+      "errors": {
+        "invalid": "Kode OTP atau kata sandi belum valid.",
+        "network": "Koneksi bermasalah. Coba beberapa saat lagi."
+      }
+    }
+  },
+  "Services": {
+    "eyebrow": "Katalog layanan",
+    "title": "Pilih kategori, lalu lihat layanan yang tersedia.",
+    "description": "Setiap kategori berisi layanan detail yang bisa dibandingkan jamaah sebelum booking.",
+    "serviceCount": "{count} layanan",
+    "detailMeta": "{category} | Layanan Wif-Me",
+    "detailEyebrow": "Detail kategori",
+    "back": "Kembali ke kategori",
+    "featured": "Direkomendasikan",
+    "book": "Ajukan booking",
+    "fields": {
+      "available": "Layanan tersedia",
+      "providers": "Penyedia",
+      "price": "Harga mulai",
+      "duration": "Durasi"
+    },
+    "currency": {
+      "idr": "Rp {value, number}"
+    },
+    "durations": {
+      "oneDay": "1 hari",
+      "threeDays": "3 hari",
+      "fiveDays": "5 hari",
+      "perGroup": "Per rombongan",
+      "perTrip": "Per perjalanan",
+      "intercity": "Antar kota",
+      "businessDays": "5–7 hari kerja",
+      "perDay": "Per hari",
+      "once": "Sekali proses"
+    },
+    "categories": {
+      "muthawifPersonal": {
+        "title": "Muthawif Personal",
+        "desc": "Pendamping personal untuk jamaah mandiri, keluarga, dan rombongan kecil.",
+        "detail": "Layanan pendampingan ibadah oleh muthawif personal yang dapat disesuaikan dengan kondisi jamaah, jadwal, dan kebutuhan bimbingan."
+      },
+      "providerMuthawif": {
+        "title": "Provider Muthawif",
+        "desc": "Kerja sama B2B untuk travel, komunitas, dan organisasi.",
+        "detail": "Layanan suplai muthawif untuk travel atau rombongan dengan kebutuhan jumlah pembimbing, jadwal, dan standar pendampingan yang lebih terstruktur."
+      },
+      "transportation": {
+        "title": "Transportasi",
+        "desc": "Armada dan rute bandara, Makkah, Madinah, ziarah, dan antar kota.",
+        "detail": "Pilihan transportasi berbasis rute agar perpindahan jamaah lebih jelas sejak titik jemput, tujuan, kapasitas kendaraan, sampai estimasi biaya."
+      },
+      "visaProcessing": {
+        "title": "Visa Processing",
+        "desc": "Pengurusan visa dan dokumen pendukung yang dapat dipantau.",
+        "detail": "Layanan pengurusan visa umrah dan pemeriksaan dokumen pendukung dengan status proses yang dapat dipantau sebelum keberangkatan."
+      },
+      "additionalServices": {
+        "title": "Layanan Tambahan",
+        "desc": "Kebutuhan pendukung yang dapat disambungkan ke booking utama.",
+        "detail": "Kebutuhan tambahan yang melengkapi perjalanan ibadah, seperti bantuan mobilitas, komunikasi, atau kebutuhan operasional ringan."
+      }
+    },
+    "provided": {
+      "personalUmrahBasic": {
+        "title": "Pendampingan Umrah Harian",
+        "desc": "Muthawif personal untuk tawaf, sai, dan bimbingan doa pada hari pelaksanaan umrah."
+      },
+      "familyMuthawif": {
+        "title": "Pendampingan Keluarga",
+        "desc": "Paket muthawif untuk keluarga kecil dengan penyesuaian ritme lansia atau anak."
+      },
+      "groupMuthawif": {
+        "title": "Muthawif Rombongan Kecil",
+        "desc": "Pendamping untuk rombongan mandiri dengan briefing manasik ringkas sebelum ibadah."
+      },
+      "travelMuthawifSupply": {
+        "title": "Supply Muthawif Travel",
+        "desc": "Penyediaan beberapa muthawif untuk travel atau komunitas dengan jadwal rombongan."
+      },
+      "hotelToHaramShuttle": {
+        "title": "Shuttle Hotel ke Haram",
+        "desc": "Transportasi pendek dari area hotel menuju Masjidil Haram sesuai titik jemput."
+      },
+      "airportTransfer": {
+        "title": "Transfer Bandara",
+        "desc": "Penjemputan atau pengantaran bandara Jeddah/Madinah menuju hotel jamaah."
+      },
+      "makkahMadinahRoute": {
+        "title": "Rute Makkah–Madinah",
+        "desc": "Perjalanan antar kota untuk jamaah atau keluarga dengan kendaraan terjadwal."
+      },
+      "umrahVisaRegular": {
+        "title": "Visa Umrah Reguler",
+        "desc": "Pengurusan visa umrah dengan pemeriksaan dokumen dan update status proses."
+      },
+      "documentReview": {
+        "title": "Review Dokumen Visa",
+        "desc": "Pemeriksaan awal paspor, foto, dan dokumen pendukung sebelum pengajuan."
+      },
+      "wheelchairSupport": {
+        "title": "Bantuan Kursi Roda",
+        "desc": "Pendampingan mobilitas untuk jamaah yang membutuhkan bantuan tambahan."
+      },
+      "simCardAssistance": {
+        "title": "Bantuan SIM Card",
+        "desc": "Bantuan pembelian dan aktivasi SIM card lokal saat tiba di Arab Saudi."
+      }
     }
   }
 }

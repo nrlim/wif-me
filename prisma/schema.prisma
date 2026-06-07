@@ -56,6 +56,36 @@ enum OtpPurpose {
   PASSWORD_RESET
 }
 
+enum WithdrawalStatus {
+  REVIEW
+  APPROVED
+  PAID
+  REJECTED
+}
+
+enum FinanceRuleKind {
+  FEE
+  CHARGE
+}
+
+enum FinanceRuleStatus {
+  ACTIVE
+  DRAFT
+}
+
+enum ServiceCategoryStatus {
+  ACTIVE
+  DRAFT
+}
+
+enum PriceModel {
+  CURRENCY
+  B2B
+  ROUTE
+  DOCUMENT
+  CUSTOM
+}
+
 model User {
   id            String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   email         String         @unique @db.VarChar(255)
@@ -72,10 +102,11 @@ model User {
   offeredServices ServiceOffering[] @relation("ServiceOwner")
   bookings      Booking[]      @relation("CustomerBookings")
   emailOtps     EmailOtp[]
+  withdrawalRequests WithdrawalRequest[] @relation("ProviderWithdrawals")
 
   @@index([role])
   @@index([createdAt])
-  @@map("users")
+  @@map("wif_user")
 }
 
 model ProviderProfile {
@@ -92,12 +123,31 @@ model ProviderProfile {
   user            User               @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([verificationStatus])
-  @@map("provider_profiles")
+  @@map("wif_provider_profile")
+}
+
+model ServiceCategory {
+  id              String                @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  key             String                @unique @db.VarChar(80)
+  slug            String                @unique @db.VarChar(100)
+  serviceType     ServiceType           @unique
+  title           String                @db.VarChar(160)
+  description     String                @db.Text
+  priceModel      PriceModel
+  displayOrder    Int                   @default(1)
+  status          ServiceCategoryStatus @default(DRAFT)
+  createdAt       DateTime              @default(now())
+  updatedAt       DateTime              @updatedAt
+  offerings       ServiceOffering[]
+
+  @@index([status, displayOrder])
+  @@map("wif_service_category")
 }
 
 model ServiceOffering {
   id              String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   ownerId         String        @db.Uuid
+  categoryId      String?       @db.Uuid
   type            ServiceType
   title           String        @db.VarChar(180)
   description     String        @db.Text
@@ -108,11 +158,13 @@ model ServiceOffering {
   createdAt       DateTime      @default(now())
   updatedAt       DateTime      @updatedAt
   owner           User          @relation("ServiceOwner", fields: [ownerId], references: [id], onDelete: Restrict)
+  category        ServiceCategory? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
   bookings        Booking[]
 
+  @@index([categoryId, isActive])
   @@index([type, isActive])
   @@index([ownerId])
-  @@map("service_offerings")
+  @@map("wif_service_offering")
 }
 
 model Booking {
@@ -130,9 +182,10 @@ model Booking {
   serviceOffering ServiceOffering @relation(fields: [serviceOfferingId], references: [id], onDelete: Restrict)
   payment         Payment?
 
+  @@index([status, createdAt])
   @@index([customerId, status])
   @@index([serviceOfferingId, scheduledStart])
-  @@map("bookings")
+  @@map("wif_booking")
 }
 
 model Payment {
@@ -147,7 +200,7 @@ model Payment {
   booking         Booking       @relation(fields: [bookingId], references: [id], onDelete: Restrict)
 
   @@index([status])
-  @@map("payments")
+  @@map("wif_payment")
 }
 
 model EmailOtp {
@@ -163,7 +216,40 @@ model EmailOtp {
 
   @@index([userId, purpose, expiresAt])
   @@index([purpose, createdAt])
-  @@map("email_otps")
+  @@map("wif_email_otp")
+}
+
+model WithdrawalRequest {
+  id              String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  providerId      String           @db.Uuid
+  status          WithdrawalStatus @default(REVIEW)
+  amountIdr       Decimal          @db.Decimal(14, 2)
+  bankName        String?          @db.VarChar(120)
+  bankAccountLast4 String?         @db.VarChar(8)
+  reviewedAt      DateTime?
+  paidAt          DateTime?
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  provider        User             @relation("ProviderWithdrawals", fields: [providerId], references: [id], onDelete: Restrict)
+
+  @@index([providerId, status])
+  @@index([status, createdAt])
+  @@map("wif_withdrawal_request")
+}
+
+model FinanceRule {
+  id              String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  key             String            @unique @db.VarChar(80)
+  kind            FinanceRuleKind
+  title           String            @db.VarChar(160)
+  description     String            @db.Text
+  value           String            @db.VarChar(80)
+  status          FinanceRuleStatus @default(DRAFT)
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+
+  @@index([kind, status])
+  @@map("wif_finance_rule")
 }
 
 model ExchangeRate {
@@ -175,5 +261,5 @@ model ExchangeRate {
 
   @@unique([baseCurrency, targetCurrency])
   @@index([fetchedAt])
-  @@map("exchange_rates")
+  @@map("wif_exchange_rate")
 }

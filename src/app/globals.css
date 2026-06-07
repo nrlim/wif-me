@@ -9,6 +9,8 @@
   --charcoal: #16211c;
   --ivory: #fffaf0;
   --ivory-dark: #f2eadc;
+  --dashboard-base: #f0f6f3;
+  --dashboard-secondary: #fdfaf2;
   --text-body: #34443b;
   --text-muted: #68766f;
   --border: #e2d8c6;
@@ -58,6 +60,13 @@ body::before {
   mask-image: linear-gradient(to bottom, black, transparent 68%);
 }
 
+.dashboard-bg {
+  background: 
+    radial-gradient(circle at top left, var(--dashboard-base), transparent 50%),
+    radial-gradient(circle at bottom right, var(--dashboard-secondary), transparent 50%),
+    linear-gradient(180deg, #fcfdfc, #f8faf9);
+}
+
 a {
   color: inherit;
   text-decoration: none;
@@ -81,7 +90,7 @@ select {
   border-radius: 8px;
   border: 1px solid #dfe4df;
   background: #fbfaf6;
-  padding: 0 0.9rem 0 2.35rem;
+  padding: 0 0.9rem;
   color: #111827;
   font-size: 0.9rem;
   font-weight: 620;
@@ -100,6 +109,10 @@ select {
   font-size: 0.9rem;
   font-weight: 620;
   outline: none;
+}
+
+.auth-input-icon {
+  padding-left: 2.35rem;
 }
 
 .auth-input:focus,

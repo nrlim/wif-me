@@ -47,7 +47,7 @@ export function SiteHeader(): ReactElement {
 
         <nav aria-label="Navigasi utama" className="hidden items-center gap-7 min-[900px]:flex">
           <Link href="/" className={cn("text-sm font-bold transition-colors duration-200", isScrolled ? "text-[#3d4a43] hover:text-[var(--emerald)]" : "text-[#f6ead3]/86 hover:text-white")}>{t("home")}</Link>
-          <Link href="#layanan" className={cn("text-sm font-bold transition-colors duration-200", isScrolled ? "text-[#3d4a43] hover:text-[var(--emerald)]" : "text-[#f6ead3]/86 hover:text-white")}>{t("services")}</Link>
+          <Link href="/services" className={cn("text-sm font-bold transition-colors duration-200", isScrolled ? "text-[#3d4a43] hover:text-[var(--emerald)]" : "text-[#f6ead3]/86 hover:text-white")}>{t("services")}</Link>
           <Link href="#search" className={cn("text-sm font-bold transition-colors duration-200", isScrolled ? "text-[#3d4a43] hover:text-[var(--emerald)]" : "text-[#f6ead3]/86 hover:text-white")}>{t("search")}</Link>
         </nav>
 

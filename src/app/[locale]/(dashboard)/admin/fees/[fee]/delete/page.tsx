@@ -1,0 +1,10 @@
+import type { Metadata } from "next";
+import type { ReactElement } from "react";
+import { FinanceRuleKind } from "@prisma/client";
+import { notFound } from "next/navigation";
+import { getTranslations } from "next-intl/server";
+import { Link } from "@/i18n/routing";
+import { getFinanceRule } from "@/lib/admin/data";
+export const metadata: Metadata = { title: "Hapus Biaya" };
+type DeleteFeeProps = { readonly params: Promise<{ readonly fee: string }> };
+export default async function DeleteFeePage({ params }: DeleteFeeProps): Promise<ReactElement> { const { fee } = await params; const row = await getFinanceRule(FinanceRuleKind.FEE, fee); if (!row) notFound(); const t = await getTranslations("Admin.finance"); return <section className="max-w-2xl rounded-xl border border-[var(--border)] bg-white p-5"><h1 className="text-2xl font-extrabold text-[var(--charcoal)]">{t("fees.deleteTitle", { name: row.title })}</h1><p className="mt-3 text-sm leading-7 text-[var(--text-muted)]">{t("fees.deleteDescription")}</p><div className="mt-5 flex gap-2"><Link href="/admin/fees" className="inline-flex min-h-11 items-center rounded-lg border border-[var(--border)] px-4 font-extrabold">{t("actions.back")}</Link><button className="min-h-11 rounded-lg bg-[var(--error)] px-5 font-extrabold text-white">{t("actions.delete")}</button></div></section>; }

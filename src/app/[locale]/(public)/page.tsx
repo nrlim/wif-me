@@ -25,6 +25,7 @@ import {
 import { Link } from "@/i18n/routing";
 import { MobileBottomNav } from "@/components/layout/mobile-bottom-nav";
 import { SiteHeader } from "@/components/layout/site-header";
+import { SERVICE_CATEGORIES } from "@/lib/constants/services";
 
 type LocalePageProps = { readonly params: Promise<{ readonly locale: string }> };
 type CardText = { readonly title: string; readonly desc: string };
@@ -33,7 +34,7 @@ type StepText = CardText & { readonly step: string };
 const SERVICE_ICONS = [UserCheck, BriefcaseBusiness, BusFront, FileCheck2] as const;
 const FEATURE_ICONS = [BadgeCheck, ShieldCheck, CircleDollarSign, Route] as const;
 const STEP_ICONS = [Search, UsersRound, CreditCard] as const;
-const SERVICE_VALUES = ["muthawif", "provider", "transport", "visa"] as const;
+const SERVICE_VALUES = SERVICE_CATEGORIES.map((category) => category.slug);
 
 export async function generateMetadata({ params }: LocalePageProps): Promise<Metadata> {
   const { locale } = await params;
@@ -106,7 +107,7 @@ export default async function LandingPage({ params }: LocalePageProps): Promise<
         <section id="layanan" className="bg-[var(--ivory)] py-[clamp(3.5rem,8vw,5.5rem)]">
           <div className="mx-auto w-full max-w-[1400px] px-5 sm:px-8 lg:px-10">
             <SectionTitle eyebrow={t("services.eyebrow")} title={t("services.title")} desc={t("services.description")} />
-            <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">{serviceCards.map((item, index) => { const Icon = SERVICE_ICONS[index]; return <article key={item.title} className="rounded-[20px] border border-[var(--border)] bg-white p-[clamp(1.35rem,4vw,1.8rem)] shadow-[0_2px_12px_rgba(0,0,0,0.05)]"><div className="mb-5 flex size-[56px] items-center justify-center rounded-2xl bg-[var(--emerald-pale)] text-[var(--emerald)]"><Icon className="size-7" /></div><h3 className="mb-2.5 text-[1.0625rem] font-extrabold text-[var(--charcoal)]">{item.title}</h3><p className="text-[0.9rem] leading-[1.7] text-[var(--text-body)]">{item.desc}</p></article>; })}</div>
+            <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">{serviceCards.map((item, index) => { const Icon = SERVICE_ICONS[index]; return <Link href={`/services/${SERVICE_VALUES[index]}`} key={item.title} className="rounded-[20px] border border-[var(--border)] bg-white p-[clamp(1.35rem,4vw,1.8rem)] shadow-[0_2px_12px_rgba(0,0,0,0.05)] transition-colors hover:border-[var(--emerald)]"><div className="mb-5 flex size-[56px] items-center justify-center rounded-2xl bg-[var(--emerald-pale)] text-[var(--emerald)]"><Icon className="size-7" /></div><h3 className="mb-2.5 text-[1.0625rem] font-extrabold text-[var(--charcoal)]">{item.title}</h3><p className="text-[0.9rem] leading-[1.7] text-[var(--text-body)]">{item.desc}</p></Link>; })}</div>
           </div>
         </section>
         <section id="cara-kerja" className="bg-[var(--ivory-dark)] py-[clamp(3.5rem,8vw,5.5rem)]">

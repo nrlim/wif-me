@@ -48,17 +48,33 @@
       "label": "Service type",
       "button": "Find Services",
       "note": "No registration fee. Payment is processed when booking.",
-      "pills": ["Escrow", "Verified", "3 Currency"]
+      "pills": [
+        "Escrow",
+        "Verified",
+        "3 Currency"
+      ]
     },
     "services": {
       "eyebrow": "Core services",
       "title": "Wif-Me core business in one journey flow.",
       "description": "Each service can stand alone, but they are designed to connect so worship preparation stays organized.",
       "items": [
-        { "title": "Personal Muthawif", "desc": "Book a verified individual worship guide for independent pilgrims, families, or small groups." },
-        { "title": "Muthawif Provider", "desc": "B2B cooperation for travel agencies, communities, and organizations that need reliable muthawif supply." },
-        { "title": "Transportation", "desc": "Route-based vehicle rental for airports, Makkah, Madinah, ziyarat, and intercity travel." },
-        { "title": "Visa Processing", "desc": "Umrah visa and supporting document handling with trackable process status." }
+        {
+          "title": "Personal Muthawif",
+          "desc": "Book a verified individual worship guide for independent pilgrims, families, or small groups."
+        },
+        {
+          "title": "Muthawif Provider",
+          "desc": "B2B cooperation for travel agencies, communities, and organizations that need reliable muthawif supply."
+        },
+        {
+          "title": "Transportation",
+          "desc": "Route-based vehicle rental for airports, Makkah, Madinah, ziyarat, and intercity travel."
+        },
+        {
+          "title": "Visa Processing",
+          "desc": "Umrah visa and supporting document handling with trackable process status."
+        }
       ]
     },
     "workflow": {
@@ -67,9 +83,21 @@
       "description": "From service selection to transaction completion, every process is made easy to track.",
       "stepLabel": "Step {step}",
       "items": [
-        { "step": "01", "title": "Choose services", "desc": "Define your needs: muthawif, provider, transportation, visa, or additional services." },
-        { "step": "02", "title": "Compare providers", "desc": "Review profiles, experience, prices, display currency, and schedule availability." },
-        { "step": "03", "title": "Book & escrow", "desc": "Orders are processed with secure payment and trackable service status." }
+        {
+          "step": "01",
+          "title": "Choose services",
+          "desc": "Define your needs: muthawif, provider, transportation, visa, or additional services."
+        },
+        {
+          "step": "02",
+          "title": "Compare providers",
+          "desc": "Review profiles, experience, prices, display currency, and schedule availability."
+        },
+        {
+          "step": "03",
+          "title": "Book & escrow",
+          "desc": "Orders are processed with secure payment and trackable service status."
+        }
       ]
     },
     "about": {
@@ -80,15 +108,36 @@
       "verseSource": "Al-Baqarah: 196",
       "rolesTitle": "Roles in Wif-Me",
       "features": [
-        { "title": "Verified Ecosystem", "desc": "Muthawif and providers go through document, experience, and service eligibility checks." },
-        { "title": "Escrow Payment", "desc": "Funds are held until services run as agreed, protecting both pilgrims and providers." },
-        { "title": "Multi-Currency", "desc": "Prices can be displayed in IDR, SAR, and USD for clearer booking decisions." },
-        { "title": "Connected Services", "desc": "Muthawif, transportation, visa, and additional needs can be arranged in one plan." }
+        {
+          "title": "Verified Ecosystem",
+          "desc": "Muthawif and providers go through document, experience, and service eligibility checks."
+        },
+        {
+          "title": "Escrow Payment",
+          "desc": "Funds are held until services run as agreed, protecting both pilgrims and providers."
+        },
+        {
+          "title": "Multi-Currency",
+          "desc": "Prices can be displayed in IDR, SAR, and USD for clearer booking decisions."
+        },
+        {
+          "title": "Connected Services",
+          "desc": "Muthawif, transportation, visa, and additional needs can be arranged in one plan."
+        }
       ],
       "roles": [
-        { "title": "Pilgrim", "desc": "Find and book worship assistance services safely." },
-        { "title": "Muthawif", "desc": "Offer personal services, manage schedules, and receive bookings." },
-        { "title": "Provider", "desc": "Manage B2B services for groups, travel agencies, and organizations." }
+        {
+          "title": "Pilgrim",
+          "desc": "Find and book worship assistance services safely."
+        },
+        {
+          "title": "Muthawif",
+          "desc": "Offer personal services, manage schedules, and receive bookings."
+        },
+        {
+          "title": "Provider",
+          "desc": "Manage B2B services for groups, travel agencies, and organizations."
+        }
       ]
     },
     "join": {
@@ -97,8 +146,14 @@
       "description": "Choose the role that fits you. Service providers will complete verification before receiving orders.",
       "button": "Register Now",
       "cards": [
-        { "title": "I am a Pilgrim", "desc": "Find worship assistance, transportation, visa, and additional needs in one platform." },
-        { "title": "I am a Provider", "desc": "Register your service as a personal muthawif or provider for pilgrims and B2B cooperation." }
+        {
+          "title": "I am a Pilgrim",
+          "desc": "Find worship assistance, transportation, visa, and additional needs in one platform."
+        },
+        {
+          "title": "I am a Provider",
+          "desc": "Register your service as a personal muthawif or provider for pilgrims and B2B cooperation."
+        }
       ]
     },
     "cta": {
@@ -114,7 +169,810 @@
       "copyright": "© 2026 Wif-Me. All rights reserved.",
       "privacy": "Privacy Policy",
       "terms": "Terms & Conditions",
-      "joinItems": ["Register as Pilgrim", "Register as Muthawif", "Register as Provider"]
+      "joinItems": [
+        "Register as Pilgrim",
+        "Register as Muthawif",
+        "Register as Provider"
+      ]
+    }
+  },
+  "Dashboard": {
+    "nav": {
+      "mainMenu": "Main menu",
+      "logout": "Log out",
+      "roles": {
+        "jamaah": {
+          "overview": "Overview",
+          "bookings": "My bookings",
+          "payments": "Payments",
+          "settings": "Settings"
+        },
+        "muthawif": {
+          "overview": "Overview",
+          "schedule": "My schedule",
+          "earnings": "Earnings",
+          "settings": "Settings"
+        },
+        "provider": {
+          "overview": "Overview",
+          "staff": "Staff management",
+          "fleet": "Fleet",
+          "earnings": "Earnings",
+          "settings": "Settings"
+        },
+        "admin": {
+          "overview": "Overview",
+          "services": "Manage Services",
+          "profile": "Profile",
+          "partners": "Muthawif & Provider",
+          "escrow": "Escrow Payment",
+          "reports": "Reports",
+          "serviceCategories": "Service categories",
+          "serviceItems": "Service list",
+          "muthawif": "Muthawif",
+          "providers": "Providers",
+          "transactions": "Transactions",
+          "escrowHolding": "Escrow",
+          "withdrawals": "Withdrawals",
+          "fees": "Commissions & fees",
+          "charges": "Additional charges",
+          "financeSettings": "Fees & charges"
+        }
+      },
+      "more": "Menu",
+      "mobileNav": "Mobile dashboard navigation",
+      "openMenu": "Open dashboard menu",
+      "closeMenu": "Close dashboard menu"
+    },
+    "header": {
+      "openSidebar": "Open sidebar",
+      "searchLabel": "Dashboard search",
+      "searchPlaceholder": "Search dashboard data...",
+      "notifications": "View notifications",
+      "userName": "{role} User",
+      "roles": {
+        "jamaah": "Pilgrim",
+        "muthawif": "Muthawif",
+        "provider": "Provider",
+        "admin": "Admin"
+      }
+    },
+    "charts": {
+      "transactions": "Transactions",
+      "services": "Active Services"
+    }
+  },
+  "Admin": {
+    "overview": {
+      "eyebrow": "Admin dashboard",
+      "title": "Initial control for services, providers, and escrow.",
+      "description": "The admin MVP focuses on landing page service categories, muthawif/provider verification, and escrow fund monitoring.",
+      "stats": {
+        "services": {
+          "label": "Service categories",
+          "note": "Active on landing page"
+        },
+        "partners": {
+          "label": "Registered providers",
+          "note": "Personal and organizations"
+        },
+        "escrow": {
+          "label": "Escrow funds",
+          "note": "Balance currently held"
+        },
+        "verification": {
+          "label": "Review queue",
+          "note": "Needs admin action"
+        }
+      },
+      "services": {
+        "eyebrow": "Available services",
+        "title": "Public service categories",
+        "action": "Manage services",
+        "items": {
+          "muthawifPersonal": {
+            "title": "Personal Muthawif",
+            "desc": "Personal companion for independent pilgrims, families, and small groups.",
+            "status": "Active"
+          },
+          "providerMuthawif": {
+            "title": "Muthawif Provider",
+            "desc": "B2B partnership with travel agencies, communities, and organizations.",
+            "status": "Active"
+          },
+          "transportation": {
+            "title": "Transportation",
+            "desc": "Fleet and routes for airports, Makkah, Madinah, ziyarat, and intercity trips.",
+            "status": "Active"
+          },
+          "visaProcessing": {
+            "title": "Visa Processing",
+            "desc": "Visa and supporting document handling with trackable progress.",
+            "status": "Active"
+          },
+          "additionalServices": {
+            "title": "Additional Services",
+            "desc": "Supporting needs connected to the main booking.",
+            "status": "Draft"
+          }
+        },
+        "count": "{count} services"
+      },
+      "queue": {
+        "eyebrow": "Priority queue",
+        "title": "Needs follow-up",
+        "items": {
+          "muthawif": {
+            "title": "Muthawif verification",
+            "count": "7",
+            "desc": "Experience and identity documents are awaiting review."
+          },
+          "provider": {
+            "title": "Provider review",
+            "count": "5",
+            "desc": "Company profiles and service packages need checking."
+          },
+          "escrow": {
+            "title": "Release escrow",
+            "count": "3",
+            "desc": "Fund release requests are awaiting validation."
+          }
+        }
+      },
+      "charts": {
+        "trendTitle": "Last 7 Days Activity Trend",
+        "distributionTitle": "Service Distribution"
+      }
+    },
+    "services": {
+      "eyebrow": "Manage services",
+      "title": "Categories and services selected by pilgrims.",
+      "description": "Admins can manage service categories and the specific service items shown when pilgrims open a category detail.",
+      "addCategory": "Add",
+      "fields": {
+        "order": "Order",
+        "providers": "Providers",
+        "priceModel": "Pricing model",
+        "category": "Category",
+        "services": "Services",
+        "code": "Code",
+        "service": "Service",
+        "basePrice": "Base price",
+        "duration": "Duration"
+      },
+      "actions": {
+        "edit": "Edit",
+        "manageDisplay": "Manage display",
+        "editService": "Edit",
+        "delete": "Delete"
+      },
+      "items": {
+        "muthawifPersonal": {
+          "title": "Personal Muthawif",
+          "desc": "Personal companion for independent pilgrims, families, and small groups.",
+          "status": "Active"
+        },
+        "providerMuthawif": {
+          "title": "Muthawif Provider",
+          "desc": "B2B partnership with travel agencies, communities, and organizations.",
+          "status": "Active"
+        },
+        "transportation": {
+          "title": "Transportation",
+          "desc": "Fleet and routes for airports, Makkah, Madinah, ziyarat, and intercity trips.",
+          "status": "Active"
+        },
+        "visaProcessing": {
+          "title": "Visa Processing",
+          "desc": "Visa and supporting document handling with trackable progress.",
+          "status": "Active"
+        },
+        "additionalServices": {
+          "title": "Additional Services",
+          "desc": "Supporting needs connected to the main booking.",
+          "status": "Draft"
+        }
+      },
+      "priceModels": {
+        "currency": "IDR / SAR",
+        "b2b": "B2B",
+        "route": "Route",
+        "document": "Document",
+        "custom": "Custom"
+      },
+      "addService": "Add",
+      "statuses": {
+        "active": "Active",
+        "draft": "Draft"
+      },
+      "categoryTable": {
+        "title": "Service categories",
+        "description": "The first layer pilgrims choose from the landing page or search."
+      },
+      "serviceTable": {
+        "title": "Platform-provided services",
+        "description": "Detailed items shown after pilgrims open a service category."
+      },
+      "currency": {
+        "idr": "IDR {value, number}"
+      },
+      "durations": {
+        "oneDay": "1 day",
+        "threeDays": "3 days",
+        "fiveDays": "5 days",
+        "perGroup": "Per group",
+        "perTrip": "Per trip",
+        "intercity": "Intercity",
+        "businessDays": "5–7 business days",
+        "perDay": "Per day",
+        "once": "One-time process"
+      },
+      "provided": {
+        "personalUmrahBasic": {
+          "title": "Daily Umrah Assistance",
+          "desc": "Personal muthawif for tawaf, sai, and dua guidance on the Umrah day."
+        },
+        "familyMuthawif": {
+          "title": "Family Assistance",
+          "desc": "Muthawif package for small families with pace adjustments for elders or children."
+        },
+        "groupMuthawif": {
+          "title": "Small Group Muthawif",
+          "desc": "Companion for independent groups with a short manasik briefing before worship."
+        },
+        "travelMuthawifSupply": {
+          "title": "Travel Muthawif Supply",
+          "desc": "Supplying several muthawif for travel agencies or communities with group schedules."
+        },
+        "hotelToHaramShuttle": {
+          "title": "Hotel to Haram Shuttle",
+          "desc": "Short transport from hotel areas to Masjidil Haram according to pickup point."
+        },
+        "airportTransfer": {
+          "title": "Airport Transfer",
+          "desc": "Pickup or drop-off from Jeddah/Madinah airport to the pilgrim hotel."
+        },
+        "makkahMadinahRoute": {
+          "title": "Makkah–Madinah Route",
+          "desc": "Intercity trip for pilgrims or families with scheduled vehicles."
+        },
+        "umrahVisaRegular": {
+          "title": "Regular Umrah Visa",
+          "desc": "Umrah visa processing with document checks and process status updates."
+        },
+        "documentReview": {
+          "title": "Visa Document Review",
+          "desc": "Initial review of passport, photo, and supporting documents before submission."
+        },
+        "wheelchairSupport": {
+          "title": "Wheelchair Support",
+          "desc": "Mobility assistance for pilgrims who need extra support."
+        },
+        "simCardAssistance": {
+          "title": "SIM Card Assistance",
+          "desc": "Help purchasing and activating a local SIM card on arrival in Saudi Arabia."
+        }
+      },
+      "categoryPage": {
+        "title": "Service categories",
+        "description": "Manage the category layer pilgrims choose first. Every service detail must be connected to one of these categories."
+      },
+      "itemPage": {
+        "title": "Service list",
+        "description": "Manage detailed services shown inside categories, including base price, status, and category relation."
+      },
+      "form": {
+        "key": "Internal key",
+        "slug": "URL slug",
+        "title": "Display name",
+        "description": "Description",
+        "status": "Status",
+        "save": "Save",
+        "cancel": "Cancel",
+        "categoryCreateEyebrow": "Add category",
+        "categoryCreateTitle": "Add service category",
+        "categoryCreateDescription": "Categories become the main tree before pilgrims choose service details.",
+        "categoryEditEyebrow": "Edit category",
+        "categoryEditTitle": "Edit {category}",
+        "categoryEditDescription": "Category changes affect how services are grouped for pilgrims.",
+        "itemCreateEyebrow": "Add service",
+        "itemCreateTitle": "Add platform service",
+        "itemCreateDescription": "Every service must choose a category so the catalog relation stays clear.",
+        "itemEditEyebrow": "Edit service",
+        "itemEditTitle": "Edit {service}",
+        "itemEditDescription": "Keep category, base price, and service status accurate."
+      },
+      "delete": {
+        "confirm": "Delete",
+        "categoryEyebrow": "Delete category",
+        "categoryTitle": "Delete {category}?",
+        "categoryDescription": "This action is prepared to delete a category. Make sure no active services still depend on it.",
+        "itemEyebrow": "Delete service",
+        "itemTitle": "Delete {service}?",
+        "itemDescription": "This action is prepared to remove the service from the pilgrim catalog. Booking history should remain stored later."
+      }
+    },
+    "profile": {
+      "eyebrow": "Admin profile",
+      "name": "Admin Wif-Me",
+      "role": "Platform operator",
+      "description": "Use this page to maintain admin account security before audit and team access features are expanded.",
+      "security": {
+        "title": "Sensitive access",
+        "desc": "Password changes must be server-validated and recorded in audit logs during backend integration."
+      },
+      "changePassword": {
+        "title": "Change password",
+        "desc": "Update your password regularly to protect admin panel access.",
+        "current": "Current password",
+        "next": "New password",
+        "confirm": "Confirm new password",
+        "helper": "Use at least 12 characters with letters, numbers, and symbols.",
+        "submit": "Save password"
+      },
+      "activity": {
+        "title": "Security activity",
+        "items": {
+          "login": {
+            "title": "Last login",
+            "desc": "Admin session active from the primary device."
+          },
+          "password": {
+            "title": "Password",
+            "desc": "No changes in the last 30 days."
+          },
+          "session": {
+            "title": "Active session",
+            "desc": "Device session management will be available in the next phase."
+          }
+        }
+      }
+    },
+    "partners": {
+      "eyebrow": "Manage providers",
+      "title": "Personal muthawif and providers in one queue.",
+      "description": "Monitor verification status, booking count, and service readiness from individual and organizational providers.",
+      "summary": {
+        "personal": {
+          "label": "Personal muthawif",
+          "value": "28"
+        },
+        "provider": {
+          "label": "Active providers",
+          "value": "17"
+        },
+        "review": {
+          "label": "Awaiting review",
+          "value": "12"
+        }
+      },
+      "table": {
+        "title": "Provider list",
+        "partner": "Provider",
+        "service": "Service",
+        "city": "City",
+        "bookings": "Bookings",
+        "status": "Status",
+        "action": "Action",
+        "review": "Review"
+      },
+      "types": {
+        "personal": "Personal",
+        "provider": "Provider"
+      },
+      "statuses": {
+        "verified": "Verified",
+        "review": "Review",
+        "paused": "Paused"
+      },
+      "services": {
+        "muthawifPersonal": "Personal Muthawif",
+        "providerMuthawif": "Muthawif Provider",
+        "transportation": "Transportation",
+        "visaProcessing": "Visa Processing",
+        "additionalServices": "Additional Services"
+      },
+      "cities": {
+        "makkah": "Makkah",
+        "jeddah": "Jeddah",
+        "madinah": "Madinah"
+      },
+      "items": {
+        "abdullah": {
+          "name": "Abdullah Al-Makki"
+        },
+        "hijrahTravel": {
+          "name": "Hijrah Amanah Travel"
+        },
+        "safaTransport": {
+          "name": "Safa Transport"
+        },
+        "aminah": {
+          "name": "Aminah Binti Yusuf"
+        },
+        "rawdahGroup": {
+          "name": "Rawdah Group Services"
+        },
+        "haramainFleet": {
+          "name": "Haramain Fleet"
+        }
+      },
+      "muthawifPage": {
+        "eyebrow": "Manage muthawif",
+        "title": "Personal muthawif in the operational queue.",
+        "description": "Monitor verification, base city, primary service, and booking performance for personal muthawif.",
+        "tableTitle": "Muthawif list"
+      },
+      "providerPage": {
+        "eyebrow": "Manage providers",
+        "title": "Organizational providers and service fleets.",
+        "description": "Manage B2B providers, transportation, and organizations supplying services to the Wif-Me ecosystem.",
+        "tableTitle": "Provider list"
+      },
+      "actions": {
+        "add": "Add",
+        "edit": "Edit",
+        "delete": "Delete",
+        "save": "Save",
+        "cancel": "Cancel"
+      },
+      "form": {
+        "name": "Name",
+        "muthawifCreateEyebrow": "Add muthawif",
+        "muthawifCreateTitle": "Add personal muthawif",
+        "muthawifCreateDescription": "Register a personal muthawif into the admin verification queue.",
+        "muthawifEditEyebrow": "Edit muthawif",
+        "muthawifEditTitle": "Edit {name}",
+        "muthawifEditDescription": "Update status, base city, and primary service for the personal muthawif.",
+        "providerCreateEyebrow": "Add provider",
+        "providerCreateTitle": "Add provider",
+        "providerCreateDescription": "Register an organization that supplies services in partnership with Wif-Me.",
+        "providerEditEyebrow": "Edit provider",
+        "providerEditTitle": "Edit {name}",
+        "providerEditDescription": "Update status, base city, and primary service for the provider."
+      },
+      "delete": {
+        "title": "Delete {name}?",
+        "description": "This removes the record from the admin operational list. Make sure no verification process or active booking is still running."
+      }
+    },
+    "escrow": {
+      "eyebrow": "Manage escrow payment",
+      "title": "Monitor held, reviewed, and released funds.",
+      "description": "The escrow MVP shows transaction status across services so admins can supervise booking completion safely.",
+      "balance": {
+        "label": "Active escrow balance",
+        "note": "Simulation amount for MVP dashboard needs."
+      },
+      "policy": {
+        "hold": {
+          "title": "Funds held",
+          "desc": "Pilgrim payments enter escrow until services run as agreed."
+        },
+        "release": {
+          "title": "Verified release",
+          "desc": "Payout is processed after service proof and related confirmations are complete."
+        },
+        "refund": {
+          "title": "Controlled refund",
+          "desc": "Refunds need clear reasons and an admin decision trail."
+        }
+      },
+      "table": {
+        "title": "Escrow transactions",
+        "id": "ID",
+        "service": "Service",
+        "customer": "Customer",
+        "amount": "Amount",
+        "status": "Status",
+        "action": "Action",
+        "review": "Review"
+      },
+      "services": {
+        "muthawifPersonal": "Personal Muthawif",
+        "providerMuthawif": "Muthawif Provider",
+        "transportation": "Transportation",
+        "visaProcessing": "Visa Processing",
+        "additionalServices": "Additional Services"
+      },
+      "customers": {
+        "keluargaRahman": "Rahman Family",
+        "travelAmanah": "Travel Amanah",
+        "nabila": "Nabila Putri"
+      },
+      "statuses": {
+        "held": "Held",
+        "releaseReview": "Release review",
+        "released": "Released"
+      },
+      "review": {
+        "description": "Check service proof and booking status before escrow funds are released.",
+        "back": "Back",
+        "release": "Release funds",
+        "title": "Escrow review {id}"
+      }
+    },
+    "list": {
+      "search": "Search",
+      "searchPlaceholder": "Search name, code, or service",
+      "filter": "Filter",
+      "sort": "Sort",
+      "apply": "Apply",
+      "all": "All",
+      "latest": "Latest",
+      "oldest": "Oldest",
+      "highest": "Highest value",
+      "previous": "Previous",
+      "next": "Next",
+      "page": "Showing 1–5 of 5 records",
+      "status": "Status",
+      "pageServices": "Showing 1–10 of 11 services",
+      "pageProviders": "Showing 1–4 of 4 providers"
+    },
+    "finance": {
+      "actions": {
+        "detail": "Detail",
+        "review": "Review",
+        "edit": "Edit",
+        "add": "Add",
+        "save": "Save",
+        "back": "Back",
+        "delete": "Delete",
+        "approve": "Approve"
+      },
+      "transactions": {
+        "eyebrow": "Manage transactions",
+        "title": "Transactions across services.",
+        "description": "Monitor pilgrim payments from every service before escrow, completion, or refund."
+      },
+      "withdrawals": {
+        "eyebrow": "Manage withdrawals",
+        "title": "Provider fund withdrawals.",
+        "description": "Review payout requests from muthawif and providers before funds are released.",
+        "reviewDescription": "Validate account, amount, and service completion status before approving withdrawal.",
+        "reviewTitle": "Withdrawal review {id}"
+      },
+      "fees": {
+        "eyebrow": "Fee settings",
+        "title": "Set commission and operating fees.",
+        "description": "Configure primary fees that affect platform revenue and provider payouts.",
+        "rules": {
+          "platformCommission": {
+            "title": "Platform commission",
+            "desc": "Default commission percentage from marketplace services."
+          },
+          "providerCommission": {
+            "title": "Provider commission",
+            "desc": "Special commission for B2B provider cooperation."
+          },
+          "withdrawalFee": {
+            "title": "Withdrawal fee",
+            "desc": "Flat fee for each fund withdrawal request."
+          }
+        },
+        "addTitle": "Add fee rule",
+        "editTitle": "Edit fee rule",
+        "addDescription": "Set fee name, value, and active status.",
+        "deleteTitle": "Delete {name}?",
+        "deleteDescription": "Deleted fee rules will no longer be used for new transactions."
+      },
+      "charges": {
+        "eyebrow": "Charge settings",
+        "title": "Set additional charges.",
+        "description": "Additional charges caused by payment gateway, exchange rates, or priority processing.",
+        "rules": {
+          "paymentGateway": {
+            "title": "Payment gateway charge",
+            "desc": "Processing fee from payment channels."
+          },
+          "currencySpread": {
+            "title": "Currency spread",
+            "desc": "Small margin for multi-currency exchange-rate risk."
+          },
+          "urgentProcessing": {
+            "title": "Priority processing charge",
+            "desc": "Additional fee for urgent documents or services."
+          }
+        },
+        "addTitle": "Add charge",
+        "editTitle": "Edit charge",
+        "addDescription": "Set additional charges used in payment or operations.",
+        "deleteTitle": "Delete {name}?",
+        "deleteDescription": "Deleted charges will no longer be used for new transactions."
+      },
+      "settings": {
+        "name": "Fee name",
+        "value": "Value",
+        "status": "Status"
+      },
+      "ruleStatuses": {
+        "active": "Active",
+        "draft": "Draft"
+      },
+      "transactionStatuses": {
+        "paid": "Paid",
+        "escrow": "Escrow",
+        "completed": "Completed",
+        "refunded": "Refunded"
+      },
+      "withdrawalStatuses": {
+        "review": "Review",
+        "approved": "Approved",
+        "paid": "Paid",
+        "rejected": "Rejected"
+      },
+      "table": {
+        "id": "ID",
+        "service": "Service",
+        "customer": "Pilgrim",
+        "partner": "Provider",
+        "amount": "Amount",
+        "status": "Status",
+        "action": "Action"
+      },
+      "services": {
+        "muthawifPersonal": "Personal Muthawif",
+        "providerMuthawif": "Muthawif Provider",
+        "transportation": "Transportation",
+        "visaProcessing": "Visa Processing",
+        "additionalServices": "Additional Services"
+      },
+      "customers": {
+        "keluargaRahman": "Rahman Family",
+        "travelAmanah": "Travel Amanah",
+        "nabila": "Nabila Putri"
+      },
+      "partners": {
+        "abdullah": "Abdullah Al-Makki",
+        "hijrahTravel": "Hijrah Amanah Travel",
+        "safaTransport": "Safa Transport",
+        "aminah": "Aminah Binti Yusuf"
+      },
+      "detail": {
+        "title": "Transaction detail {id}",
+        "description": "Summary of transaction, service, pilgrim, amount, and payment status."
+      }
+    }
+  },
+  "Auth": {
+    "form": {
+      "submitting": "Processing...",
+      "errors": {
+        "generic": "The request could not be processed. Check your data and try again.",
+        "network": "Network issue. Please try again shortly."
+      }
+    },
+    "verifyEmail": {
+      "eyebrow": "Email verification",
+      "title": "Enter the OTP code.",
+      "description": "The verification code has been sent to {email}. Check your inbox or spam folder.",
+      "otpLabel": "OTP code",
+      "submit": "Verify email",
+      "submitting": "Verifying...",
+      "backToLogin": "Back to login",
+      "errors": {
+        "invalid": "The OTP code is invalid or expired.",
+        "network": "Network issue. Please try again shortly."
+      }
+    },
+    "resetPassword": {
+      "eyebrow": "Password reset",
+      "title": "Set a new password.",
+      "description": "The reset code has been sent to {email}. Enter the OTP and your new password.",
+      "otpLabel": "OTP code",
+      "passwordLabel": "New password",
+      "passwordPlaceholder": "Minimum 8 characters with letters and numbers",
+      "submit": "Save password",
+      "submitting": "Saving...",
+      "backToLogin": "Back to login",
+      "errors": {
+        "invalid": "The OTP code or password is not valid yet.",
+        "network": "Network issue. Please try again shortly."
+      }
+    }
+  },
+  "Services": {
+    "eyebrow": "Service catalog",
+    "title": "Choose a category, then review available services.",
+    "description": "Each category contains service details pilgrims can compare before booking.",
+    "serviceCount": "{count} services",
+    "detailMeta": "{category} | Wif-Me Services",
+    "detailEyebrow": "Category detail",
+    "back": "Back to categories",
+    "featured": "Recommended",
+    "book": "Request booking",
+    "fields": {
+      "available": "Available services",
+      "providers": "Providers",
+      "price": "Starts from",
+      "duration": "Duration"
+    },
+    "currency": {
+      "idr": "IDR {value, number}"
+    },
+    "durations": {
+      "oneDay": "1 day",
+      "threeDays": "3 days",
+      "fiveDays": "5 days",
+      "perGroup": "Per group",
+      "perTrip": "Per trip",
+      "intercity": "Intercity",
+      "businessDays": "5–7 business days",
+      "perDay": "Per day",
+      "once": "One-time process"
+    },
+    "categories": {
+      "muthawifPersonal": {
+        "title": "Personal Muthawif",
+        "desc": "Personal companion for independent pilgrims, families, and small groups.",
+        "detail": "Worship assistance by personal muthawif that can follow pilgrim conditions, schedule, and guidance needs."
+      },
+      "providerMuthawif": {
+        "title": "Muthawif Provider",
+        "desc": "B2B cooperation for travel agencies, communities, and organizations.",
+        "detail": "Muthawif supply for travel agencies or groups that need guide quantity, scheduling, and service standards to be more structured."
+      },
+      "transportation": {
+        "title": "Transportation",
+        "desc": "Fleet and routes for airports, Makkah, Madinah, ziyarat, and intercity trips.",
+        "detail": "Route-based transportation options so pilgrim movement is clear from pickup point, destination, vehicle capacity, to cost estimate."
+      },
+      "visaProcessing": {
+        "title": "Visa Processing",
+        "desc": "Visa and supporting document handling with trackable progress.",
+        "detail": "Umrah visa processing and supporting document review with trackable status before departure."
+      },
+      "additionalServices": {
+        "title": "Additional Services",
+        "desc": "Supporting needs connected to the main booking.",
+        "detail": "Additional needs that complete the worship journey, such as mobility support, communication, or light operational support."
+      }
+    },
+    "provided": {
+      "personalUmrahBasic": {
+        "title": "Daily Umrah Assistance",
+        "desc": "Personal muthawif for tawaf, sai, and dua guidance on the Umrah day."
+      },
+      "familyMuthawif": {
+        "title": "Family Assistance",
+        "desc": "Muthawif package for small families with pace adjustments for elders or children."
+      },
+      "groupMuthawif": {
+        "title": "Small Group Muthawif",
+        "desc": "Companion for independent groups with a short manasik briefing before worship."
+      },
+      "travelMuthawifSupply": {
+        "title": "Travel Muthawif Supply",
+        "desc": "Supplying several muthawif for travel agencies or communities with group schedules."
+      },
+      "hotelToHaramShuttle": {
+        "title": "Hotel to Haram Shuttle",
+        "desc": "Short transport from hotel areas to Masjidil Haram according to pickup point."
+      },
+      "airportTransfer": {
+        "title": "Airport Transfer",
+        "desc": "Pickup or drop-off from Jeddah/Madinah airport to the pilgrim hotel."
+      },
+      "makkahMadinahRoute": {
+        "title": "Makkah–Madinah Route",
+        "desc": "Intercity trip for pilgrims or families with scheduled vehicles."
+      },
+      "umrahVisaRegular": {
+        "title": "Regular Umrah Visa",
+        "desc": "Umrah visa processing with document checks and process status updates."
+      },
+      "documentReview": {
+        "title": "Visa Document Review",
+        "desc": "Initial review of passport, photo, and supporting documents before submission."
+      },
+      "wheelchairSupport": {
+        "title": "Wheelchair Support",
+        "desc": "Mobility assistance for pilgrims who need extra support."
+      },
+      "simCardAssistance": {
+        "title": "SIM Card Assistance",
+        "desc": "Help purchasing and activating a local SIM card on arrival in Saudi Arabia."
+      }
     }
   }
 }

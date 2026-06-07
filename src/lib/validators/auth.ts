@@ -15,6 +15,11 @@ export const registerSchema = z.object({
   role: z.enum([UserRole.JAMAAH, UserRole.MUTHAWIF, UserRole.PROVIDER]).default(UserRole.JAMAAH),
 });
 
+export const loginSchema = z.object({
+  email: z.email().max(255).transform((email) => email.toLowerCase()),
+  password: z.string().min(1).max(128),
+});
+
 export const emailOtpSchema = z.object({
   email: z.email().max(255).transform((email) => email.toLowerCase()),
   otp: z.string().regex(/^\d{6}$/),

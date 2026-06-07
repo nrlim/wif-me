@@ -200,6 +200,80 @@ Gunakan CSS custom properties yang sudah ada di v1 sebagai basis:
 --white: #FFFFFF;
 ```
 
+### 4.5 List, Table, Search, Filter & Sort Standardization
+
+Setiap fitur yang menampilkan kumpulan data/list — terutama dashboard, admin, booking, layanan, user, provider, muthawif, payment, escrow, laporan, dan histori aktivitas — WAJIB mengikuti standar berikut agar UX konsisten di seluruh platform.
+
+#### 4.5.1 Desktop & Tablet List Pattern
+
+- Gunakan **data table** sebagai default presentation untuk list terstruktur.
+- Setiap table list WAJIB memiliki:
+  - **Search** — minimal pencarian keyword untuk field utama yang relevan.
+  - **Filter** — status, kategori, role, tanggal, currency, atau atribut domain lain sesuai konteks.
+  - **Sort** — minimal sort by tanggal terbaru/terlama dan field utama yang masuk akal.
+  - **Pagination** — jangan render semua data sekaligus; gunakan page size yang jelas.
+  - **Empty state** — pesan informatif + aksi berikutnya jika data kosong.
+  - **Loading state** — skeleton/table placeholder, bukan layout kosong.
+  - **Error state** — pesan aman dan tombol retry; jangan expose detail internal.
+- State search/filter/sort/pagination harus tersimpan di URL query params untuk deep-linking dan back navigation yang predictable. Gunakan `searchParams` di Server Component atau `nuqs` bila membutuhkan interaksi client-side yang kompleks.
+- Untuk data dari database/API, filtering, sorting, dan pagination harus dilakukan di server-side. Jangan fetch seluruh dataset lalu filter di client untuk data yang berpotensi besar.
+- Gunakan kolom aksi yang jelas (`Detail`, `Review`, `Edit`, `Release`, dll) dan pisahkan destructive action secara visual.
+- Table harus accessible: gunakan semantic `<table>`, header `<th>`, `scope="col"`, indikator sort yang tidak hanya mengandalkan warna, dan label yang jelas.
+- Untuk table lebar, gunakan horizontal overflow hanya pada container table, bukan pada seluruh halaman. Pastikan action utama tetap mudah dijangkau.
+
+#### 4.5.2 Mobile / Native-First List Pattern
+
+- **No Summary Cards on Mobile**: Pada mobile (`<640px`), **JANGAN** tampilkan card summary / stats panel karena memakan terlalu banyak vertical space dan tidak sesuai dengan native pattern. Langsung tampilkan list data utamanya saja (gunakan `hidden md:block` atau `md:grid` pada summary).
+- **Native Design Table (Transaction List Pattern)**: Pada mobile, JANGAN paksakan tabel desktop utuh yang hanya bisa di-scroll horizontal. Wajib buatkan list bergaya **"Online Shop Transaction List"** (seperti Tokopedia/Shopee) agar *look and feel*-nya persis seperti native mobile app.
+- **Hide Bulky Desktop Elements on Mobile**: Sembunyikan elemen desktop yang boros ruang di mobile (seperti Judul Halaman `h1` dan deskripsi text yang panjang) dengan menggunakan class `hidden md:block`. Selain itu, **Filter Toolbar** juga harus disederhanakan (compact), misalnya menyembunyikan label text (`sr-only`) dan menyusun input berdampingan, BUKAN menumpuknya penuh ke bawah.
+- Mobile list tetap WAJIB menyediakan fungsi yang sama: search, filter, sort, pagination/load more, empty/loading/error state.
+- Pola mobile list yang diwajibkan:
+  - Gunakan container berupa grid dengan gap untuk memisahkan antar transaksi (contoh: `<div className="grid gap-3 md:hidden">`).
+  - Item list (`<article>`) menggunakan card putih terpisah dengan radius proporsional (contoh: `rounded-xl border border-[var(--border)] bg-white p-4 shadow-sm`).
+  - Hierarki dalam item list:
+    - **Header**: Flex container dengan identifier (ID/Tanggal/Tipe) di kiri, Badge Status di kanan.
+    - **Body**: Flex container dengan leading visual (Icon/Avatar) di kiri, informasi utama (Title, Description) di kanan.
+    - **Footer**: Flex container dengan Total Harga/Summary di kiri (jika ada), Action Button di kanan.
+  - Search sebagai input full-width atau compact di atas list.
+  - Filter/sort sebagai segmented control, compact select, atau bottom sheet jika opsinya banyak.
+  - Pagination dapat berupa numbered pagination sederhana, `Load more`, atau cursor-based infinite loading.
+- Konten mobile harus tetap **responsive, proporsional, dan mudah discan**:
+  - Hindari menyembunyikan data penting tanpa alternatif detail.
+  - Touch target minimal 44px dan spacing antar aksi minimal 8px.
+  - Gunakan wrapping yang rapi; truncation hanya jika tersedia akses untuk melihat detail lengkap.
+- Desain mobile harus terasa seperti app native: bottom nav/sheet bila sesuai, feedback tap yang jelas, tidak bergantung pada hover, dan aman dari area notch/home indicator.
+
+#### 4.5.3 Visual Surface & Radius Rules for Lists
+
+- **Page Header Pattern**: JANGAN bungkus title/description dalam card besar (`rounded-2xl border bg-white p-6 shadow`). Gunakan plain `<section className="max-w-3xl">` atau sejenisnya tanpa wrapper styling untuk menghemat vertical space.
+- Jangan membuat seluruh list sebagai kumpulan card besar dengan radius berlebihan. Untuk list yang padat data, prioritaskan table rows, compact list rows, divider, atau grouped surface yang lebih ringan.
+- **Summary Stats**: Jika ada 3 atau lebih summary stats berderet, gunakan satu surface utama dengan grid divider (contoh: `<div className="grid divide-y md:divide-x md:divide-y-0">`), BUKAN memisahkan mereka ke card individual yang membuat layout terlihat seperti AI-generated template.
+- Standar radius untuk list/dashboard:
+  - Input, select, button kecil: `rounded-lg` (8px)
+  - Toolbar / form control: `rounded-xl` (12px)
+  - Table container: `rounded-xl` (12px)
+  - Mobile list item/card: `rounded-xl` (12px)
+  - Summary stats panel: `rounded-xl` (12px)
+  - Container utama besar: `rounded-2xl` (16px) — HANYA untuk section container utama, bukan default setiap komponen
+  - Bottom sheet native mobile: `rounded-t-3xl`
+- Shadow pada list item harus sangat subtle atau tidak dipakai. Gunakan border/divider dan tonal background untuk density yang lebih profesional.
+- Jika halaman memiliki lebih dari 3 card sejenis, evaluasi apakah lebih tepat menggunakan table/list row compact.
+
+#### 4.5.4 Implementation Rules
+
+- Buat reusable component/pattern untuk list controls bila pola sudah muncul 2+ kali: `DataListToolbar`, `DataTablePagination`, `MobileListCard`, atau nama sejenis sesuai domain.
+- Semua label control, placeholder, empty state, error, status, dan CTA tetap mengikuti aturan multi-language: update `messages/id.json`, `messages/en.json`, dan `messages/ar.json`.
+- Query param naming harus konsisten:
+  - `q` untuk search keyword
+  - `page` untuk pagination page number
+  - `perPage` untuk page size
+  - `sort` untuk field sort
+  - `order` untuk `asc` / `desc`
+  - filter domain menggunakan kebab/camel yang jelas, contoh: `status`, `role`, `serviceType`, `currency`
+- Validasi semua query params di server dengan Zod sebelum digunakan untuk query database.
+- Batasi `perPage` dengan whitelist aman, contoh `[10, 20, 50]`, untuk mencegah query berat.
+- Sorting hanya boleh pada field yang di-whitelist; jangan langsung gunakan input user sebagai column/order query.
+
 ---
 
 ## 5. Security Rules (MANDATORY)
@@ -450,11 +524,24 @@ NEXT_PUBLIC_SUPPORTED_CURRENCIES=IDR,SAR,USD
 | Priority | Skill | Path | Wajib Baca Ketika |
 |----------|-------|------|-------------------|
 | 1 | **shadcn** | `shadcn/SKILL.md` | Menambah/menggunakan/menyusun komponen shadcn/ui. **Baca juga sub-rules:** `rules/styling.md`, `rules/forms.md`, `rules/composition.md`, `rules/icons.md` |
-| 2 | **ui-ux-pro-max** | `ui-ux-pro-max/SKILL.md` | Membuat halaman baru, mendesain komponen, memilih warna/tipografi/spacing, review UX/aksesibilitas, implementasi animasi. **Gunakan `--design-system` script untuk rekomendasi design system.** |
-| 3 | **next-best-practices** | `next-best-practices/SKILL.md` | Menulis/merevisi Next.js code. **Baca juga sub-docs:** `rsc-boundaries.md`, `data-patterns.md`, `error-handling.md`, `metadata.md`, `image.md`, `font.md` |
-| 4 | **vercel-react-best-practices** | `vercel-react-best-practices/SKILL.md` | Optimasi performa React — eliminasi waterfalls, bundle size, re-render, server-side performance |
-| 5 | **typescript-pro** | `typescript-pro/SKILL.md` | Type system design, branded types, type guards, discriminated unions, tsconfig. **Baca juga** `references/` untuk advanced patterns |
-| 6 | **find-skills** | `find-skills/SKILL.md` | Ketika butuh kapabilitas yang mungkin ada sebagai installable skill |
+| 2 | **design-taste-frontend** | `design-taste-frontend/SKILL.md` | Membuat/refactor halaman marketing, landing page, portfolio, atau redesign visual frontend agar tidak terlihat templated. **Catatan:** skill ini bukan default untuk dashboard/data table/multi-step product UI. |
+| 3 | **redesign-existing-projects** | `redesign-existing-projects/SKILL.md` | Melakukan redesign/polish UI pada project yang sudah ada, audit pola visual generic, dan meningkatkan kualitas tanpa merusak fungsi. |
+| 4 | **high-end-visual-design** | `high-end-visual-design/SKILL.md` | Membutuhkan arahan visual premium/agency-level untuk layout, spacing, hierarchy, motion, dan finishing detail. Gunakan secara selektif agar tidak berlebihan. |
+| 5 | **minimalist-ui** | `minimalist-ui/SKILL.md` | Membuat UI minimal, editorial, flat, warm monochrome, dashboard/list yang perlu terasa clean dan profesional tanpa gradient/shadow berat. |
+| 6 | **industrial-brutalist-ui** | `industrial-brutalist-ui/SKILL.md` | Membuat data-heavy dashboard/editorial interface dengan estetika raw, mechanical, Swiss/terminal, atau tactical telemetry. Gunakan hanya jika cocok dengan brand/brief. |
+| 7 | **ui-ux-pro-max** | `ui-ux-pro-max/SKILL.md` | Membuat halaman baru, mendesain komponen, memilih warna/tipografi/spacing, review UX/aksesibilitas, implementasi animasi. **Gunakan `--design-system` script untuk rekomendasi design system bila tersedia.** |
+| 8 | **image-to-code** | `image-to-code/SKILL.md` | Mengimplementasikan UI dari referensi gambar/design comp, atau saat perlu generate/analyze visual reference sebelum coding. Jangan gunakan untuk fitur backend murni. |
+| 9 | **brandkit** | `brandkit/SKILL.md` | Membuat/mengevaluasi brand identity, logo system, brand guideline, atau visual-world presentation. Biasanya untuk arahan design/asset, bukan implementasi fitur langsung. |
+| 10 | **imagegen-frontend-web** | `imagegen-frontend-web/SKILL.md` | Membuat arahan image/design reference untuk website/landing section. Skill ini untuk image direction, bukan code final. |
+| 11 | **imagegen-frontend-mobile** | `imagegen-frontend-mobile/SKILL.md` | Membuat arahan image/design reference untuk mobile app/native screen flow. Skill ini untuk image direction, bukan code final. |
+| 12 | **stitch-design-taste** | `stitch-design-taste/SKILL.md` | Membuat semantic design system atau `DESIGN.md` untuk screen generation/design prompting. |
+| 13 | **gpt-taste** | `gpt-taste/SKILL.md` | Eksperimen visual/motion sangat ekspresif seperti Awwwards/GSAP. Harus dipakai sangat selektif dan tidak boleh melanggar performance/accessibility/brand restraint. |
+| 14 | **next-best-practices** | `next-best-practices/SKILL.md` | Menulis/merevisi Next.js code. **Baca juga sub-docs:** `rsc-boundaries.md`, `data-patterns.md`, `error-handling.md`, `metadata.md`, `image.md`, `font.md` |
+| 15 | **vercel-react-best-practices** | `vercel-react-best-practices/SKILL.md` | Optimasi performa React — eliminasi waterfalls, bundle size, re-render, server-side performance |
+| 16 | **typescript-pro** | `typescript-pro/SKILL.md` | Type system design, branded types, type guards, discriminated unions, tsconfig. **Baca juga** `references/` untuk advanced patterns |
+| 17 | **postgres-pro** | `postgres-pro/SKILL.md` | Mendesain/merevisi schema Postgres, index, query, migration, dan optimasi database. |
+| 18 | **api-design-principles** / **api-designer** | `api-design-principles/SKILL.md`, `api-designer/SKILL.md` | Mendesain/review REST/GraphQL API, route handler contract, pagination, error format, versioning, dan OpenAPI/spec. |
+| 19 | **find-skills** | `find-skills/SKILL.md` | Ketika butuh kapabilitas yang mungkin ada sebagai installable skill |
 
 ### 13.2 Aturan Penggunaan
 
@@ -466,7 +553,9 @@ NEXT_PUBLIC_SUPPORTED_CURRENCIES=IDR,SAR,USD
   - Gunakan `data-icon` untuk ikon di dalam Button
   - Jangan override warna komponen via `className` — gunakan semantic tokens atau variants
   - Jangan tambahkan manual `z-index` pada overlay components
-- **UI/UX Pro Max wajib untuk halaman baru** — Saat membuat halaman atau komponen baru, jalankan `--design-system` script untuk mendapatkan rekomendasi design system yang kontekstual.
+- **TasteSkill design skills wajib dipertimbangkan untuk pekerjaan visual** — Skill dari https://www.tasteskill.dev/ seperti `design-taste-frontend`, `redesign-existing-projects`, `high-end-visual-design`, `minimalist-ui`, dan `industrial-brutalist-ui` harus dibaca saat task berhubungan dengan visual quality, redesign, landing page, dashboard polish, mobile/native feel, atau anti-generic UI. Pilih skill yang paling sesuai konteks; jangan aktifkan semua sekaligus tanpa alasan.
+- **UI/UX Pro Max tetap wajib untuk halaman/komponen baru** — Saat membuat halaman atau komponen baru, jalankan `--design-system` script untuk mendapatkan rekomendasi design system yang kontekstual bila script tersedia. Jika script tidak tersedia, tetap ikuti checklist aksesibilitas, touch target, typography, layout, dan form feedback dari skill tersebut.
+- **Image-generation skills bersifat arahan visual** — `imagegen-frontend-web`, `imagegen-frontend-mobile`, `brandkit`, dan `stitch-design-taste` digunakan untuk design direction/reference/design system, bukan alasan untuk menambah asset atau visual yang tidak diperlukan.
 - **Vercel React rules untuk performa** — Saat menulis komponen React, pastikan mengikuti aturan eliminasi waterfall (`Promise.all`, Suspense), bundle optimization (dynamic imports), dan re-render prevention.
 - **TypeScript Pro untuk type safety** — Semua public API harus memiliki explicit return types. Gunakan branded types untuk domain modeling. Jangan gunakan `any` tanpa justifikasi.
 - **Cross-reference antar skills** — Skills saling melengkapi. Contoh: saat membuat form, baca `shadcn/rules/forms.md` DAN `ui-ux-pro-max` bagian "Forms & Feedback".
@@ -477,4 +566,5 @@ Jika ada konflik antara skill dan aturan di AGENTS.md ini:
 1. **AGENTS.md Section 5 (Security)** selalu menang — tidak ada pengecualian
 2. **AGENTS.md Section 6 (Anti-AI-Slop)** menang atas rekomendasi style dari skill
 3. **Skill-specific rules** menang atas asumsi dari training data
-4. Jika konflik antar skills, prioritaskan sesuai tabel di atas (shadcn > ui-ux > next > vercel-react > typescript)
+4. Jika konflik antar skills, prioritaskan sesuai tabel di atas dengan urutan besar: shadcn/component correctness > TasteSkill visual direction yang relevan > ui-ux accessibility/UX > Next.js correctness > React performance > TypeScript/database/API correctness.
+5. Skill ekspresif seperti `gpt-taste`, `high-end-visual-design`, atau `industrial-brutalist-ui` tidak boleh dipakai untuk membenarkan UI yang terlalu ramai, motion berlebihan, gradient generic, card-heavy, atau bertentangan dengan brand Wif-Me.

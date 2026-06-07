@@ -1,112 +1,164 @@
 import type { ReactElement } from "react";
-import { Users, FileText, ShieldCheck, CreditCard } from "lucide-react";
+import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
+import { ArrowUpRight, BriefcaseBusiness, CreditCard, ShieldCheck, Users } from "lucide-react";
+import { Link } from "@/i18n/routing";
+import { getAdminOverviewData, getAdminChartData, getAdminQueueData } from "@/lib/admin/data";
+import { TransactionTrendChart } from "@/components/admin/charts/transaction-trend-chart";
+import { ServiceDistributionChart } from "@/components/admin/charts/service-distribution-chart";
 
-export default function AdminDashboardPage(): ReactElement {
+export const metadata: Metadata = {
+  title: "Admin Overview",
+};
+
+type StatCard = {
+  readonly key: "services" | "partners" | "escrow" | "verification";
+  readonly value: string;
+  readonly icon: typeof BriefcaseBusiness;
+};
+
+const QUEUE_KEYS = ["muthawif", "provider", "escrow"] as const;
+
+type Props = {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+};
+
+export default async function AdminOverviewPage(props: Props): Promise<ReactElement> {
+  const searchParams = await props.searchParams;
+  const chartPeriod = searchParams.period === "monthly" ? "monthly" : "weekly";
+  
+  const t = await getTranslations("Admin.overview");
+  const [overview, chartData, queueData] = await Promise.all([
+    getAdminOverviewData(),
+    getAdminChartData(chartPeriod),
+    getAdminQueueData()
+  ]);
+  const statCards: readonly StatCard[] = [
+    { key: "services", value: String(overview.serviceCount), icon: BriefcaseBusiness },
+    { key: "partners", value: String(overview.partnerCount), icon: Users },
+    { key: "escrow", value: overview.escrowBalance, icon: CreditCard },
+    { key: "verification", value: String(overview.reviewCount), icon: ShieldCheck },
+  ];
+
   return (
-    <div className="space-y-8">
-      <div>
-        <h1 className="text-2xl font-black text-[var(--charcoal)]">Dashboard Admin</h1>
-        <p className="mt-2 text-sm text-[var(--text-muted)]">Ringkasan statistik platform dan moderasi.</p>
-      </div>
-
-      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-        <div className="rounded-2xl border border-[var(--border)] bg-white p-6 shadow-sm">
-          <div className="flex items-center gap-4">
-            <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
-              <Users className="size-6" />
-            </div>
-            <div>
-              <p className="text-sm font-semibold text-[var(--text-muted)]">Total Pengguna</p>
-              <p className="text-2xl font-black text-[var(--charcoal)]">1,240</p>
-            </div>
-          </div>
-        </div>
-        <div className="rounded-2xl border border-[var(--border)] bg-white p-6 shadow-sm">
-          <div className="flex items-center gap-4">
-            <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-[var(--emerald)]/10 text-[var(--emerald)]">
-              <ShieldCheck className="size-6" />
-            </div>
-            <div>
-              <p className="text-sm font-semibold text-[var(--text-muted)]">Menunggu Verifikasi</p>
-              <p className="text-2xl font-black text-[var(--charcoal)]">12</p>
-            </div>
-          </div>
-        </div>
-        <div className="rounded-2xl border border-[var(--border)] bg-white p-6 shadow-sm">
-          <div className="flex items-center gap-4">
-            <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-[var(--gold)]/10 text-[var(--gold)]">
-              <CreditCard className="size-6" />
-            </div>
-            <div>
-              <p className="text-sm font-semibold text-[var(--text-muted)]">Volume Escrow</p>
-              <p className="text-lg font-black text-[var(--charcoal)]">SAR 450K</p>
-            </div>
-          </div>
-        </div>
-        <div className="rounded-2xl border border-[var(--border)] bg-white p-6 shadow-sm">
-          <div className="flex items-center gap-4">
-            <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-purple-50 text-purple-600">
-              <FileText className="size-6" />
-            </div>
-            <div>
-              <p className="text-sm font-semibold text-[var(--text-muted)]">Total Transaksi</p>
-              <p className="text-2xl font-black text-[var(--charcoal)]">342</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
-        <div className="rounded-2xl border border-[var(--border)] bg-white shadow-sm overflow-hidden">
-          <div className="border-b border-[var(--border)] px-6 py-5 flex items-center justify-between">
-            <h2 className="text-base font-bold text-[var(--charcoal)]">Permintaan Verifikasi Terbaru</h2>
-            <button className="text-sm font-bold text-[var(--emerald)] hover:underline">Lihat Semua</button>
-          </div>
-          <div className="divide-y divide-[var(--border)]">
-            {[
-              { name: "Siti Aminah", type: "Muthawif", date: "Hari Ini" },
-              { name: "PT Umrah Berkah", type: "Provider", date: "Kemarin" },
-              { name: "Ali Usman", type: "Muthawif", date: "Kemarin" },
-            ].map((req, idx) => (
-              <div key={idx} className="p-5 flex items-center justify-between">
+    <div className="flex flex-col gap-8">
+      <section className="hidden overflow-hidden rounded-xl border border-[var(--border)] bg-white shadow-[0_10px_28px_rgba(22,33,28,0.05)] md:block">
+        <div className="grid divide-y divide-[var(--border)] sm:grid-cols-2 sm:divide-x sm:divide-y-0 xl:grid-cols-4">
+          {statCards.map((item) => {
+            const Icon = item.icon;
+            return (
+              <article key={item.key} className="flex items-start gap-4 p-5">
+                <span className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-[var(--emerald-pale)] text-[var(--emerald)]">
+                  <Icon className="size-5" aria-hidden="true" />
+                </span>
                 <div>
-                  <p className="font-semibold text-[var(--charcoal)]">{req.name}</p>
-                  <p className="text-xs text-[var(--text-muted)]">{req.type} • {req.date}</p>
+                  <p className="text-sm font-bold text-[var(--text-muted)]">{t(`stats.${item.key}.label`)}</p>
+                  <p className="mt-2 text-2xl font-extrabold tracking-[-0.04em] text-[var(--charcoal)]">{item.value}</p>
+                  <p className="mt-2 text-xs font-bold text-[var(--text-muted)]">{t(`stats.${item.key}.note`)}</p>
                 </div>
-                <div className="flex gap-2">
-                  <button className="rounded bg-[var(--emerald)]/10 px-3 py-1.5 text-xs font-bold text-[var(--emerald)] hover:bg-[var(--emerald)] hover:text-white transition-colors">
-                    Review
-                  </button>
+              </article>
+            );
+          })}
+        </div>
+      </section>
+
+      <section className="grid gap-5">
+        <div className="rounded-xl border border-[var(--border)] bg-white p-5">
+          <div className="flex items-center justify-between gap-4 mb-4">
+            <div>
+              <p className="text-xs font-extrabold uppercase tracking-[0.14em] text-[var(--gold)]">{t("charts.trendTitle")}</p>
+            </div>
+            <div className="flex bg-[var(--emerald-pale)] rounded-lg p-1">
+              <Link 
+                href="?period=weekly" 
+                className={`px-3 py-1.5 text-xs font-bold rounded-md transition-colors ${chartPeriod === 'weekly' ? 'bg-white text-[var(--emerald)] shadow-sm' : 'text-[var(--text-muted)] hover:text-[var(--emerald)]'}`}
+              >
+                7 Hari
+              </Link>
+              <Link 
+                href="?period=monthly" 
+                className={`px-3 py-1.5 text-xs font-bold rounded-md transition-colors ${chartPeriod === 'monthly' ? 'bg-white text-[var(--emerald)] shadow-sm' : 'text-[var(--text-muted)] hover:text-[var(--emerald)]'}`}
+              >
+                30 Hari
+              </Link>
+            </div>
+          </div>
+          <TransactionTrendChart data={chartData.trend} />
+        </div>
+        
+        <div className="grid gap-5 lg:grid-cols-[1.2fr_0.8fr]">
+          <div className="rounded-xl border border-[var(--border)] bg-white p-5 flex flex-col">
+            <div className="flex items-center justify-between gap-4 mb-4">
+              <div>
+                <p className="text-xs font-extrabold uppercase tracking-[0.14em] text-[var(--gold)]">{t("charts.distributionTitle")}</p>
+              </div>
+              <Link href="/admin/services/categories" className="inline-flex items-center gap-1 text-xs font-bold text-[var(--emerald)] hover:text-[var(--emerald-light)] transition-colors">
+                Detail
+                <ArrowUpRight className="size-3" aria-hidden="true" />
+              </Link>
+            </div>
+            <div className="flex-1 flex items-center justify-center min-h-[250px]">
+              <ServiceDistributionChart data={chartData.distribution} />
+            </div>
+          </div>
+
+          <div className="rounded-xl border border-[var(--border)] bg-[var(--charcoal)] p-5 text-white flex flex-col justify-between relative overflow-hidden">
+            {/* Visual background element */}
+            <div className="absolute -right-10 -top-10 size-40 rounded-full bg-white/5 blur-3xl pointer-events-none" />
+            
+            <div>
+              <p className="text-xs font-extrabold uppercase tracking-[0.14em] text-[var(--gold-light)]">{t("queue.eyebrow")}</p>
+              <h2 className="mt-2 text-xl font-extrabold relative z-10">{t("queue.title")}</h2>
+            </div>
+            
+            <div className="mt-6 flex flex-col gap-6 relative z-10">
+              {/* Muthawif Pending */}
+              <div>
+                <div className="flex items-center justify-between gap-4">
+                  <p className="font-bold text-sm text-white/90">{t("queue.items.muthawif.title")}</p>
+                  <span className="text-lg font-extrabold text-[var(--gold-light)]">{queueData.muthawif}</span>
+                </div>
+                <div className="mt-2 h-1.5 w-full rounded-full bg-white/10 overflow-hidden">
+                  <div className="h-full rounded-full bg-[var(--gold-light)] transition-all duration-1000" style={{ width: `${Math.min(100, (queueData.muthawif / 20) * 100)}%` }} />
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
 
-        <div className="rounded-2xl border border-[var(--border)] bg-white shadow-sm overflow-hidden">
-          <div className="border-b border-[var(--border)] px-6 py-5 flex items-center justify-between">
-            <h2 className="text-base font-bold text-[var(--charcoal)]">Aktivitas Escrow</h2>
-            <button className="text-sm font-bold text-[var(--emerald)] hover:underline">Lihat Semua</button>
-          </div>
-          <div className="divide-y divide-[var(--border)]">
-            {[
-              { ref: "#TRX-8902", amount: "SAR 1,500", status: "Pelepasan Dana (Release)" },
-              { ref: "#TRX-8901", amount: "SAR 3,000", status: "Dana Masuk" },
-              { ref: "#TRX-8900", amount: "SAR 500", status: "Pelepasan Dana (Release)" },
-            ].map((trx, idx) => (
-              <div key={idx} className="p-5 flex items-center justify-between">
-                <div>
-                  <p className="font-semibold text-[var(--charcoal)]">{trx.ref}</p>
-                  <p className="text-xs text-[var(--text-muted)]">{trx.status}</p>
+              {/* Provider Pending */}
+              <div>
+                <div className="flex items-center justify-between gap-4">
+                  <p className="font-bold text-sm text-white/90">{t("queue.items.provider.title")}</p>
+                  <span className="text-lg font-extrabold text-[var(--gold-light)]">{queueData.provider}</span>
                 </div>
-                <div>
-                  <p className="font-bold text-[var(--charcoal)]">{trx.amount}</p>
+                <div className="mt-2 h-1.5 w-full rounded-full bg-white/10 overflow-hidden">
+                  <div className="h-full rounded-full bg-[var(--gold-light)] transition-all duration-1000" style={{ width: `${Math.min(100, (queueData.provider / 20) * 100)}%` }} />
                 </div>
               </div>
-            ))}
+
+              {/* Escrow Pending */}
+              <div>
+                <div className="flex items-center justify-between gap-4">
+                  <p className="font-bold text-sm text-white/90">{t("queue.items.escrow.title")}</p>
+                  <span className="text-lg font-extrabold text-[var(--gold-light)]">{queueData.escrow}</span>
+                </div>
+                <div className="mt-2 h-1.5 w-full rounded-full bg-white/10 overflow-hidden">
+                  <div className="h-full rounded-full bg-[var(--emerald-light)] transition-all duration-1000" style={{ width: `${Math.min(100, (queueData.escrow / 50) * 100)}%` }} />
+                </div>
+              </div>
+            </div>
+            
+            <div className="mt-6 pt-4 border-t border-white/10 flex justify-between items-center text-xs text-white/50 relative z-10">
+              <span>Diperbarui saat ini</span>
+              <div className="flex items-center gap-1.5">
+                <span className="relative flex size-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full size-2 bg-emerald-500"></span>
+                </span>
+                Live
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 }
