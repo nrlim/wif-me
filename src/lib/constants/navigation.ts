@@ -9,6 +9,7 @@ import {
   ListChecks,
   Percent,
   ReceiptText,
+  Search,
   Settings,
   UserCheck,
   Users,
@@ -26,9 +27,9 @@ export type NavigationItem = {
 export const ROLE_NAV_ITEMS: Record<string, readonly NavigationItem[]> = {
   jamaah: [
     { labelKey: "roles.jamaah.overview", href: "/jamaah", icon: LayoutDashboard },
+    { labelKey: "roles.jamaah.search", href: "/jamaah/search", icon: Search },
     { labelKey: "roles.jamaah.bookings", href: "/jamaah/bookings", icon: CalendarDays },
     { labelKey: "roles.jamaah.payments", href: "/jamaah/payments", icon: CreditCard },
-    { labelKey: "roles.jamaah.settings", href: "/jamaah/settings", icon: Settings },
   ],
   muthawif: [
     { labelKey: "roles.muthawif.overview", href: "/muthawif", icon: LayoutDashboard },

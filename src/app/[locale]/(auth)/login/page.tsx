@@ -8,10 +8,12 @@ export const metadata: Metadata = {
   description: "Masuk ke akun Wif-Me untuk mengelola booking dan layanan pendampingan ibadah.",
 };
 
-export default function LoginPage(): ReactElement {
+export default async function LoginPage({ searchParams }: { readonly searchParams: Promise<{ readonly next?: string }> }): Promise<ReactElement> {
+  const { next = "" } = await searchParams;
+
   return (
     <AuthShell>
-      <AuthFormCard mode="login" />
+      <AuthFormCard mode="login" nextPath={next} />
     </AuthShell>
   );
 }

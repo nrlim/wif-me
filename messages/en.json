@@ -185,7 +185,8 @@
           "overview": "Overview",
           "bookings": "My bookings",
           "payments": "Payments",
-          "settings": "Settings"
+          "settings": "Settings",
+          "search": "Find Services"
         },
         "muthawif": {
           "overview": "Overview",
@@ -235,7 +236,9 @@
         "muthawif": "Muthawif",
         "provider": "Provider",
         "admin": "Admin"
-      }
+      },
+      "profileGeneral": "General profile",
+      "changePassword": "Change password"
     },
     "charts": {
       "transactions": "Transactions",
@@ -840,6 +843,21 @@
       "errors": {
         "generic": "The request could not be processed. Check your data and try again.",
         "network": "Network issue. Please try again shortly."
+      },
+      "forgotPassword": "Forgot password",
+      "fields": {
+        "nameLabel": "Full name",
+        "namePlaceholder": "Name as shown on identity document",
+        "emailLabel": "Email",
+        "emailPlaceholder": "name@email.com",
+        "passwordLabel": "Password",
+        "passwordPlaceholder": "Minimum 8 characters",
+        "roleLabel": "Register as"
+      },
+      "roles": {
+        "JAMAAH": "Pilgrim",
+        "MUTHAWIF": "Muthawif",
+        "PROVIDER": "Provider"
       }
     },
     "verifyEmail": {
@@ -972,6 +990,206 @@
       "simCardAssistance": {
         "title": "SIM Card Assistance",
         "desc": "Help purchasing and activating a local SIM card on arrival in Saudi Arabia."
+      }
+    },
+    "registerToBook": "Register to book",
+    "durationFlexible": "Flexible",
+    "emptyOfferings": "Active services for this category are not available yet. Choose another category or check again later."
+  },
+  "Jamaah": {
+    "common": {
+      "search": "Search",
+      "serviceType": "Service type",
+      "sort": "Sort",
+      "apply": "Apply",
+      "all": "All",
+      "latest": "Latest",
+      "price": "Price",
+      "title": "Name",
+      "service": "Service",
+      "provider": "Provider",
+      "action": "Action",
+      "status": "Status",
+      "schedule": "Schedule",
+      "reference": "Reference",
+      "previous": "Previous",
+      "next": "Next",
+      "pageSummary": "Page {page} of {pageCount} • {total} records",
+      "serviceTypes": {
+        "MUTHAWIF_PERSONAL": "Personal muthawif",
+        "PROVIDER_MUTHAWIF": "Muthawif provider",
+        "TRANSPORTATION": "Transportation",
+        "VISA_PROCESSING": "Visa processing",
+        "ADDITIONAL_SERVICE": "Additional service"
+      }
+    },
+    "status": {
+      "booking": {
+        "DRAFT": "Draft",
+        "PENDING_PAYMENT": "Pending payment",
+        "CONFIRMED": "Confirmed",
+        "IN_PROGRESS": "In progress",
+        "COMPLETED": "Completed",
+        "CANCELLED": "Cancelled"
+      },
+      "payment": {
+        "PENDING": "Pending payment",
+        "HELD_IN_ESCROW": "Held in escrow",
+        "RELEASED": "Released",
+        "REFUNDED": "Refunded",
+        "FAILED": "Failed"
+      }
+    },
+    "dashboard": {
+      "eyebrow": "Pilgrim dashboard",
+      "title": "Your worship travel control room.",
+      "description": "Find services, track bookings, and complete escrow payments from one place.",
+      "searchCta": "Find services",
+      "metrics": {
+        "activeBookings": "Active bookings",
+        "pendingPayments": "Pending payments",
+        "escrow": "Escrow funds"
+      },
+      "upcoming": {
+        "title": "Upcoming schedule",
+        "empty": "No active schedule yet. Start by finding a service to create a new booking."
+      },
+      "quick": {
+        "bookings": {
+          "title": "My Bookings",
+          "description": "Review schedules, service status, and payment follow-ups."
+        },
+        "payments": {
+          "title": "Payments",
+          "description": "Track payment instructions and escrow fund status."
+        }
+      }
+    },
+    "search": {
+      "eyebrow": "Find services",
+      "title": "Choose a service that fits your journey.",
+      "description": "Use search to compare active muthawif, transportation, visa, and supporting services.",
+      "searchPlaceholder": "Search service or provider name",
+      "book": "Book",
+      "empty": {
+        "title": "No services found",
+        "description": "Try changing the keyword or selecting another service type."
+      }
+    },
+    "checkout": {
+      "eyebrow": "Booking checkout",
+      "title": "Complete the schedule before payment.",
+      "description": "After the booking is created, you will continue to escrow payment instructions.",
+      "formTitle": "Need details",
+      "fields": {
+        "date": "Service date",
+        "notes": "Notes for provider",
+        "notesPlaceholder": "Write pilgrim count, location, or special needs if any."
+      },
+      "submit": "Create booking and continue payment",
+      "summary": {
+        "eyebrow": "Service summary",
+        "provider": "Provider",
+        "escrow": "Payment scheme",
+        "escrowValue": "Wif-Me escrow",
+        "total": "Payment total",
+        "note": "Amount is stored in IDR. Card or personal bank data is not stored on Wif-Me servers."
+      }
+    },
+    "bookings": {
+      "eyebrow": "My bookings",
+      "title": "Track all requested services.",
+      "description": "Booking status follows payment and service progress.",
+      "searchPlaceholder": "Search booking service",
+      "paymentAction": "View payment",
+      "empty": {
+        "title": "No bookings yet",
+        "description": "Find a service and request a booking to start arranging your worship needs."
+      }
+    },
+    "payments": {
+      "eyebrow": "Payments",
+      "title": "Manage payments and escrow.",
+      "description": "Each payment is linked to a booking so fund status is easy to track.",
+      "searchPlaceholder": "Search payment service",
+      "detailAction": "Detail",
+      "empty": {
+        "title": "No payments yet",
+        "description": "Payments appear after you create a service booking."
+      }
+    },
+    "paymentDetail": {
+      "eyebrow": "Payment detail",
+      "title": "Complete escrow payment.",
+      "description": "Use these instructions to complete payment safely.",
+      "fields": {
+        "amount": "Amount",
+        "bookingId": "Booking ID",
+        "method": "Method",
+        "account": "Destination account"
+      },
+      "bankTransfer": "Bank transfer",
+      "instructions": {
+        "title": "Payment instructions",
+        "items": [
+          "Transfer the exact amount shown.",
+          "Use the reference number as transfer note.",
+          "After confirmation, funds enter escrow and booking is confirmed."
+        ]
+      },
+      "confirm": "Confirm sandbox payment",
+      "escrow": {
+        "title": "Funds are held in escrow",
+        "description": "Payment is not sent directly to the provider. Admin can monitor funds until the service follows the agreement.",
+        "note": "This MVP uses sandbox confirmation without storing card or personal bank data."
+      }
+    },
+    "profile": {
+      "eyebrow": "Pilgrim profile",
+      "title": "Manage profile and account security.",
+      "description": "Update booking contact details and keep your account access secure.",
+      "tabs": {
+        "general": "General profile",
+        "security": "Change password"
+      },
+      "fields": {
+        "name": "Full name",
+        "email": "Email",
+        "phone": "Phone number",
+        "phonePlaceholder": "+62 812 3456 7890"
+      },
+      "emailHelper": "Email is used for login and cannot be changed from this page.",
+      "actions": {
+        "saveProfile": "Save profile",
+        "savePassword": "Save password"
+      },
+      "notices": {
+        "saved": "Profile updated successfully.",
+        "invalid": "Profile data is not valid yet. Check the name and phone number.",
+        "passwordSaved": "Password updated successfully.",
+        "currentInvalid": "Current password does not match.",
+        "passwordInvalid": "New password is not valid yet or confirmation does not match."
+      },
+      "summary": {
+        "title": "Account summary",
+        "memberSince": "Member since",
+        "currency": "Primary currency",
+        "verification": "Email verification",
+        "verified": "Verified",
+        "notVerified": "Not verified"
+      },
+      "security": {
+        "title": "Change password",
+        "description": "Use a strong new password that is not used on other services.",
+        "currentPassword": "Current password",
+        "newPassword": "New password",
+        "confirmPassword": "Confirm new password",
+        "helper": "Minimum 8 characters and must contain letters and numbers.",
+        "infoTitle": "Security notes",
+        "infoDescription": "Password changes are processed on the server and never store plain text passwords.",
+        "ruleLetters": "Use mixed uppercase and lowercase letters when possible.",
+        "ruleNumbers": "Add numbers to make the password harder to guess.",
+        "rulePrivate": "Do not share your password with providers or anyone else."
       }
     }
   }

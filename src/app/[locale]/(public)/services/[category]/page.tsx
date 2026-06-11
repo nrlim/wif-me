@@ -2,11 +2,14 @@ import type { Metadata } from "next";
 import type { ReactElement } from "react";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
-import { ArrowLeft, CheckCircle2 } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
+import { UserRole } from "@prisma/client";
 import { Link } from "@/i18n/routing";
 import { MobileBottomNav } from "@/components/layout/mobile-bottom-nav";
 import { SiteHeader } from "@/components/layout/site-header";
-import { getCategoryBySlug, getServicesByCategory } from "@/lib/constants/services";
+import { getCategoryBySlug } from "@/lib/constants/services";
+import { getCurrentSession } from "@/lib/auth/current-session";
+import { getPublicCategoryDetail } from "@/lib/services/public-data";
 
 type ServiceDetailPageProps = {
   readonly params: Promise<{ readonly category: string; readonly locale: string }>;
@@ -25,8 +28,13 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
   const config = getCategoryBySlug(category);
   if (!config) notFound();
 
-  const t = await getTranslations("Services");
-  const services = getServicesByCategory(config.key);
+  const [t, session, detail] = await Promise.all([
+    getTranslations("Services"),
+    getCurrentSession(),
+    getPublicCategoryDetail(config.slug),
+  ]);
+  const offerings = detail?.offerings ?? [];
+  const canCheckout = session?.role === UserRole.JAMAAH;
 
   return (
     <>
@@ -37,37 +45,62 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
             <ArrowLeft className="size-4" aria-hidden="true" />
             {t("back")}
           </Link>
-          <div className="mt-6 grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
-            <div className="rounded-xl border border-[var(--border)] bg-white p-5 md:p-7">
+          <div className="mt-6 grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-start lg:gap-12">
+            <div className="py-2">
               <p className="text-xs font-extrabold uppercase tracking-[0.16em] text-[var(--gold)]">{t("detailEyebrow")}</p>
               <h1 className="mt-2 text-3xl font-extrabold tracking-[-0.04em] md:text-4xl">{t(`categories.${config.key}.title`)}</h1>
-              <p className="mt-4 text-sm font-medium leading-7 text-[var(--text-muted)]">{t(`categories.${config.key}.detail`)}</p>
-              <div className="mt-6 grid grid-cols-2 gap-3 text-sm">
-                <div className="rounded-lg bg-[var(--ivory)] p-4"><p className="font-bold text-[var(--text-muted)]">{t("fields.available")}</p><p className="mt-1 text-2xl font-extrabold">{services.length}</p></div>
-                <div className="rounded-lg bg-[var(--ivory)] p-4"><p className="font-bold text-[var(--text-muted)]">{t("fields.providers")}</p><p className="mt-1 text-2xl font-extrabold">{config.providerCount}</p></div>
+              <p className="mt-4 text-sm font-medium leading-7 text-[var(--text-muted)] md:text-base">{t(`categories.${config.key}.detail`)}</p>
+              
+              <div className="mt-6 flex flex-wrap items-center gap-6 text-sm">
+                <div className="flex flex-col">
+                  <p className="text-xs font-extrabold text-[var(--text-muted)] uppercase tracking-wide">{t("fields.available")}</p>
+                  <p className="mt-1 text-2xl font-extrabold text-[var(--charcoal)]">{offerings.length}</p>
+                </div>
+                <div className="h-10 w-px bg-[var(--border)]" aria-hidden="true"></div>
+                <div className="flex flex-col">
+                  <p className="text-xs font-extrabold text-[var(--text-muted)] uppercase tracking-wide">{t("fields.providers")}</p>
+                  <p className="mt-1 text-2xl font-extrabold text-[var(--charcoal)]">{detail?.providerCount ?? config.providerCount}</p>
+                </div>
               </div>
             </div>
+            
             <div className="grid gap-3">
-              {services.map((service) => (
-                <article key={service.key} className="rounded-xl border border-[var(--border)] bg-white p-4 shadow-sm md:p-5">
-                  <div className="flex items-start justify-between gap-3">
-                    <div>
-                      <p className="text-xs font-extrabold text-[var(--text-muted)]">{service.code}</p>
-                      <h2 className="mt-1 text-lg font-extrabold">{t(`provided.${service.key}.title`)}</h2>
+              {offerings.length > 0 ? offerings.map((service) => {
+                const href = canCheckout ? `/jamaah/checkout?serviceId=${service.id}` : `/register?next=${encodeURIComponent(`/jamaah/checkout?serviceId=${service.id}`)}`;
+                return (
+                  <article key={service.id} className="rounded-xl border border-[var(--border)] bg-white p-4 shadow-sm transition-colors hover:border-[var(--emerald)]/50 md:p-5">
+                    <div className="flex items-center justify-between gap-3 border-b border-[var(--border)] pb-3">
+                      <p className="text-xs font-extrabold text-[var(--text-muted)]">{service.ownerName}</p>
+                      <span className="rounded-md bg-[var(--emerald)]/10 px-2 py-0.5 text-[10px] font-extrabold uppercase tracking-wide text-[var(--emerald)]">{t("featured")}</span>
                     </div>
-                    {service.isFeatured ? <span className="rounded-full bg-[var(--emerald)]/10 px-3 py-1 text-xs font-extrabold text-[var(--emerald)]">{t("featured")}</span> : null}
-                  </div>
-                  <p className="mt-3 text-sm leading-6 text-[var(--text-muted)]">{t(`provided.${service.key}.desc`)}</p>
-                  <div className="mt-4 grid gap-3 text-sm sm:grid-cols-[1fr_1fr_auto] sm:items-end">
-                    <div><p className="font-bold text-[var(--text-muted)]">{t("fields.price")}</p><p className="mt-1 font-extrabold">{t("currency.idr", { value: Number(service.basePriceIdr) })}</p></div>
-                    <div><p className="font-bold text-[var(--text-muted)]">{t("fields.duration")}</p><p className="mt-1 font-extrabold">{t(`durations.${service.durationKey}`)}</p></div>
-                    <Link href="/register" className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg bg-[var(--emerald)] px-4 text-sm font-extrabold text-white">
-                      <CheckCircle2 className="size-4" aria-hidden="true" />
-                      {t("book")}
-                    </Link>
-                  </div>
-                </article>
-              ))}
+                    
+                    <div className="py-4">
+                      <h2 className="text-base font-extrabold md:text-lg">{service.title}</h2>
+                      <p className="mt-1 line-clamp-2 text-sm leading-6 text-[var(--text-muted)] md:line-clamp-none">{service.description}</p>
+                    </div>
+                    
+                    <div className="flex flex-col gap-4 border-t border-[var(--border)] pt-4 sm:flex-row sm:items-center sm:justify-between">
+                      <div className="grid grid-cols-2 gap-4 sm:flex sm:gap-6">
+                        <div>
+                          <p className="text-[10px] font-extrabold uppercase tracking-widest text-[var(--text-muted)]">{t("fields.price")}</p>
+                          <p className="mt-0.5 text-sm font-extrabold text-[var(--emerald)]">{service.basePrice}</p>
+                        </div>
+                        <div>
+                          <p className="text-[10px] font-extrabold uppercase tracking-widest text-[var(--text-muted)]">{t("fields.duration")}</p>
+                          <p className="mt-0.5 text-sm font-extrabold text-[var(--charcoal)]">{service.routeLabel ?? t("durationFlexible")}</p>
+                        </div>
+                      </div>
+                      <Link href={href} className="inline-flex min-h-10 items-center justify-center gap-2 rounded-lg bg-[var(--emerald)] px-6 text-sm font-extrabold text-white transition-opacity hover:opacity-90">
+                        {canCheckout ? t("book") : t("registerToBook")}
+                      </Link>
+                    </div>
+                  </article>
+                );
+              }) : (
+                <div className="rounded-xl border border-dashed border-[var(--border)] bg-white p-5 text-center text-sm font-semibold leading-6 text-[var(--text-muted)]">
+                  {t("emptyOfferings")}
+                </div>
+              )}
             </div>
           </div>
         </section>

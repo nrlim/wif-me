@@ -8,10 +8,12 @@ export const metadata: Metadata = {
   description: "Buat akun Wif-Me sebagai jamaah, muthawif, atau provider layanan pendampingan ibadah.",
 };
 
-export default function RegisterPage(): ReactElement {
+export default async function RegisterPage({ searchParams }: { readonly searchParams: Promise<{ readonly next?: string }> }): Promise<ReactElement> {
+  const { next = "" } = await searchParams;
+
   return (
     <AuthShell>
-      <AuthFormCard mode="register" />
+      <AuthFormCard mode="register" nextPath={next} />
     </AuthShell>
   );
 }

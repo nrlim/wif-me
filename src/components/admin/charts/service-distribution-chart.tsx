@@ -61,13 +61,14 @@ export function ServiceDistributionChart({ data }: Props) {
                       </text>
                     );
                   }
+                  return null;
                 }}
               />
             </Pie>
             <Tooltip 
               contentStyle={{ borderRadius: '12px', border: '1px solid #E2E8F0', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)' }}
               itemStyle={{ fontSize: '14px', fontWeight: 'bold' }}
-              formatter={(value: any) => [value, t("services")]}
+              formatter={(value: unknown) => [String(value ?? 0), t("services")]}
             />
           </PieChart>
         </ResponsiveContainer>

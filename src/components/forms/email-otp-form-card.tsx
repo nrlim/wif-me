@@ -8,6 +8,7 @@ import { useState } from "react";
 
 type EmailOtpFormCardProps = {
   readonly email: string;
+  readonly nextPath?: string;
 };
 
 type ProblemResponse = {
@@ -18,9 +19,10 @@ function isProblemResponse(value: unknown): value is ProblemResponse {
   return typeof value === "object" && value !== null;
 }
 
-export function EmailOtpFormCard({ email }: EmailOtpFormCardProps): ReactElement {
+export function EmailOtpFormCard({ email, nextPath = "" }: EmailOtpFormCardProps): ReactElement {
   const router = useRouter();
   const t = useTranslations("Auth.verifyEmail");
+  const safeNextPath = sanitizeNextPath(nextPath);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -45,7 +47,7 @@ export function EmailOtpFormCard({ email }: EmailOtpFormCardProps): ReactElement
         return;
       }
 
-      router.push("/login");
+      router.push({ pathname: "/login", query: safeNextPath ? { next: safeNextPath } : {} });
     } catch {
       setErrorMessage(t("errors.network"));
     } finally {
@@ -84,10 +86,15 @@ export function EmailOtpFormCard({ email }: EmailOtpFormCardProps): ReactElement
       </form>
 
       <div className="mt-4 border-t border-[var(--border)] pt-3 text-xs font-bold text-[var(--text-muted)]">
-        <Link href="/login" className="text-[var(--emerald)] underline-offset-4 hover:underline">
+        <Link href={safeNextPath ? `/login?next=${encodeURIComponent(safeNextPath)}` : "/login"} className="text-[var(--emerald)] underline-offset-4 hover:underline">
           {t("backToLogin")}
         </Link>
       </div>
     </section>
   );
+}
+
+function sanitizeNextPath(value: string): string {
+  if (!value.startsWith("/") || value.startsWith("//") || value.includes("://") || value.length > 240) return "";
+  return value;
 }

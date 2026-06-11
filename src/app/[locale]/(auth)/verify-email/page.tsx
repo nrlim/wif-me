@@ -11,13 +11,13 @@ export const metadata: Metadata = {
 export default async function VerifyEmailPage({
   searchParams,
 }: {
-  readonly searchParams: Promise<{ readonly email?: string }>;
+  readonly searchParams: Promise<{ readonly email?: string; readonly next?: string }>;
 }): Promise<ReactElement> {
-  const { email = "" } = await searchParams;
+  const { email = "", next = "" } = await searchParams;
 
   return (
     <AuthShell>
-      <EmailOtpFormCard email={email} />
+      <EmailOtpFormCard email={email} nextPath={next} />
     </AuthShell>
   );
 }

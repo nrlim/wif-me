@@ -1,11 +1,11 @@
 import { createHmac, timingSafeEqual } from "node:crypto";
 import type { UserRole } from "@prisma/client";
 
-const SESSION_COOKIE_NAME = "wif_session";
+export const SESSION_COOKIE_NAME = "wif_session";
 const SESSION_TTL_SECONDS = 60 * 60 * 24 * 7;
 const SIGNATURE_ENCODING = "base64url";
 
-type SessionPayload = {
+export type SessionPayload = {
   readonly userId: string;
   readonly role: UserRole;
   readonly exp: number;

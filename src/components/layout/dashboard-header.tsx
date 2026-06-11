@@ -181,7 +181,7 @@ export function DashboardHeader() {
                     className="group flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm font-bold text-[var(--charcoal)] transition-all hover:bg-[var(--emerald)]/10 hover:text-[var(--emerald)]"
                   >
                     <User className="size-4 shrink-0 text-gray-400 group-hover:text-[var(--emerald)]" />
-                    General Profile
+                    {t("profileGeneral")}
                   </Link>
                   <Link 
                     href={`/${currentRole}/profile/security`} 
@@ -189,7 +189,7 @@ export function DashboardHeader() {
                     className="group flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm font-bold text-[var(--charcoal)] transition-all hover:bg-[var(--emerald)]/10 hover:text-[var(--emerald)]"
                   >
                     <KeyRound className="size-4 shrink-0 text-gray-400 group-hover:text-[var(--emerald)]" />
-                    Change Password
+                    {t("changePassword")}
                   </Link>
                 </div>
                 <div className="border-t border-[var(--border)] p-2">

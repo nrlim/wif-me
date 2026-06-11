@@ -10,9 +10,7 @@ import {
   CreditCard,
   FileCheck2,
   Globe,
-  Handshake,
   Mail,
-  MapPin,
   Moon,
   Phone,
   Route,
@@ -23,6 +21,7 @@ import {
   UsersRound,
 } from "lucide-react";
 import { Link } from "@/i18n/routing";
+import { LandingServiceSearchForm } from "@/components/forms/landing-service-search-form";
 import { MobileBottomNav } from "@/components/layout/mobile-bottom-nav";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SERVICE_CATEGORIES } from "@/lib/constants/services";
@@ -56,6 +55,7 @@ export default async function LandingPage({ params }: LocalePageProps): Promise<
   const joinCards = t.raw("join.cards") as readonly CardText[];
   const searchPills = t.raw("searchBox.pills") as readonly string[];
   const footerJoinItems = t.raw("footer.joinItems") as readonly string[];
+  const searchOptions = serviceCards.map((service, index) => ({ value: SERVICE_VALUES[index] ?? "muthawif", label: service.title }));
 
   return (
     <>
@@ -85,20 +85,16 @@ export default async function LandingPage({ params }: LocalePageProps): Promise<
                 </div>
               </div>
               <div id="search" className="flex w-full justify-center md:w-auto md:shrink-0">
-                <form className="w-full max-w-[390px] rounded-[14px] border border-white/80 bg-white/94 p-5 shadow-[0_24px_58px_rgba(0,0,0,0.18)] backdrop-blur-xl sm:p-6 lg:max-w-[460px] lg:p-7">
-                  <div className="mb-5 border-l-2 border-[var(--gold)] pl-4 lg:mb-6">
-                    <div className="mb-2 flex items-center gap-2 text-[0.68rem] font-black uppercase tracking-[0.12em] text-[var(--gold)]"><Handshake className="size-4" aria-hidden="true" />{t("searchBox.eyebrow")}</div>
-                    <h2 className="text-xl font-black leading-tight tracking-[-0.03em] text-gray-950 lg:text-2xl">{t("searchBox.title")}</h2>
-                    <p className="mt-2 text-xs leading-5 text-gray-500 lg:max-w-[22rem] lg:text-sm lg:leading-6">{t("searchBox.description")}</p>
-                  </div>
-                  <label htmlFor="service" className="mb-2 flex items-center gap-1.5 text-[0.72rem] font-extrabold uppercase tracking-[0.07em] text-gray-500"><MapPin className="size-[13px] text-[var(--emerald)]" aria-hidden="true" /> {t("searchBox.label")}</label>
-                  <select id="service" className="mb-4 h-12 w-full rounded-[10px] border border-gray-200 bg-[#FAFAF8] px-4 text-sm font-bold text-gray-900 outline-none transition-colors focus:border-[var(--emerald)] lg:h-[52px]" defaultValue="muthawif">
-                    {serviceCards.map((service, index) => <option key={SERVICE_VALUES[index]} value={SERVICE_VALUES[index]}>{service.title}</option>)}
-                  </select>
-                  <div className="mb-5 grid grid-cols-3 gap-2 text-center">{searchPills.map((pill) => <Pill key={pill}>{pill}</Pill>)}</div>
-                  <button type="submit" className="flex h-12 w-full items-center justify-center gap-2 rounded-[10px] bg-[var(--emerald)] text-sm font-extrabold text-white shadow-[0_10px_24px_rgba(27,107,74,0.28)] transition-colors duration-200 hover:bg-[var(--emerald-light)] lg:h-[52px]"><Search className="size-[18px]" aria-hidden="true" /> {t("searchBox.button")}</button>
-                  <p className="mt-3 text-center text-[0.7rem] leading-5 text-gray-400">{t("searchBox.note")}</p>
-                </form>
+                <LandingServiceSearchForm
+                  eyebrow={t("searchBox.eyebrow")}
+                  title={t("searchBox.title")}
+                  description={t("searchBox.description")}
+                  label={t("searchBox.label")}
+                  button={t("searchBox.button")}
+                  note={t("searchBox.note")}
+                  pills={searchPills}
+                  options={searchOptions}
+                />
               </div>
             </div>
           </div>
@@ -132,7 +128,6 @@ export default async function LandingPage({ params }: LocalePageProps): Promise<
 }
 function Stat({ value, label }: { readonly value: string; readonly label: string }): ReactElement { return <div className="flex flex-col items-center md:items-start"><span className="text-[clamp(1.25rem,4vw,1.625rem)] font-black leading-tight text-white">{value}</span><span className="mt-1 max-w-[86px] text-[clamp(0.625rem,1.5vw,0.75rem)] leading-snug text-white/55">{label}</span></div>; }
 function Divider(): ReactElement { return <div className="h-8 w-px shrink-0 bg-white/15" />; }
-function Pill({ children }: { readonly children: string }): ReactElement { return <span className="inline-flex items-center justify-center rounded-[8px] border border-[var(--emerald)]/15 bg-[var(--emerald)]/[0.06] px-2 py-1 text-[0.66rem] font-bold text-[var(--emerald)] lg:px-3 lg:py-1.5 lg:text-[0.72rem]">{children}</span>; }
 function SectionTitle({ eyebrow, title, desc }: { readonly eyebrow: string; readonly title: string; readonly desc: string }): ReactElement { return <div className="mb-12 text-center"><div className="mx-auto mb-4 h-1 w-12 rounded-full bg-[var(--gold)]" /><p className="mb-2 text-xs font-black uppercase tracking-[0.16em] text-[var(--gold)]">{eyebrow}</p><h2 className="mb-3 text-[clamp(1.5rem,4vw,2.25rem)] font-extrabold text-[var(--charcoal)]">{title}</h2><p className="mx-auto max-w-[560px] text-[clamp(0.9375rem,2vw,1.0625rem)] leading-[1.7] text-[var(--text-muted)]">{desc}</p></div>; }
 function JoinCard({ title, desc, button, href, icon, gold = false }: { readonly title: string; readonly desc: string; readonly button: string; readonly href: string; readonly icon: ReactElement; readonly gold?: boolean }): ReactElement { const colorClass = gold ? "from-[var(--gold)] to-[#9a6a10]" : "from-[var(--emerald)] to-[#004D40]"; return <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-8"><div className={`mb-6 flex size-16 items-center justify-center rounded-[18px] bg-gradient-to-br ${colorClass}`}>{icon}</div><h3 className="mb-3 text-[1.5rem] font-extrabold text-white">{title}</h3><p className="mb-8 text-[0.9375rem] leading-[1.7] text-white/60">{desc}</p><Link href={href} className="flex w-full items-center justify-center rounded-xl bg-white p-4 text-[0.9375rem] font-bold text-[var(--emerald)] transition-colors hover:bg-[var(--ivory)]">{button}</Link></div>; }
 function BrandFooter(): ReactElement { return <div className="mb-5 flex items-center gap-2.5"><div className="relative size-8 overflow-hidden rounded-lg"><Image src="/logo-icon.png" alt="Wif-Me" fill sizes="32px" className="object-cover" /></div><span className="text-[1.125rem] font-extrabold tracking-[-0.02em] text-white">Wif<span className="text-[var(--gold)]">-Me</span></span></div>; }

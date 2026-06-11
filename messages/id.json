@@ -185,7 +185,8 @@
           "overview": "Overview",
           "bookings": "Booking Saya",
           "payments": "Pembayaran",
-          "settings": "Pengaturan"
+          "settings": "Pengaturan",
+          "search": "Cari Layanan"
         },
         "muthawif": {
           "overview": "Overview",
@@ -235,7 +236,9 @@
         "muthawif": "Muthawif",
         "provider": "Provider",
         "admin": "Admin"
-      }
+      },
+      "profileGeneral": "General profile",
+      "changePassword": "Change password"
     },
     "charts": {
       "transactions": "Transaksi",
@@ -840,6 +843,21 @@
       "errors": {
         "generic": "Permintaan belum dapat diproses. Periksa data lalu coba lagi.",
         "network": "Koneksi bermasalah. Coba beberapa saat lagi."
+      },
+      "forgotPassword": "Lupa kata sandi",
+      "fields": {
+        "nameLabel": "Nama lengkap",
+        "namePlaceholder": "Nama sesuai identitas",
+        "emailLabel": "Email",
+        "emailPlaceholder": "nama@email.com",
+        "passwordLabel": "Kata sandi",
+        "passwordPlaceholder": "Minimal 8 karakter",
+        "roleLabel": "Daftar sebagai"
+      },
+      "roles": {
+        "JAMAAH": "Jamaah",
+        "MUTHAWIF": "Muthawif",
+        "PROVIDER": "Provider"
       }
     },
     "verifyEmail": {
@@ -972,6 +990,210 @@
       "simCardAssistance": {
         "title": "Bantuan SIM Card",
         "desc": "Bantuan pembelian dan aktivasi SIM card lokal saat tiba di Arab Saudi."
+      }
+    },
+    "registerToBook": "Daftar untuk booking",
+    "durationFlexible": "Fleksibel",
+    "emptyOfferings": "Layanan aktif untuk kategori ini belum tersedia. Silakan pilih kategori lain atau cek kembali nanti."
+  },
+  "Jamaah": {
+    "common": {
+      "search": "Cari",
+      "serviceType": "Jenis layanan",
+      "sort": "Urutkan",
+      "apply": "Terapkan",
+      "all": "Semua",
+      "latest": "Terbaru",
+      "price": "Harga",
+      "title": "Nama",
+      "service": "Layanan",
+      "provider": "Penyedia",
+      "action": "Aksi",
+      "status": "Status",
+      "schedule": "Jadwal",
+      "reference": "Referensi",
+      "previous": "Sebelumnya",
+      "next": "Berikutnya",
+      "pageSummary": "Halaman {page} dari {pageCount} • {total} data",
+      "serviceTypes": {
+        "MUTHAWIF_PERSONAL": "Muthawif personal",
+        "PROVIDER_MUTHAWIF": "Provider muthawif",
+        "TRANSPORTATION": "Transportasi",
+        "VISA_PROCESSING": "Visa processing",
+        "ADDITIONAL_SERVICE": "Layanan tambahan"
+      }
+    },
+    "status": {
+      "booking": {
+        "DRAFT": "Draft",
+        "PENDING_PAYMENT": "Menunggu pembayaran",
+        "CONFIRMED": "Terkonfirmasi",
+        "IN_PROGRESS": "Berjalan",
+        "COMPLETED": "Selesai",
+        "CANCELLED": "Dibatalkan"
+      },
+      "payment": {
+        "PENDING": "Belum dibayar",
+        "HELD_IN_ESCROW": "Sudah dibayar (Escrow)",
+        "RELEASED": "Selesai (Completed)",
+        "REFUNDED": "Dikembalikan",
+        "FAILED": "Gagal"
+      }
+    },
+    "dashboard": {
+      "eyebrow": "Dashboard jamaah",
+      "title": "Ruang kendali perjalanan ibadah Anda.",
+      "description": "Cari layanan, pantau booking, dan selesaikan pembayaran escrow dari satu tempat.",
+      "searchCta": "Cari layanan",
+      "metrics": {
+        "activeBookings": "Booking aktif",
+        "pendingPayments": "Menunggu bayar",
+        "escrow": "Dana escrow"
+      },
+      "upcoming": {
+        "title": "Jadwal mendatang",
+        "empty": "Belum ada jadwal aktif. Mulai dari pencarian layanan untuk membuat booking baru."
+      },
+      "quick": {
+        "bookings": {
+          "title": "Booking Saya",
+          "description": "Lihat semua jadwal, status layanan, dan tindak lanjut pembayaran."
+        },
+        "payments": {
+          "title": "Pembayaran",
+          "description": "Pantau instruksi pembayaran dan status dana escrow."
+        }
+      }
+    },
+    "search": {
+      "eyebrow": "Cari layanan",
+      "title": "Pilih layanan yang sesuai kebutuhan perjalanan.",
+      "description": "Gunakan pencarian untuk membandingkan muthawif, transportasi, visa, dan layanan pendukung yang aktif.",
+      "searchPlaceholder": "Cari nama layanan atau penyedia",
+      "book": "Booking",
+      "empty": {
+        "title": "Layanan tidak ditemukan",
+        "description": "Coba ubah kata kunci atau pilih jenis layanan lain."
+      }
+    },
+    "checkout": {
+      "eyebrow": "Checkout booking",
+      "title": "Lengkapi jadwal sebelum pembayaran.",
+      "description": "Setelah booking dibuat, Anda akan diarahkan ke instruksi pembayaran escrow.",
+      "formTitle": "Detail kebutuhan",
+      "fields": {
+        "date": "Tanggal layanan",
+        "notes": "Catatan untuk penyedia",
+        "notesPlaceholder": "Tulis jumlah jamaah, lokasi, atau kebutuhan khusus bila ada."
+      },
+      "submit": "Buat booking dan lanjut bayar",
+      "summary": {
+        "eyebrow": "Ringkasan layanan",
+        "provider": "Penyedia",
+        "escrow": "Skema pembayaran",
+        "escrowValue": "Escrow Wif-Me",
+        "total": "Total pembayaran",
+        "note": "Nominal disimpan dalam IDR. Data kartu atau rekening pribadi tidak disimpan di server Wif-Me."
+      }
+    },
+    "bookings": {
+      "eyebrow": "Booking saya",
+      "title": "Pantau semua layanan yang sudah diajukan.",
+      "description": "Status booking diperbarui mengikuti pembayaran dan proses layanan.",
+      "searchPlaceholder": "Cari layanan booking",
+      "paymentAction": "Lihat pembayaran",
+      "empty": {
+        "title": "Belum ada booking",
+        "description": "Cari layanan lalu ajukan booking untuk mulai menyusun kebutuhan ibadah."
+      }
+    },
+    "payments": {
+      "eyebrow": "Pembayaran",
+      "title": "Kelola pembayaran dan escrow.",
+      "description": "Setiap pembayaran terhubung dengan booking agar status dana mudah dipantau.",
+      "searchPlaceholder": "Cari layanan pembayaran",
+      "detailAction": "Detail",
+      "empty": {
+        "title": "Belum ada pembayaran",
+        "description": "Pembayaran akan muncul setelah Anda membuat booking layanan."
+      }
+    },
+    "paymentDetail": {
+      "eyebrow": "Detail pembayaran",
+      "title": "Selesaikan pembayaran escrow.",
+      "description": "Gunakan instruksi berikut untuk menyelesaikan pembayaran secara aman.",
+      "titlePaid": "Pembayaran berhasil.",
+      "descriptionPaid": "Dana Anda telah kami terima dan ditahan di sistem escrow hingga layanan berjalan.",
+      "titleCompleted": "Layanan selesai.",
+      "descriptionCompleted": "Layanan telah selesai dan dana telah diteruskan ke penyedia.",
+      "fields": {
+        "amount": "Nominal",
+        "bookingId": "ID booking",
+        "method": "Metode",
+        "account": "Rekening tujuan"
+      },
+      "bankTransfer": "Transfer bank",
+      "instructions": {
+        "title": "Instruksi pembayaran",
+        "items": [
+          "Transfer sesuai nominal yang tertera.",
+          "Gunakan nomor referensi sebagai berita transfer.",
+          "Setelah pembayaran dikonfirmasi, dana masuk escrow dan booking menjadi terkonfirmasi."
+        ]
+      },
+      "confirm": "Konfirmasi pembayaran sandbox",
+      "escrow": {
+        "title": "Dana ditahan di escrow",
+        "description": "Pembayaran tidak langsung diteruskan ke penyedia. Admin dapat memantau dana sampai layanan berjalan sesuai kesepakatan.",
+        "note": "MVP ini menggunakan konfirmasi sandbox tanpa menyimpan data kartu atau rekening pribadi."
+      }
+    },
+    "profile": {
+      "eyebrow": "Profil jamaah",
+      "title": "Kelola profil dan keamanan akun.",
+      "description": "Perbarui data kontak yang dipakai untuk booking dan jaga akses akun tetap aman.",
+      "tabs": {
+        "general": "General profile",
+        "security": "Change password"
+      },
+      "fields": {
+        "name": "Nama lengkap",
+        "email": "Email",
+        "phone": "Nomor telepon",
+        "phonePlaceholder": "+62 812 3456 7890"
+      },
+      "emailHelper": "Email digunakan untuk login dan tidak dapat diubah dari halaman ini.",
+      "actions": {
+        "saveProfile": "Simpan profil",
+        "savePassword": "Simpan password"
+      },
+      "notices": {
+        "saved": "Profil berhasil diperbarui.",
+        "invalid": "Data profil belum valid. Periksa kembali nama dan nomor telepon.",
+        "passwordSaved": "Password berhasil diperbarui.",
+        "currentInvalid": "Password saat ini tidak sesuai.",
+        "passwordInvalid": "Password baru belum valid atau konfirmasi tidak sama."
+      },
+      "summary": {
+        "title": "Ringkasan akun",
+        "memberSince": "Bergabung sejak",
+        "currency": "Mata uang utama",
+        "verification": "Verifikasi email",
+        "verified": "Terverifikasi",
+        "notVerified": "Belum terverifikasi"
+      },
+      "security": {
+        "title": "Ubah password",
+        "description": "Gunakan password baru yang kuat dan tidak digunakan di layanan lain.",
+        "currentPassword": "Password saat ini",
+        "newPassword": "Password baru",
+        "confirmPassword": "Konfirmasi password baru",
+        "helper": "Minimal 8 karakter dan wajib mengandung huruf serta angka.",
+        "infoTitle": "Catatan keamanan",
+        "infoDescription": "Perubahan password diproses langsung di server dan tidak menyimpan password dalam bentuk teks asli.",
+        "ruleLetters": "Gunakan kombinasi huruf besar dan kecil bila memungkinkan.",
+        "ruleNumbers": "Tambahkan angka agar password lebih sulit ditebak.",
+        "rulePrivate": "Jangan bagikan password kepada penyedia layanan atau pihak lain."
       }
     }
   }

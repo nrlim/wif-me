@@ -4,24 +4,7 @@ import { useState, type ReactElement } from "react";
 import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/routing";
 import { cn } from "@/lib/utils/cn";
-import {
-  BriefcaseBusiness,
-  Building2,
-  CalendarDays,
-  CarFront,
-  ChevronDown,
-  CreditCard,
-  FolderTree,
-  LayoutDashboard,
-  ListChecks,
-  LogOut,
-  Percent,
-  ReceiptText,
-  Settings,
-  UserCheck,
-  Users,
-  WalletCards,
-} from "lucide-react";
+import { ChevronDown, type LucideIcon } from "lucide-react";
 import { BrandMark } from "@/components/shared/brand-mark";
 
 import { ROLE_NAV_ITEMS, type NavigationItem } from "@/lib/constants/navigation";
@@ -88,7 +71,7 @@ function SidebarItem({ item, pathname, isExpanded, onToggle }: { readonly item: 
   );
 }
 
-function SidebarLink({ href, icon: Icon, label, isActive, isChild = false }: { readonly href: string; readonly icon: any; readonly label: string; readonly isActive: boolean; readonly isChild?: boolean }): ReactElement {
+function SidebarLink({ href, icon: Icon, label, isActive, isChild = false }: { readonly href: string; readonly icon: LucideIcon; readonly label: string; readonly isActive: boolean; readonly isChild?: boolean }): ReactElement {
   return (
     <Link href={href} className={cn("group flex min-h-11 items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-bold transition-all", isChild && "rounded-lg text-[0.8125rem]", isActive ? "bg-[var(--emerald)]/10 text-[var(--emerald)]" : "text-[var(--text-muted)] hover:bg-[var(--emerald-pale)] hover:text-[var(--emerald)]")}>
       <Icon className={cn("size-5 shrink-0", isChild && "size-4", isActive ? "text-[var(--emerald)]" : "text-gray-400 group-hover:text-[var(--emerald)]")} strokeWidth={isActive ? 2.5 : 2} />

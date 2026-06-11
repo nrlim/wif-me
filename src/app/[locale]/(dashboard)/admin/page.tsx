@@ -17,8 +17,6 @@ type StatCard = {
   readonly icon: typeof BriefcaseBusiness;
 };
 
-const QUEUE_KEYS = ["muthawif", "provider", "escrow"] as const;
-
 type Props = {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };

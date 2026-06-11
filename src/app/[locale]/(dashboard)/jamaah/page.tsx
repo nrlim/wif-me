@@ -1,89 +1,89 @@
+import type { Metadata } from "next";
 import type { ReactElement } from "react";
-import Link from "next/link";
-import { CalendarDays, CreditCard, Search, FileText } from "lucide-react";
+import { CalendarDays, CreditCard, Search, ShieldCheck } from "lucide-react";
+import { getTranslations } from "next-intl/server";
+import { UserRole } from "@prisma/client";
+import { Link } from "@/i18n/routing";
+import { DashboardPageHeader } from "@/components/shared/dashboard-page-header";
+import { StatusBadge } from "@/components/shared/status-badge";
+import { getJamaahOverview } from "@/lib/jamaah/data";
+import { bookingStatusVariant } from "@/lib/jamaah/status";
+import { requireRoleSession } from "@/lib/auth/current-session";
 
-export default function JamaahDashboardPage(): ReactElement {
+export const metadata: Metadata = { title: "Dashboard Jamaah" };
+
+export default async function JamaahDashboardPage(): Promise<ReactElement> {
+  const session = await requireRoleSession([UserRole.JAMAAH]);
+  const t = await getTranslations("Jamaah.dashboard");
+  const statusT = await getTranslations("Jamaah.status");
+  const data = await getJamaahOverview(session.userId);
+
   return (
-    <div className="space-y-8">
-      <div>
-        <h1 className="text-2xl font-black text-[var(--charcoal)]">Dashboard Jamaah</h1>
-        <p className="mt-2 text-sm text-[var(--text-muted)]">Selamat datang kembali! Berikut ringkasan perjalanan ibadah Anda.</p>
+    <div className="flex flex-col gap-5 md:gap-6">
+      <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+        <DashboardPageHeader eyebrow={t("eyebrow")} title={t("title")} description={t("description")} />
+        <Link href="/jamaah/search" className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-lg bg-[var(--emerald)] px-4 text-sm font-extrabold text-white md:w-fit">
+          <Search className="size-4" aria-hidden="true" />
+          {t("searchCta")}
+        </Link>
       </div>
 
-      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        <div className="rounded-2xl border border-[var(--border)] bg-white p-6 shadow-sm">
-          <div className="flex items-center gap-4">
-            <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-[var(--emerald)]/10 text-[var(--emerald)]">
-              <CalendarDays className="size-6" />
-            </div>
-            <div>
-              <p className="text-sm font-semibold text-[var(--text-muted)]">Booking Aktif</p>
-              <p className="text-2xl font-black text-[var(--charcoal)]">1</p>
-            </div>
-          </div>
-        </div>
-        <div className="rounded-2xl border border-[var(--border)] bg-white p-6 shadow-sm">
-          <div className="flex items-center gap-4">
-            <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-[var(--gold)]/10 text-[var(--gold)]">
-              <CreditCard className="size-6" />
-            </div>
-            <div>
-              <p className="text-sm font-semibold text-[var(--text-muted)]">Status Escrow</p>
-              <p className="text-lg font-black text-[var(--charcoal)]">Menunggu</p>
-            </div>
-          </div>
-        </div>
-        <div className="rounded-2xl border border-[var(--border)] bg-white p-6 shadow-sm">
-          <div className="flex items-center gap-4">
-            <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
-              <FileText className="size-6" />
-            </div>
-            <div>
-              <p className="text-sm font-semibold text-[var(--text-muted)]">Status Visa</p>
-              <p className="text-lg font-black text-[var(--charcoal)]">Selesai</p>
-            </div>
-          </div>
-        </div>
-      </div>
+      <section className="hidden rounded-xl border border-[var(--border)] bg-white md:grid md:grid-cols-3 md:divide-x md:divide-[var(--border)]">
+        <Metric icon={<CalendarDays className="size-5" aria-hidden="true" />} label={t("metrics.activeBookings")} value={String(data.activeBookings)} />
+        <Metric icon={<CreditCard className="size-5" aria-hidden="true" />} label={t("metrics.pendingPayments")} value={String(data.pendingPayments)} />
+        <Metric icon={<ShieldCheck className="size-5" aria-hidden="true" />} label={t("metrics.escrow")} value={String(data.escrowPayments)} />
+      </section>
 
-      <div className="rounded-2xl border border-[var(--border)] bg-white shadow-sm overflow-hidden">
-        <div className="border-b border-[var(--border)] px-6 py-5">
-          <h2 className="text-base font-bold text-[var(--charcoal)]">Jadwal Mendatang</h2>
+      <section className="overflow-hidden rounded-xl border border-[var(--border)] bg-white">
+        <div className="border-b border-[var(--border)] px-4 py-4 md:px-5">
+          <h2 className="text-base font-extrabold text-[var(--charcoal)]">{t("upcoming.title")}</h2>
         </div>
-        <div className="p-6">
-          <div className="flex items-center gap-4 rounded-xl border border-[var(--emerald)]/20 bg-[var(--emerald)]/5 p-4">
-            <div className="flex flex-col items-center justify-center rounded-lg bg-white px-4 py-2 shadow-sm">
-              <span className="text-xs font-bold text-[var(--text-muted)] uppercase">Okt</span>
-              <span className="text-xl font-black text-[var(--emerald)]">15</span>
+        <div className="p-3 md:p-5">
+          {data.upcoming ? (
+            <article className="rounded-xl border border-[var(--border)] bg-white p-4 shadow-sm md:flex md:items-center md:justify-between md:gap-4">
+              <div className="flex items-start gap-3">
+                <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-[var(--emerald-pale)] text-[var(--emerald)]">
+                  <CalendarDays className="size-5" aria-hidden="true" />
+                </div>
+                <div>
+                  <p className="text-xs font-extrabold text-[var(--text-muted)]">{formatDate(data.upcoming.scheduledStart)}</p>
+                  <h3 className="mt-1 font-extrabold text-[var(--charcoal)]">{data.upcoming.serviceTitle}</h3>
+                  <p className="mt-1 text-sm font-semibold text-[var(--text-muted)]">{data.upcoming.providerName}</p>
+                </div>
+              </div>
+              <div className="mt-4 flex items-end justify-between gap-3 md:mt-0 md:flex-col md:items-end">
+                <StatusBadge label={statusT(`booking.${data.upcoming.status}`)} variant={bookingStatusVariant(data.upcoming.status)} />
+                {data.upcoming.paymentId && data.upcoming.paymentStatus ? (
+                  <Link href={`/jamaah/payments/${data.upcoming.paymentId}`} className="inline-flex min-h-10 items-center rounded-lg border border-[var(--border)] px-3 text-xs font-extrabold text-[var(--charcoal)]">
+                    {statusT(`payment.${data.upcoming.paymentStatus}`)}
+                  </Link>
+                ) : null}
+              </div>
+            </article>
+          ) : (
+            <div className="rounded-xl border border-dashed border-[var(--border)] bg-[var(--ivory)] p-5 text-sm font-bold leading-6 text-[var(--text-muted)]">
+              {t("upcoming.empty")}
             </div>
-            <div className="flex-1">
-              <h3 className="font-bold text-[var(--charcoal)]">Umrah Reguler Pendampingan</h3>
-              <p className="text-sm text-[var(--text-muted)] mt-1">Muthawif: Ustadz Ahmad Fauzie</p>
-              <p className="text-xs text-[var(--text-muted)] mt-1">Lokasi: Mekkah, Arab Saudi</p>
-            </div>
-            <div>
-              <span className="inline-flex rounded-full bg-[var(--emerald)]/10 px-2.5 py-1 text-xs font-semibold text-[var(--emerald)]">
-                Terkonfirmasi
-              </span>
-            </div>
-          </div>
+          )}
         </div>
-      </div>
+      </section>
 
-      <div>
-        <h2 className="mb-4 text-base font-bold text-[var(--charcoal)]">Akses Cepat</h2>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-          <Link href="/search" className="flex items-center gap-4 rounded-xl border border-[var(--border)] bg-white p-4 transition-colors hover:border-[var(--emerald)] hover:bg-[var(--emerald)]/5">
-            <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-[var(--emerald)]/10 text-[var(--emerald)]">
-              <Search className="size-5" />
-            </div>
-            <div>
-              <p className="font-bold text-[var(--charcoal)]">Cari Muthawif</p>
-              <p className="text-xs text-[var(--text-muted)]">Temukan pendamping ibadah baru</p>
-            </div>
-          </Link>
-        </div>
-      </div>
+      <section className="grid gap-3 sm:grid-cols-2">
+        <QuickLink href="/jamaah/bookings" title={t("quick.bookings.title")} description={t("quick.bookings.description")} />
+        <QuickLink href="/jamaah/payments" title={t("quick.payments.title")} description={t("quick.payments.description")} />
+      </section>
     </div>
   );
+}
+
+function Metric({ icon, label, value }: { readonly icon: ReactElement; readonly label: string; readonly value: string }): ReactElement {
+  return <div className="flex items-center gap-4 p-5"><span className="flex size-11 items-center justify-center rounded-xl bg-[var(--emerald-pale)] text-[var(--emerald)]">{icon}</span><div><p className="text-sm font-bold text-[var(--text-muted)]">{label}</p><p className="text-2xl font-black text-[var(--charcoal)]">{value}</p></div></div>;
+}
+
+function QuickLink({ href, title, description }: { readonly href: string; readonly title: string; readonly description: string }): ReactElement {
+  return <Link href={href} className="rounded-xl border border-[var(--border)] bg-white p-4 transition-colors hover:border-[var(--emerald)]"><p className="font-extrabold text-[var(--charcoal)]">{title}</p><p className="mt-1 text-sm font-semibold leading-6 text-[var(--text-muted)]">{description}</p></Link>;
+}
+
+function formatDate(value: string): string {
+  return new Intl.DateTimeFormat("id-ID", { day: "2-digit", month: "short", year: "numeric" }).format(new Date(value));
 }
