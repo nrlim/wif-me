@@ -29,7 +29,7 @@ const amiri = Amiri({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://wifme.vercel.app"),
+  metadataBase: new URL("https://wifme.app"),
   title: {
     default: "Wif-Me | Platform Pendamping Ibadah Umrah",
     template: "%s | Wif-Me",
@@ -39,7 +39,6 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Wif-Me | Platform Pendamping Ibadah Umrah",
     description: "Platform multi-service untuk muthawif personal, provider, transportasi, dan pengurusan visa jamaah umrah mandiri.",
-    url: "https://wifme.app",
     siteName: "Wif-Me",
     locale: "id_ID",
     type: "website",
