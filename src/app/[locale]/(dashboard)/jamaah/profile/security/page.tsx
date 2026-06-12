@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import type { ReactElement } from "react";
 import { KeyRound, ShieldCheck } from "lucide-react";
 import { getTranslations } from "next-intl/server";
+import { PasswordInput } from "@/components/shared/password-input";
 import { UserRole } from "@prisma/client";
 import { updateJamaahPasswordAction } from "@/app/[locale]/(dashboard)/jamaah/actions";
 import { requireRoleSession } from "@/lib/auth/current-session";
@@ -34,15 +35,15 @@ export default async function JamaahSecurityPage({ searchParams }: JamaahSecurit
         <form action={updateJamaahPasswordAction} className="mt-6 grid gap-5">
           <label className="grid gap-2 text-sm font-extrabold text-[var(--charcoal)]" htmlFor="currentPassword">
             {t("security.currentPassword")}
-            <input id="currentPassword" name="currentPassword" className="auth-input pl-4" type="password" autoComplete="current-password" required />
+            <PasswordInput id="currentPassword" name="currentPassword" className="auth-input pl-4" autoComplete="current-password" required />
           </label>
           <label className="grid gap-2 text-sm font-extrabold text-[var(--charcoal)]" htmlFor="newPassword">
             {t("security.newPassword")}
-            <input id="newPassword" name="newPassword" className="auth-input pl-4" type="password" autoComplete="new-password" required minLength={8} />
+            <PasswordInput id="newPassword" name="newPassword" className="auth-input pl-4" autoComplete="new-password" required minLength={8} />
           </label>
           <label className="grid gap-2 text-sm font-extrabold text-[var(--charcoal)]" htmlFor="confirmPassword">
             {t("security.confirmPassword")}
-            <input id="confirmPassword" name="confirmPassword" className="auth-input pl-4" type="password" autoComplete="new-password" required minLength={8} />
+            <PasswordInput id="confirmPassword" name="confirmPassword" className="auth-input pl-4" autoComplete="new-password" required minLength={8} />
           </label>
           <p className="text-sm font-semibold leading-6 text-[var(--text-muted)]">{t("security.helper")}</p>
           <button type="submit" className="min-h-11 w-full rounded-lg bg-[var(--emerald)] px-5 text-sm font-extrabold text-white md:w-fit">

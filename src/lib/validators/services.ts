@@ -18,8 +18,10 @@ export const serviceItemMutationSchema = z.object({
   code: z.string().trim().min(3).max(40),
   title: z.string().trim().min(3).max(120),
   description: z.string().trim().min(12).max(500),
-  basePriceIdr: z.coerce.number().int().min(0).max(999_999_999),
+  baseCurrency: z.enum(["IDR", "SAR", "USD"]),
+  originalPrice: z.coerce.number().min(0).max(999_999_999),
   durationKey: z.string().trim().min(2).max(40),
+  baseLocationId: z.string().uuid().optional().or(z.literal("")),
   status: statusSchema,
 });
 

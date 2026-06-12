@@ -3,14 +3,20 @@
 import Image from "next/image";
 import { Link } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
-import { useEffect, useState, type ReactElement } from "react";
+import { useEffect, useState, useSyncExternalStore, type ReactElement } from "react";
 import { cn } from "@/lib/utils/cn";
 import { CurrencySelector } from "@/components/shared/currency-selector";
 import { LanguageSwitcher } from "@/components/shared/language-switcher";
+import { ShoppingCart } from "lucide-react";
+import { useCartStore } from "@/hooks/use-cart-store";
+import { CartDrawer } from "@/components/cart/cart-drawer";
 
 export function SiteHeader(): ReactElement {
   const t = useTranslations("Header");
   const [isScrolled, setIsScrolled] = useState(false);
+  const cartItems = useCartStore((state) => state.items);
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const mounted = useSyncExternalStore(subscribeToHydration, getClientSnapshot, getServerSnapshot);
 
   useEffect(() => {
     const handleScroll = (): void => setIsScrolled(window.scrollY > 18);
@@ -32,8 +38,8 @@ export function SiteHeader(): ReactElement {
         )}
       >
         <Link href="/" className="flex min-h-11 items-center gap-3" aria-label="Wif-Me beranda">
-          <div className="relative size-8 overflow-hidden rounded-[8px] bg-white/94 ring-1 ring-white/30">
-            <Image src="/logo-icon.png" alt="Wif-Me" fill sizes="32px" className="object-cover" priority />
+          <div className="relative size-10">
+            <Image src="/logo-icon.png" alt="Wif-Me" fill sizes="40px" className="object-contain" priority />
           </div>
           <span
             className={cn(
@@ -54,6 +60,26 @@ export function SiteHeader(): ReactElement {
         <div className="hidden items-center gap-3 min-[900px]:flex">
           <CurrencySelector scrolled={isScrolled} />
           <LanguageSwitcher scrolled={isScrolled} />
+
+          {/* Cart Button */}
+          <button
+            onClick={() => setIsCartOpen(true)}
+            className={cn(
+              "relative flex size-10 items-center justify-center rounded-full transition-colors duration-200",
+              isScrolled
+                ? "text-[var(--charcoal)] hover:bg-gray-100"
+                : "text-[#fff7e6] hover:bg-white/10"
+            )}
+            aria-label="Keranjang Belanja"
+          >
+            <ShoppingCart className="size-5" />
+            {mounted && cartItems.length > 0 && (
+              <span className="absolute -right-1 -top-1 flex size-5 items-center justify-center rounded-full bg-[var(--gold)] text-[0.625rem] font-bold text-white shadow-sm ring-2 ring-white">
+                {cartItems.reduce((acc, item) => acc + item.quantity, 0)}
+              </span>
+            )}
+          </button>
+
           <Link
             href="/login"
             className={cn(
@@ -78,6 +104,20 @@ export function SiteHeader(): ReactElement {
           </Link>
         </div>
       </div>
+
+      <CartDrawer open={isCartOpen} onOpenChange={setIsCartOpen} />
     </header>
   );
+}
+
+function subscribeToHydration(): () => void {
+  return () => undefined;
+}
+
+function getClientSnapshot(): boolean {
+  return true;
+}
+
+function getServerSnapshot(): boolean {
+  return false;
 }

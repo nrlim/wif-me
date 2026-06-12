@@ -1,88 +1,54 @@
+import type { Metadata } from "next";
 import type { ReactElement } from "react";
-import { CalendarDays, CreditCard, ShieldCheck, Star } from "lucide-react";
+import { UserRole } from "@prisma/client";
+import { getTranslations } from "next-intl/server";
+import { Link } from "@/i18n/routing";
+import { DashboardPageHeader } from "@/components/shared/dashboard-page-header";
+import { AvailabilityToggle } from "@/components/shared/availability-toggle";
+import { PartnerMetrics, PartnerUpcomingBookings } from "@/components/shared/partner-dashboard-widgets";
+import { requireRoleSession } from "@/lib/auth/current-session";
+import { getPartnerDashboard } from "@/lib/partner/data";
 
-export default function MuthawifDashboardPage(): ReactElement {
+export const metadata: Metadata = { title: "Dashboard Muthawif" };
+
+export default async function MuthawifDashboardPage(): Promise<ReactElement> {
+  const session = await requireRoleSession([UserRole.MUTHAWIF]);
+  const [t, common, statusT, dashboard] = await Promise.all([
+    getTranslations("Partner.muthawif.dashboard"),
+    getTranslations("Partner.common"),
+    getTranslations("Jamaah.status"),
+    getPartnerDashboard(session.userId),
+  ]);
+
   return (
-    <div className="space-y-8">
-      <div>
-        <h1 className="text-2xl font-black text-[var(--charcoal)]">Dashboard Muthawif</h1>
-        <p className="mt-2 text-sm text-[var(--text-muted)]">Ringkasan aktivitas dan pendapatan Anda.</p>
-      </div>
-
-      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-        <div className="rounded-2xl border border-[var(--border)] bg-white p-6 shadow-sm">
-          <div className="flex items-center gap-4">
-            <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-[var(--emerald)]/10 text-[var(--emerald)]">
-              <ShieldCheck className="size-6" />
-            </div>
-            <div>
-              <p className="text-sm font-semibold text-[var(--text-muted)]">Status Profil</p>
-              <p className="text-sm font-black text-[var(--emerald)]">Terverifikasi</p>
-            </div>
-          </div>
-        </div>
-        <div className="rounded-2xl border border-[var(--border)] bg-white p-6 shadow-sm">
-          <div className="flex items-center gap-4">
-            <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
-              <CalendarDays className="size-6" />
-            </div>
-            <div>
-              <p className="text-sm font-semibold text-[var(--text-muted)]">Booking Aktif</p>
-              <p className="text-2xl font-black text-[var(--charcoal)]">3</p>
-            </div>
-          </div>
-        </div>
-        <div className="rounded-2xl border border-[var(--border)] bg-white p-6 shadow-sm">
-          <div className="flex items-center gap-4">
-            <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-[var(--gold)]/10 text-[var(--gold)]">
-              <CreditCard className="size-6" />
-            </div>
-            <div>
-              <p className="text-sm font-semibold text-[var(--text-muted)]">Pendapatan</p>
-              <p className="text-lg font-black text-[var(--charcoal)]">SAR 1,200</p>
-            </div>
-          </div>
-        </div>
-        <div className="rounded-2xl border border-[var(--border)] bg-white p-6 shadow-sm">
-          <div className="flex items-center gap-4">
-            <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-orange-50 text-orange-500">
-              <Star className="size-6" />
-            </div>
-            <div>
-              <p className="text-sm font-semibold text-[var(--text-muted)]">Rating Rata-rata</p>
-              <p className="text-2xl font-black text-[var(--charcoal)]">4.9</p>
-            </div>
-          </div>
+    <div className="flex flex-col gap-5 md:gap-6">
+      <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+        <DashboardPageHeader eyebrow={t("eyebrow")} title={t("title")} description={t("description")} />
+        <div className="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto">
+          <AvailabilityToggle 
+            initialIsAvailable={dashboard.isAvailable} 
+            labels={{
+              available: t("availability.available"),
+              notAvailable: t("availability.notAvailable"),
+              toggleLabel: t("availability.toggleLabel"),
+              activeBookingsWarning: t("availability.activeBookingsWarning")
+            }} 
+          />
+          <Link href="/muthawif/schedule" className="inline-flex min-h-11 w-full items-center justify-center rounded-lg bg-[var(--emerald)] px-4 text-sm font-extrabold text-white sm:w-fit">
+            {t("scheduleCta")}
+          </Link>
         </div>
       </div>
-
-      <div className="rounded-2xl border border-[var(--border)] bg-white shadow-sm overflow-hidden">
-        <div className="border-b border-[var(--border)] px-6 py-5">
-          <h2 className="text-base font-bold text-[var(--charcoal)]">Jadwal Mendatang</h2>
-        </div>
-        <div className="divide-y divide-[var(--border)]">
-          {[
-            { date: "Okt 15", title: "Umrah Pendampingan", jamaah: "Bpk. Budi Santoso", status: "Terkonfirmasi" },
-            { date: "Okt 20", title: "City Tour Makkah", jamaah: "Keluarga Ibu Siti", status: "Menunggu Pembayaran" },
-          ].map((item, idx) => (
-            <div key={idx} className="p-6 flex items-center gap-4">
-              <div className="flex flex-col items-center justify-center rounded-lg bg-[var(--ivory)] border border-[var(--border)] px-4 py-2">
-                <span className="text-xs font-bold text-[var(--text-muted)] uppercase">{item.date.split(" ")[0]}</span>
-                <span className="text-xl font-black text-[var(--charcoal)]">{item.date.split(" ")[1]}</span>
-              </div>
-              <div className="flex-1">
-                <h3 className="font-bold text-[var(--charcoal)]">{item.title}</h3>
-                <p className="text-sm text-[var(--text-muted)] mt-1">Jamaah: {item.jamaah}</p>
-              </div>
-              <div>
-                <span className={`inline-flex rounded-full px-2.5 py-1 text-xs font-semibold ${item.status === 'Terkonfirmasi' ? 'bg-[var(--emerald)]/10 text-[var(--emerald)]' : 'bg-[var(--gold)]/10 text-[var(--gold)]'}`}>
-                  {item.status}
-                </span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+      <PartnerMetrics text={{ verification: common("metrics.verification"), services: common("metrics.services"), activeBookings: common("metrics.activeBookings"), escrow: common("metrics.escrow") }} verificationLabel={common(`verification.${dashboard.verificationStatus}`)} serviceCount={dashboard.serviceCount} activeBookings={dashboard.activeBookings} escrowAmount={dashboard.escrowAmount} />
+      <PartnerUpcomingBookings rows={dashboard.upcoming} detailHref="/muthawif/schedule" text={{ title: t("upcoming.title"), empty: t("upcoming.empty"), customer: common("customer"), detail: common("detail"), bookingStatus: (status) => statusT(`booking.${status}`), paymentStatus: (status) => statusT(`payment.${status}`) }} />
+      <section className="grid gap-3 sm:grid-cols-2">
+        <QuickLink href="/muthawif/schedule" title={t("quick.schedule.title")} description={t("quick.schedule.description")} />
+        <QuickLink href="/muthawif/earnings" title={t("quick.earnings.title")} description={t("quick.earnings.description")} />
+      </section>
     </div>
   );
+}
+
+function QuickLink({ href, title, description }: { readonly href: string; readonly title: string; readonly description: string }): ReactElement {
+  return <Link href={href} className="rounded-xl border border-[var(--border)] bg-white p-4 transition-colors hover:border-[var(--emerald)]"><p className="font-extrabold text-[var(--charcoal)]">{title}</p><p className="mt-1 text-sm font-semibold leading-6 text-[var(--text-muted)]">{description}</p></Link>;
 }

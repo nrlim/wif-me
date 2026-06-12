@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type ReactElement } from "react";
+import { useState, type ReactElement, type ReactNode } from "react";
 import { AlertTriangle, X } from "lucide-react";
 
 type HiddenField = {
@@ -16,14 +16,15 @@ type ConfirmActionFormProps = {
   readonly description: string;
   readonly confirmLabel: string;
   readonly cancelLabel: string;
+  readonly triggerIcon?: ReactNode;
 };
 
-export function ConfirmActionForm({ action, fields, triggerLabel, title, description, confirmLabel, cancelLabel }: ConfirmActionFormProps): ReactElement {
+export function ConfirmActionForm({ action, fields, triggerLabel, title, description, confirmLabel, cancelLabel, triggerIcon }: ConfirmActionFormProps): ReactElement {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <>
-      <button type="button" onClick={() => setIsOpen(true)} className="min-h-11 rounded-lg bg-[var(--error)] px-5 text-sm font-extrabold text-white">{triggerLabel}</button>
+      <button type="button" onClick={() => setIsOpen(true)} className="inline-flex min-h-11 items-center justify-center gap-1.5 rounded-lg bg-[var(--error)] px-5 text-sm font-extrabold text-white">{triggerIcon}{triggerLabel}</button>
       {isOpen ? (
         <div className="fixed inset-0 z-[230] flex items-end justify-center bg-black/45 p-4 backdrop-blur-sm md:items-center">
           <section role="dialog" aria-modal="true" aria-labelledby="confirm-title" className="w-full max-w-md rounded-xl border border-[var(--border)] bg-white p-5 shadow-[0_22px_60px_rgba(0,0,0,0.22)]">

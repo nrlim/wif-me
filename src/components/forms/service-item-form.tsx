@@ -2,7 +2,7 @@
 
 import { useMemo, useState, type ReactElement } from "react";
 import { Link } from "@/i18n/routing";
-import type { PlatformServiceConfig, ServiceStatusKey } from "@/lib/constants/services";
+import type { ServiceStatusKey } from "@/lib/constants/services";
 
 const STATUS_OPTIONS: readonly ServiceStatusKey[] = ["active", "draft"];
 
@@ -18,18 +18,32 @@ type ItemFormText = {
   readonly cancel: string;
   readonly statuses: Record<ServiceStatusKey, string>;
   readonly categories: readonly { readonly key: string; readonly label: string }[];
+  readonly baseLocation: string;
+};
+
+type EditableServiceItem = {
+  readonly key?: string;
+  readonly code?: string;
+  readonly categoryKey?: string | null;
+  readonly durationKey?: string;
+  readonly status?: ServiceStatusKey;
+  readonly baseCurrency?: "IDR" | "SAR" | "USD" | null;
+  readonly originalPrice?: string | number | null;
+  readonly basePriceIdr?: string | number;
+  readonly baseLocationId?: string | null;
 };
 
 type ServiceItemFormProps = {
   readonly locale: string;
   readonly action: (formData: FormData) => Promise<never>;
   readonly text: ItemFormText;
-  readonly service?: PlatformServiceConfig;
+  readonly service?: EditableServiceItem;
   readonly initialTitle?: string;
   readonly initialDescription?: string;
+  readonly locations: readonly { readonly id: string; readonly name: string }[];
 };
 
-export function ServiceItemForm({ locale, action, text, service, initialTitle = "", initialDescription = "" }: ServiceItemFormProps): ReactElement {
+export function ServiceItemForm({ locale, action, text, service, initialTitle = "", initialDescription = "", locations }: ServiceItemFormProps): ReactElement {
   const [title, setTitle] = useState(initialTitle);
   const generatedKey = useMemo(() => toCamelCase(title || service?.key || "platformService"), [service?.key, title]);
 
@@ -56,13 +70,31 @@ export function ServiceItemForm({ locale, action, text, service, initialTitle = 
           {text.description}
           <textarea id="description" name="description" defaultValue={initialDescription} className="min-h-28 w-full rounded-lg border border-[#dfe4df] bg-[#fbfaf6] px-3 py-3 text-sm font-semibold text-[#111827] outline-none focus:border-[var(--emerald)] focus:bg-white" required />
         </label>
-        <label className="grid gap-1.5 text-xs font-extrabold text-[var(--charcoal)]" htmlFor="basePriceIdr">
-          {text.basePrice}
-          <input id="basePriceIdr" name="basePriceIdr" type="number" min="0" defaultValue={service?.basePriceIdr ?? "0"} className="auth-input" required />
-        </label>
+        <div className="grid gap-1.5 md:col-span-2 lg:col-span-1">
+          <label className="text-xs font-extrabold text-[var(--charcoal)]" htmlFor="originalPrice">
+            {text.basePrice}
+          </label>
+          <div className="flex gap-2">
+            <div className="w-24 shrink-0">
+              <select id="baseCurrency" name="baseCurrency" defaultValue={service?.baseCurrency ?? "IDR"} className="auth-select px-2" required>
+                <option value="IDR">IDR</option>
+                <option value="SAR">SAR</option>
+                <option value="USD">USD</option>
+              </select>
+            </div>
+            <input id="originalPrice" name="originalPrice" type="number" min="0" defaultValue={service?.originalPrice ?? service?.basePriceIdr ?? "0"} className="auth-input flex-1" required />
+          </div>
+        </div>
         <label className="grid gap-1.5 text-xs font-extrabold text-[var(--charcoal)]" htmlFor="durationKey">
           {text.duration}
           <input id="durationKey" name="durationKey" defaultValue={service?.durationKey ?? "oneDay"} className="auth-input" required />
+        </label>
+        <label className="grid gap-1.5 text-xs font-extrabold text-[var(--charcoal)]" htmlFor="baseLocationId">
+          {text.baseLocation}
+          <select id="baseLocationId" name="baseLocationId" defaultValue={service?.baseLocationId ?? ""} className="auth-select">
+            <option value="">(Bebas / Tidak Terikat)</option>
+            {locations.map((loc) => <option key={loc.id} value={loc.id}>{loc.name}</option>)}
+          </select>
         </label>
         <label className="grid gap-1.5 text-xs font-extrabold text-[var(--charcoal)]" htmlFor="status">
           {text.status}

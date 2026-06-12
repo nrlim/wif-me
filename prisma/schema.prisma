@@ -86,23 +86,107 @@ enum PriceModel {
   CUSTOM
 }
 
+enum ProviderStaffStatus {
+  ACTIVE
+  ON_DUTY
+  INACTIVE
+}
+
+enum ProviderFleetStatus {
+  AVAILABLE
+  ASSIGNED
+  MAINTENANCE
+}
+
+enum InviteStatus {
+  NONE
+  PENDING
+  ACCEPTED
+  EXPIRED
+  REVOKED
+}
+
+// ---- NEW: Master Location ----
+enum LocationType {
+  CITY
+  AIRPORT
+  TRAIN_STATION
+  HOLY_SITE
+}
+
+model Location {
+  id          String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name        String       @db.VarChar(120)
+  type        LocationType @default(CITY)
+  countryCode String       @default("SA") @db.VarChar(2)
+  isMaster    Boolean      @default(true)
+  createdAt   DateTime     @default(now())
+
+  // Relations
+  serviceBases        ServiceOffering[] @relation("BaseLocation")
+  serviceOrigins      ServiceOffering[] @relation("OriginLocation")
+  serviceDestinations ServiceOffering[] @relation("DestinationLocation")
+  providerProfiles    ProviderProfile[]
+  providerFleets      ProviderFleet[]
+
+  @@index([type])
+  @@index([countryCode])
+  @@map("wif_location")
+}
+
+// ---- NEW: Shopping Cart & Orders ----
+enum OrderStatus {
+  CART
+  PENDING_PAYMENT
+  PAID
+  CANCELLED
+}
+
+model Order {
+  id         String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  customerId String      @db.Uuid
+  status     OrderStatus @default(CART)
+
+  subtotalIdr Decimal @default(0) @db.Decimal(14, 2)
+  discountIdr Decimal @default(0) @db.Decimal(14, 2)
+  totalIdr    Decimal @default(0) @db.Decimal(14, 2)
+  voucherCode String? @db.VarChar(60)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  customer User      @relation("CustomerOrders", fields: [customerId], references: [id], onDelete: Restrict)
+  bookings Booking[]
+  payment  Payment?
+
+  @@index([customerId, status])
+  @@index([status, createdAt])
+  @@map("wif_order")
+}
+
 model User {
-  id            String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  email         String         @unique @db.VarChar(255)
-  passwordHash  String         @db.VarChar(255)
-  name          String         @db.VarChar(160)
-  role          UserRole       @default(JAMAAH)
-  phone         String?        @db.VarChar(32)
-  emailVerified Boolean        @default(false)
-  emailVerifiedAt DateTime?
+  id                String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  email             String       @unique @db.VarChar(255)
+  passwordHash      String       @db.VarChar(255)
+  name              String       @db.VarChar(160)
+  role              UserRole     @default(JAMAAH)
+  phone             String?      @db.VarChar(32)
+  emailVerified     Boolean      @default(false)
+  emailVerifiedAt   DateTime?
+  isAvailable       Boolean      @default(true)
   preferredCurrency CurrencyCode @default(IDR)
-  createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @updatedAt
-  providerProfile ProviderProfile?
-  offeredServices ServiceOffering[] @relation("ServiceOwner")
-  bookings      Booking[]      @relation("CustomerBookings")
-  emailOtps     EmailOtp[]
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
+
+  providerProfile    ProviderProfile?
+  offeredServices    ServiceOffering[]   @relation("ServiceOwner")
+  bookings           Booking[]           @relation("CustomerBookings")
+  orders             Order[]             @relation("CustomerOrders")
+  emailOtps          EmailOtp[]
   withdrawalRequests WithdrawalRequest[] @relation("ProviderWithdrawals")
+  providerStaff      ProviderStaff[]     @relation("ProviderStaffOwner")
+  staffAccounts      ProviderStaff[]     @relation("StaffUserAccount")
+  providerFleets     ProviderFleet[]     @relation("ProviderFleetOwner")
 
   @@index([role])
   @@index([createdAt])
@@ -110,109 +194,205 @@ model User {
 }
 
 model ProviderProfile {
-  id              String             @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  userId          String             @unique @db.Uuid
-  displayName     String             @db.VarChar(180)
-  bio             String?            @db.Text
-  languages       String[]           @default([])
-  baseCity        String?            @db.VarChar(120)
+  id                 String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId             String  @unique @db.Uuid
+  companyName        String  @db.VarChar(200)
+  displayName        String  @db.VarChar(180)
+  companyType        String  @db.VarChar(80)
+  registrationNumber String? @db.VarChar(80)
+  taxId              String? @db.VarChar(40)
+  logoUrl            String? @db.VarChar(500)
+  bio                String? @db.Text
+  website            String? @db.VarChar(255)
+  phone              String? @db.VarChar(32)
+  whatsapp           String? @db.VarChar(32)
+  address            String? @db.Text
+
+  baseLocationId String?   @db.Uuid
+  baseLocation   Location? @relation(fields: [baseLocationId], references: [id])
+
+  country            String             @default("ID") @db.VarChar(4)
+  languages          String[]           @default([])
+  serviceTypes       ServiceType[]      @default([])
   verificationStatus VerificationStatus @default(DRAFT)
-  verifiedAt      DateTime?
-  createdAt       DateTime           @default(now())
-  updatedAt       DateTime           @updatedAt
-  user            User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  verifiedAt         DateTime?
+  rejectionReason    String?            @db.Text
+  submittedAt        DateTime?
+  createdAt          DateTime           @default(now())
+  updatedAt          DateTime           @updatedAt
+  user               User               @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([verificationStatus])
   @@map("wif_provider_profile")
 }
 
 model ServiceCategory {
-  id              String                @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  key             String                @unique @db.VarChar(80)
-  slug            String                @unique @db.VarChar(100)
-  serviceType     ServiceType           @unique
-  title           String                @db.VarChar(160)
-  description     String                @db.Text
-  priceModel      PriceModel
-  displayOrder    Int                   @default(1)
-  status          ServiceCategoryStatus @default(DRAFT)
-  createdAt       DateTime              @default(now())
-  updatedAt       DateTime              @updatedAt
-  offerings       ServiceOffering[]
+  id           String                @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  key          String                @unique @db.VarChar(80)
+  slug         String                @unique @db.VarChar(100)
+  serviceType  ServiceType           @unique
+  title        String                @db.VarChar(160)
+  description  String                @db.Text
+  priceModel   PriceModel
+  displayOrder Int                   @default(1)
+  status       ServiceCategoryStatus @default(DRAFT)
+  createdAt    DateTime              @default(now())
+  updatedAt    DateTime              @updatedAt
+  offerings    ServiceOffering[]
 
   @@index([status, displayOrder])
   @@map("wif_service_category")
 }
 
 model ServiceOffering {
-  id              String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  ownerId         String        @db.Uuid
-  categoryId      String?       @db.Uuid
-  type            ServiceType
-  title           String        @db.VarChar(180)
-  description     String        @db.Text
-  basePriceIdr    Decimal       @db.Decimal(14, 2)
-  routeFrom       String?       @db.VarChar(120)
-  routeTo         String?       @db.VarChar(120)
-  isActive        Boolean       @default(false)
-  createdAt       DateTime      @default(now())
-  updatedAt       DateTime      @updatedAt
-  owner           User          @relation("ServiceOwner", fields: [ownerId], references: [id], onDelete: Restrict)
-  category        ServiceCategory? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
-  bookings        Booking[]
+  id            String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  ownerId       String       @db.Uuid
+  categoryId    String?      @db.Uuid
+  type          ServiceType
+  title         String       @db.VarChar(180)
+  description   String       @db.Text
+  basePriceIdr  Decimal      @db.Decimal(14, 2)
+  baseCurrency  CurrencyCode @default(IDR)
+  originalPrice Decimal?     @db.Decimal(14, 2)
+
+  baseLocationId     String? @db.Uuid
+  routeOriginId      String? @db.Uuid
+  routeDestinationId String? @db.Uuid
+
+  baseLocation     Location? @relation("BaseLocation", fields: [baseLocationId], references: [id])
+  routeOrigin      Location? @relation("OriginLocation", fields: [routeOriginId], references: [id])
+  routeDestination Location? @relation("DestinationLocation", fields: [routeDestinationId], references: [id])
+
+  vehicleType         String?  @db.VarChar(60)
+  bookableResourceRef String?  @db.VarChar(120)
+  isActive            Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  owner    User             @relation("ServiceOwner", fields: [ownerId], references: [id], onDelete: Restrict)
+  category ServiceCategory? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  bookings Booking[]
 
   @@index([categoryId, isActive])
   @@index([type, isActive])
   @@index([ownerId])
+  @@index([bookableResourceRef])
   @@map("wif_service_offering")
 }
 
+model ProviderStaff {
+  id              String              @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  providerId      String              @db.Uuid
+  name            String              @db.VarChar(160)
+  roleTitle       String              @db.VarChar(120)
+  phone           String?             @db.VarChar(32)
+  languages       String[]            @default([])
+  basePriceIdr    Decimal             @default(0) @db.Decimal(14, 2)
+  baseCurrency    CurrencyCode        @default(IDR)
+  originalPrice   Decimal?            @db.Decimal(14, 2)
+  status          ProviderStaffStatus @default(ACTIVE)
+  notes           String?             @db.Text
+  userId          String?             @db.Uuid
+  email           String?             @db.VarChar(255)
+  inviteStatus    InviteStatus        @default(NONE)
+  inviteToken     String?             @db.VarChar(128)
+  inviteExpiresAt DateTime?
+  createdAt       DateTime            @default(now())
+  updatedAt       DateTime            @updatedAt
+
+  provider User  @relation("ProviderStaffOwner", fields: [providerId], references: [id], onDelete: Cascade)
+  user     User? @relation("StaffUserAccount", fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([providerId, status])
+  @@index([providerId, createdAt])
+  @@map("wif_provider_staff")
+}
+
+model ProviderFleet {
+  id          String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  providerId  String  @db.Uuid
+  vehicleName String  @db.VarChar(160)
+  vehicleType String  @db.VarChar(80)
+  plateNumber String? @db.VarChar(40)
+  capacity    Int
+
+  baseLocationId String?   @db.Uuid
+  baseLocation   Location? @relation(fields: [baseLocationId], references: [id])
+
+  basePriceIdr  Decimal             @default(0) @db.Decimal(14, 2)
+  baseCurrency  CurrencyCode        @default(IDR)
+  originalPrice Decimal?            @db.Decimal(14, 2)
+  status        ProviderFleetStatus @default(AVAILABLE)
+  notes         String?             @db.Text
+  createdAt     DateTime            @default(now())
+  updatedAt     DateTime            @updatedAt
+
+  provider User @relation("ProviderFleetOwner", fields: [providerId], references: [id], onDelete: Cascade)
+
+  @@index([providerId, status])
+  @@index([providerId, createdAt])
+  @@map("wif_provider_fleet")
+}
+
 model Booking {
-  id              String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  customerId      String        @db.Uuid
-  serviceOfferingId String      @db.Uuid
-  status          BookingStatus @default(DRAFT)
-  scheduledStart  DateTime
-  scheduledEnd    DateTime?
-  notes           String?       @db.Text
-  totalPriceIdr   Decimal       @db.Decimal(14, 2)
-  createdAt       DateTime      @default(now())
-  updatedAt       DateTime      @updatedAt
-  customer        User          @relation("CustomerBookings", fields: [customerId], references: [id], onDelete: Restrict)
+  id                String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  customerId        String  @db.Uuid
+  serviceOfferingId String  @db.Uuid
+  orderId           String? @db.Uuid
+
+  status         BookingStatus @default(DRAFT)
+  scheduledStart DateTime
+  scheduledEnd   DateTime?
+  notes          String?       @db.Text
+  totalPriceIdr  Decimal       @db.Decimal(14, 2)
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  customer        User            @relation("CustomerBookings", fields: [customerId], references: [id], onDelete: Restrict)
   serviceOffering ServiceOffering @relation(fields: [serviceOfferingId], references: [id], onDelete: Restrict)
-  payment         Payment?
+  order           Order?          @relation(fields: [orderId], references: [id], onDelete: Cascade)
 
   @@index([status, createdAt])
   @@index([customerId, status])
+  @@index([orderId])
   @@index([serviceOfferingId, scheduledStart])
   @@map("wif_booking")
 }
 
 model Payment {
-  id              String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  bookingId       String        @unique @db.Uuid
-  status          PaymentStatus @default(PENDING)
-  amountIdr       Decimal       @db.Decimal(14, 2)
-  gatewayReference String?      @db.VarChar(180)
+  id      String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  orderId String @unique @db.Uuid
+
+  status           PaymentStatus @default(PENDING)
+  amountIdr        Decimal       @db.Decimal(14, 2)
+  gatewayReference String?       @db.VarChar(180)
+  proofUrl         String?       @db.VarChar(500)
+  proofFileName    String?       @db.VarChar(180)
+  proofMimeType    String?       @db.VarChar(120)
+  proofUploadedAt  DateTime?
+  proofVerifiedAt  DateTime?
+  proofRejectedAt  DateTime?
+  proofReviewNote  String?       @db.Text
   escrowReleasedAt DateTime?
-  createdAt       DateTime      @default(now())
-  updatedAt       DateTime      @updatedAt
-  booking         Booking       @relation(fields: [bookingId], references: [id], onDelete: Restrict)
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+
+  order Order @relation(fields: [orderId], references: [id], onDelete: Restrict)
 
   @@index([status])
   @@map("wif_payment")
 }
 
 model EmailOtp {
-  id              String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  userId          String        @db.Uuid
-  purpose         OtpPurpose
-  otpHash         String        @db.VarChar(128)
-  expiresAt       DateTime
-  consumedAt      DateTime?
-  attempts        Int           @default(0)
-  createdAt       DateTime      @default(now())
-  user            User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id         String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId     String     @db.Uuid
+  purpose    OtpPurpose
+  otpHash    String     @db.VarChar(128)
+  expiresAt  DateTime
+  consumedAt DateTime?
+  attempts   Int        @default(0)
+  createdAt  DateTime   @default(now())
+  user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId, purpose, expiresAt])
   @@index([purpose, createdAt])
@@ -220,17 +400,23 @@ model EmailOtp {
 }
 
 model WithdrawalRequest {
-  id              String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  providerId      String           @db.Uuid
-  status          WithdrawalStatus @default(REVIEW)
-  amountIdr       Decimal          @db.Decimal(14, 2)
-  bankName        String?          @db.VarChar(120)
-  bankAccountLast4 String?         @db.VarChar(8)
-  reviewedAt      DateTime?
-  paidAt          DateTime?
-  createdAt       DateTime         @default(now())
-  updatedAt       DateTime         @updatedAt
-  provider        User             @relation("ProviderWithdrawals", fields: [providerId], references: [id], onDelete: Restrict)
+  id               String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  providerId       String           @db.Uuid
+  status           WithdrawalStatus @default(REVIEW)
+  amountIdr        Decimal          @db.Decimal(14, 2)
+  bankName             String?          @db.VarChar(120)
+  bankAccountName      String?          @db.VarChar(160)
+  bankAccountLast4     String?          @db.VarChar(8)
+  bankAccountEncrypted String?          @db.Text
+  bankAccountIv        String?          @db.VarChar(64)
+  bankAccountTag       String?          @db.VarChar(64)
+  requestedNote        String?          @db.Text
+  reviewNote           String?          @db.Text
+  reviewedAt           DateTime?
+  paidAt           DateTime?
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+  provider         User             @relation("ProviderWithdrawals", fields: [providerId], references: [id], onDelete: Restrict)
 
   @@index([providerId, status])
   @@index([status, createdAt])
@@ -238,26 +424,26 @@ model WithdrawalRequest {
 }
 
 model FinanceRule {
-  id              String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  key             String            @unique @db.VarChar(80)
-  kind            FinanceRuleKind
-  title           String            @db.VarChar(160)
-  description     String            @db.Text
-  value           String            @db.VarChar(80)
-  status          FinanceRuleStatus @default(DRAFT)
-  createdAt       DateTime          @default(now())
-  updatedAt       DateTime          @updatedAt
+  id          String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  key         String            @unique @db.VarChar(80)
+  kind        FinanceRuleKind
+  title       String            @db.VarChar(160)
+  description String            @db.Text
+  value       String            @db.VarChar(80)
+  status      FinanceRuleStatus @default(DRAFT)
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
 
   @@index([kind, status])
   @@map("wif_finance_rule")
 }
 
 model ExchangeRate {
-  id              String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  baseCurrency    CurrencyCode  @default(IDR)
-  targetCurrency  CurrencyCode
-  rate            Decimal       @db.Decimal(18, 8)
-  fetchedAt       DateTime      @default(now())
+  id             String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  baseCurrency   CurrencyCode @default(IDR)
+  targetCurrency CurrencyCode
+  rate           Decimal      @db.Decimal(18, 8)
+  fetchedAt      DateTime     @default(now())
 
   @@unique([baseCurrency, targetCurrency])
   @@index([fetchedAt])

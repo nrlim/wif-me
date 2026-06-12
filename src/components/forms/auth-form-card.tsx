@@ -1,10 +1,11 @@
 "use client";
 
 import { Link, useRouter } from "@/i18n/routing";
-import { Lock, Mail, User } from "lucide-react";
+import { Mail, User } from "lucide-react";
 import { useTranslations } from "next-intl";
 import type { FormEvent, ReactElement } from "react";
 import { useState } from "react";
+import { PasswordInput } from "@/components/shared/password-input";
 import { AUTH_COPY, type AuthMode } from "@/lib/constants/marketing";
 
 type AuthFormCardProps = {
@@ -45,6 +46,7 @@ export function AuthFormCard({ mode, nextPath = "" }: AuthFormCardProps): ReactE
   const safeNextPath = sanitizeNextPath(nextPath);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [selectedRole, setSelectedRole] = useState("JAMAAH");
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>): Promise<void> {
     event.preventDefault();
@@ -120,6 +122,10 @@ export function AuthFormCard({ mode, nextPath = "" }: AuthFormCardProps): ReactE
 
   async function handleProblem(response: Response): Promise<void> {
     const payload = await readJsonResponse(response);
+    if (isProblemResponse(payload) && payload.type === "https://wifme.id/problems/provider-business-email-required") {
+      setErrorMessage(t("errors.providerBusinessEmail"));
+      return;
+    }
     setErrorMessage(isProblemResponse(payload) && payload.detail ? payload.detail : t("errors.generic"));
   }
 
@@ -133,13 +139,23 @@ export function AuthFormCard({ mode, nextPath = "" }: AuthFormCardProps): ReactE
 
       <form className="grid gap-2.5 lg:gap-3" onSubmit={handleSubmit}>
         {isRegister ? <FieldFrame icon={<User className="size-4 text-[var(--text-muted)]" aria-hidden="true" />} htmlFor="name" label={t("fields.nameLabel")}><input id="name" name="name" type="text" autoComplete="name" required className="auth-input auth-input-icon" placeholder={t("fields.namePlaceholder")} /></FieldFrame> : null}
-        <FieldFrame icon={<Mail className="size-4 text-[var(--text-muted)]" aria-hidden="true" />} htmlFor="email" label={t("fields.emailLabel")}><input id="email" name="email" type="email" autoComplete="email" required className="auth-input auth-input-icon" placeholder={t("fields.emailPlaceholder")} /></FieldFrame>
-        {!isForgotPassword ? <FieldFrame icon={<Lock className="size-4 text-[var(--text-muted)]" aria-hidden="true" />} htmlFor="password" label={t("fields.passwordLabel")}><input id="password" name="password" type="password" autoComplete={isRegister ? "new-password" : "current-password"} required minLength={8} className="auth-input auth-input-icon" placeholder={t("fields.passwordPlaceholder")} /></FieldFrame> : null}
+        <FieldFrame icon={<Mail className="size-4 text-[var(--text-muted)]" aria-hidden="true" />} htmlFor="email" label={t("fields.emailLabel")}><input id="email" name="email" type="email" autoComplete="email" required className="auth-input auth-input-icon" placeholder={selectedRole === "PROVIDER" ? t("fields.businessEmailPlaceholder") : t("fields.emailPlaceholder")} aria-describedby={selectedRole === "PROVIDER" ? "provider-email-helper" : undefined} /></FieldFrame>
+        {!isForgotPassword ? <div className="grid gap-1"><label className="text-[0.73rem] font-extrabold text-[var(--charcoal)]" htmlFor="password">{t("fields.passwordLabel")}</label><PasswordInput id="password" name="password" autoComplete={isRegister ? "new-password" : "current-password"} required minLength={8} className="auth-input auth-input-icon" placeholder={t("fields.passwordPlaceholder")} /></div> : null}
 
         {isRegister ? (
           <div className="grid gap-1">
             <label className="text-[0.73rem] font-extrabold text-[var(--charcoal)]" htmlFor="role">{t("fields.roleLabel")}</label>
-            <select id="role" name="role" required className="auth-select" defaultValue="JAMAAH"><option value="JAMAAH">{t("roles.JAMAAH")}</option><option value="MUTHAWIF">{t("roles.MUTHAWIF")}</option><option value="PROVIDER">{t("roles.PROVIDER")}</option></select>
+            <select id="role" name="role" required className="auth-select" defaultValue="JAMAAH" onChange={(event) => setSelectedRole(event.target.value)}>
+              <option value="JAMAAH">{t("roles.JAMAAH")}</option>
+              <option value="MUTHAWIF">{t("roles.MUTHAWIF")}</option>
+              <option value="PROVIDER">{t("roles.PROVIDER")}</option>
+            </select>
+            {selectedRole === "PROVIDER" ? (
+              <div id="provider-email-helper" className="mt-2 rounded-lg border border-blue-100 bg-blue-50 p-3 text-xs leading-5 text-blue-800">
+                <span className="mb-1 block font-bold">{t("providerNotice.title")}</span>
+                {t("providerNotice.description")}
+              </div>
+            ) : null}
           </div>
         ) : null}
 

@@ -1,5 +1,6 @@
 import type { ReactElement, ReactNode } from "react";
 import { DashboardSidebar } from "@/components/layout/dashboard-sidebar";
+import { DashboardLayoutClient } from "@/components/layout/dashboard-layout-client";
 import { DashboardHeader } from "@/components/layout/dashboard-header";
 import { DashboardMobileNav } from "@/components/layout/dashboard-mobile-nav";
 import { DashboardFeedback } from "@/components/shared/dashboard-feedback";
@@ -14,7 +15,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps): Rea
       {/* Sidebar for desktop */}
       <DashboardSidebar />
 
-      <div className="md:pl-64 flex flex-col min-h-screen">
+      <DashboardLayoutClient>
         <DashboardHeader />
 
         <main className="flex-1 pb-28 pt-5 md:py-10">
@@ -22,7 +23,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps): Rea
             {children}
           </div>
         </main>
-      </div>
+      </DashboardLayoutClient>
 
       <DashboardMobileNav />
       <DashboardFeedback />

@@ -9,8 +9,8 @@ type BrandMarkProps = {
 export function BrandMark({ compact = false }: BrandMarkProps): ReactElement {
   return (
     <Link href="/" className="group inline-flex items-center gap-3" aria-label="Wif-Me beranda">
-      <div className="relative grid size-10 place-items-center overflow-hidden rounded-[8px] bg-white ring-1 ring-[var(--border)] transition-transform duration-200 group-hover:-translate-y-0.5">
-        <Image src="/logo-icon.png" alt="Wif-Me Logo" fill sizes="40px" className="object-cover" />
+      <div className="relative grid size-12 place-items-center transition-transform duration-200 group-hover:-translate-y-0.5">
+        <Image src="/logo-icon.png" alt="Wif-Me Logo" fill sizes="48px" className="object-contain" />
       </div>
       {!compact ? (
         <span className="flex flex-col leading-none">

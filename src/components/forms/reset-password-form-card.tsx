@@ -5,6 +5,7 @@ import { KeyRound } from "lucide-react";
 import { useTranslations } from "next-intl";
 import type { FormEvent, ReactElement } from "react";
 import { useState } from "react";
+import { PasswordInput } from "@/components/shared/password-input";
 
 type ResetPasswordFormCardProps = {
   readonly email: string;
@@ -68,14 +69,13 @@ export function ResetPasswordFormCard({ email }: ResetPasswordFormCardProps): Re
       </div>
 
       <form className="grid gap-3" onSubmit={handleSubmit}>
-        <label className="grid gap-1 text-[0.73rem] font-extrabold text-[var(--charcoal)]" htmlFor="otp">
-          {t("otpLabel")}
-          <input id="otp" name="otp" inputMode="numeric" pattern="[0-9]{6}" maxLength={6} required className="auth-input pl-4 tracking-[0.32em]" placeholder="000000" />
-        </label>
-        <label className="grid gap-1 text-[0.73rem] font-extrabold text-[var(--charcoal)]" htmlFor="password">
-          {t("passwordLabel")}
-          <input id="password" name="password" type="password" autoComplete="new-password" minLength={8} required className="auth-input pl-4" placeholder={t("passwordPlaceholder")} />
-        </label>
+        <FieldFrame icon={<KeyRound className="size-4 text-[var(--text-muted)]" aria-hidden="true" />} htmlFor="otp" label={t("otpLabel")}>
+          <input id="otp" name="otp" inputMode="numeric" pattern="[0-9]{6}" maxLength={6} required className="auth-input auth-input-icon tracking-[0.32em]" placeholder="000000" />
+        </FieldFrame>
+        <div className="grid gap-1">
+          <label className="text-[0.73rem] font-extrabold text-[var(--charcoal)]" htmlFor="password">{t("passwordLabel")}</label>
+          <PasswordInput id="password" name="password" autoComplete="new-password" minLength={8} required className="auth-input auth-input-icon" placeholder={t("passwordPlaceholder")} />
+        </div>
 
         {errorMessage ? (
           <p className="rounded-xl border border-red-200 bg-red-50 px-3 py-2 text-sm font-bold leading-6 text-[var(--error)]" role="alert">
@@ -95,4 +95,15 @@ export function ResetPasswordFormCard({ email }: ResetPasswordFormCardProps): Re
       </div>
     </section>
   );
+}
+
+type FieldFrameProps = {
+  readonly children: React.ReactElement;
+  readonly htmlFor: string;
+  readonly icon: React.ReactElement;
+  readonly label: string;
+};
+
+function FieldFrame({ children, htmlFor, icon, label }: FieldFrameProps): React.ReactElement {
+  return <div className="grid gap-1"><label className="text-[0.73rem] font-extrabold text-[var(--charcoal)]" htmlFor={htmlFor}>{label}</label><div className="relative"><div className="pointer-events-none absolute inset-y-0 left-0 z-10 flex items-center pl-3">{icon}</div>{children}</div></div>;
 }

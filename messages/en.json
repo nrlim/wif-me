@@ -25,14 +25,14 @@
   "Landing": {
     "meta": {
       "title": "Wif-Me | Umrah Worship Companion Platform",
-      "description": "A multi-service marketplace for personal muthawif, muthawif providers, transportation, visa processing, and supporting services for independent Umrah pilgrims."
+      "description": "A multi-service marketplace for verified muthawif, transportation, visa processing, and supporting services for independent Umrah pilgrims."
     },
     "hero": {
       "bismillah": "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيم",
       "eyebrow": "Umrah worship companion platform",
       "titlePrefix": "One platform for",
-      "titleHighlight": "Muthawif, visas, and transportation",
-      "description": "Wif-Me connects independent Umrah pilgrims with personal muthawif, providers, route-based transportation, visa processing, and supporting services in a verified ecosystem.",
+      "titleHighlight": "Muthawif, Visa, and Transportation",
+      "description": "Wif-Me connects independent Umrah pilgrims with verified muthawif, route-based transportation fleets, visa processing, and supporting services in a validated partner ecosystem.",
       "primaryCta": "Plan your needs",
       "secondaryCta": "View services",
       "stats": {
@@ -60,20 +60,20 @@
       "description": "Each service can stand alone, but they are designed to connect so worship preparation stays organized.",
       "items": [
         {
-          "title": "Personal Muthawif",
-          "desc": "Book a verified individual worship guide for independent pilgrims, families, or small groups."
-        },
-        {
-          "title": "Muthawif Provider",
-          "desc": "B2B cooperation for travel agencies, communities, and organizations that need reliable muthawif supply."
+          "title": "Muthawif",
+          "desc": "Compare personal muthawif and provider-supplied muthawif in one list."
         },
         {
           "title": "Transportation",
-          "desc": "Route-based vehicle rental for airports, Makkah, Madinah, ziyarat, and intercity travel."
+          "desc": "Choose fleets and routes: airport, Makkah, Madinah, ziyarat, and intercity trips."
         },
         {
           "title": "Visa Processing",
-          "desc": "Umrah visa and supporting document handling with trackable process status."
+          "desc": "Umrah visa handling and supporting document checks with trackable process status."
+        },
+        {
+          "title": "Additional Services",
+          "desc": "Supporting needs that complement the worship plan and connect to the main booking."
         }
       ]
     },
@@ -86,7 +86,7 @@
         {
           "step": "01",
           "title": "Choose services",
-          "desc": "Define your needs: muthawif, provider, transportation, visa, or additional services."
+          "desc": "Define your needs: muthawif, transportation, visa, or additional services."
         },
         {
           "step": "02",
@@ -136,7 +136,7 @@
         },
         {
           "title": "Provider",
-          "desc": "Manage B2B services for groups, travel agencies, and organizations."
+          "desc": "Manages muthawif teams, fleets, or supporting services supplied as Wif-Me partners."
         }
       ]
     },
@@ -147,14 +147,16 @@
       "button": "Register Now",
       "cards": [
         {
-          "title": "I am a Pilgrim",
-          "desc": "Find worship assistance, transportation, visa, and additional needs in one platform."
+          "title": "I'm a Jamaah",
+          "desc": "Find companionship, transportation, visa, and additional needs in one platform."
         },
         {
-          "title": "I am a Provider",
-          "desc": "Register your service as a personal muthawif or provider for pilgrims and B2B cooperation."
+          "title": "I'm a Muthawif",
+          "desc": "Register yourself as a personal muthawif to accompany independent jamaah during their worship."
         }
-      ]
+      ],
+      "providerLink": "Are you a service provider agency (Travel/Transportation)?",
+      "providerAction": "Register as a Provider"
     },
     "cta": {
       "title": "Worship preparation, better organized",
@@ -192,14 +194,17 @@
           "overview": "Overview",
           "schedule": "My schedule",
           "earnings": "Earnings",
-          "settings": "Settings"
+          "settings": "Settings",
+          "profile": "Profile",
+          "withdrawals": "Withdrawals"
         },
         "provider": {
           "overview": "Overview",
           "staff": "Staff management",
           "fleet": "Fleet",
           "earnings": "Earnings",
-          "settings": "Settings"
+          "settings": "Settings",
+          "withdrawals": "Withdrawals"
         },
         "admin": {
           "overview": "Overview",
@@ -217,7 +222,8 @@
           "withdrawals": "Withdrawals",
           "fees": "Commissions & fees",
           "charges": "Additional charges",
-          "financeSettings": "Fees & charges"
+          "financeSettings": "Fees & charges",
+          "locationLookup": "Location lookup"
         }
       },
       "more": "Menu",
@@ -637,6 +643,56 @@
       "delete": {
         "title": "Delete {name}?",
         "description": "This removes the record from the admin operational list. Make sure no verification process or active booking is still running."
+      },
+      "review": {
+        "muthawifEyebrow": "Muthawif review",
+        "providerEyebrow": "Provider review",
+        "muthawifDescription": "Review profile, location, services, and verification status before an admin decision.",
+        "providerDescription": "Review legal profile, contacts, logo, and provider readiness before an admin decision.",
+        "backToMuthawif": "Back to muthawif",
+        "backToProviders": "Back to providers",
+        "legalTitle": "Legal information",
+        "contactTitle": "Contact and location",
+        "profileTitle": "Operational profile",
+        "logoTitle": "Logo or visual identity",
+        "actionTitle": "Review action",
+        "approve": "Approve",
+        "reject": "Reject submission",
+        "rejectionReason": "Rejection reason",
+        "rejectionPlaceholder": "Write what needs to be completed before resubmission.",
+        "currentStatus": "Current status",
+        "noLogo": "No logo yet",
+        "empty": "-",
+        "fields": {
+          "companyType": "Business type",
+          "registrationNumber": "Registration number",
+          "taxId": "Tax number",
+          "status": "Verification status",
+          "email": "Registrant email",
+          "phone": "Phone number",
+          "whatsapp": "WhatsApp",
+          "website": "Website",
+          "baseLocation": "Base city",
+          "address": "Address",
+          "services": "Service types",
+          "languages": "Languages",
+          "bookings": "Total bookings",
+          "staff": "Provider staff",
+          "fleet": "Provider fleet"
+        }
+      },
+      "verificationStatuses": {
+        "draft": "Draft",
+        "pending": "Pending review",
+        "approved": "Approved",
+        "rejected": "Rejected"
+      },
+      "serviceTypes": {
+        "muthawifPersonal": "Muthawif Personal",
+        "providerMuthawif": "Provider Muthawif",
+        "transportation": "Transportation",
+        "visaProcessing": "Visa Processing",
+        "additionalServices": "Additional Services"
       }
     },
     "escrow": {
@@ -676,7 +732,8 @@
         "providerMuthawif": "Muthawif Provider",
         "transportation": "Transportation",
         "visaProcessing": "Visa Processing",
-        "additionalServices": "Additional Services"
+        "additionalServices": "Additional Services",
+        "multiple": "Multiple Services"
       },
       "customers": {
         "keluargaRahman": "Rahman Family",
@@ -692,7 +749,31 @@
         "description": "Check service proof and booking status before escrow funds are released.",
         "back": "Back",
         "release": "Release funds",
-        "title": "Escrow review {id}"
+        "title": "Escrow review {id}",
+        "itemsTitle": "Services in escrow",
+        "itemsDescription": "Review items, provider, schedule, and pilgrim notes before releasing funds.",
+        "summaryTitle": "Escrow summary",
+        "summaryDescription": "Funds should only be released after service completion and no active dispute.",
+        "customerEmail": "Pilgrim email",
+        "releaseTitle": "Release funds",
+        "releaseDescription": "Funds will be marked as released and related bookings will be completed.",
+        "releaseUnavailable": "Funds cannot be released because the escrow status changed or is not eligible.",
+        "releaseHelper": "Make sure service evidence and related confirmations are complete before release.",
+        "releasedNotice": "Escrow funds have been released to the provider.",
+        "schedule": "Service date",
+        "bookingStatus": "Booking status",
+        "location": "Location / route",
+        "vehicleType": "Vehicle type",
+        "notes": "Pilgrim notes",
+        "noNotes": "No notes",
+        "bookingStatuses": {
+          "DRAFT": "Draft",
+          "PENDING_PAYMENT": "Pending payment",
+          "CONFIRMED": "Confirmed",
+          "IN_PROGRESS": "In progress",
+          "COMPLETED": "Completed",
+          "CANCELLED": "Cancelled"
+        }
       }
     },
     "list": {
@@ -733,7 +814,25 @@
         "title": "Provider fund withdrawals.",
         "description": "Review payout requests from muthawif and providers before funds are released.",
         "reviewDescription": "Validate account, amount, and service completion status before approving withdrawal.",
-        "reviewTitle": "Withdrawal review {id}"
+        "reviewTitle": "Withdrawal review {id}",
+        "bank": "Destination account",
+        "partnerEmail": "Partner email",
+        "accountName": "Account name",
+        "accountNumber": "Account number",
+        "requestedNote": "Request note",
+        "actionTitle": "Admin action",
+        "actionDescription": "Approve after validating the account. Mark as paid after the operational transfer is completed.",
+        "markPaid": "Mark as paid",
+        "reviewNote": "Review note",
+        "reject": "Reject request",
+        "finalState": "This request has been fully processed.",
+        "notices": {
+          "approved": "Withdrawal request approved.",
+          "paid": "Withdrawal marked as paid.",
+          "rejected": "Withdrawal request rejected.",
+          "note-required": "A note is required for rejection.",
+          "invalid": "Withdrawal request data is invalid."
+        }
       },
       "fees": {
         "eyebrow": "Fee settings",
@@ -796,7 +895,9 @@
         "paid": "Paid",
         "escrow": "Escrow",
         "completed": "Completed",
-        "refunded": "Refunded"
+        "refunded": "Refunded",
+        "pending": "Waiting for transfer",
+        "paymentReview": "Needs verification"
       },
       "withdrawalStatuses": {
         "review": "Review",
@@ -818,7 +919,8 @@
         "providerMuthawif": "Muthawif Provider",
         "transportation": "Transportation",
         "visaProcessing": "Visa Processing",
-        "additionalServices": "Additional Services"
+        "additionalServices": "Additional Services",
+        "multiple": "Multiple Services"
       },
       "customers": {
         "keluargaRahman": "Rahman Family",
@@ -833,7 +935,93 @@
       },
       "detail": {
         "title": "Transaction detail {id}",
-        "description": "Summary of transaction, service, pilgrim, amount, and payment status."
+        "description": "Summary of transaction, service, pilgrim, amount, and payment status.",
+        "itemsTitle": "Ordered services",
+        "itemsDescription": "Match the transfer proof with items, schedule, provider, and service total before verification.",
+        "customerEmail": "Pilgrim email",
+        "provider": "Provider",
+        "schedule": "Service date",
+        "bookingStatus": "Booking status",
+        "location": "Location / route",
+        "vehicleType": "Vehicle type",
+        "notes": "Pilgrim notes",
+        "noNotes": "No notes"
+      },
+      "manualPayment": {
+        "proofTitle": "Transfer proof",
+        "proofUploaded": "Proof has been uploaded by the pilgrim.",
+        "noProof": "The pilgrim has not uploaded transfer proof.",
+        "viewProof": "View transfer proof",
+        "verify": "Verify payment",
+        "reject": "Reject proof",
+        "rejectNote": "Rejection note"
+      },
+      "bookingStatuses": {
+        "DRAFT": "Draft",
+        "PENDING_PAYMENT": "Pending payment",
+        "CONFIRMED": "Confirmed",
+        "IN_PROGRESS": "In progress",
+        "COMPLETED": "Completed",
+        "CANCELLED": "Cancelled"
+      }
+    },
+    "locations": {
+      "eyebrow": "Location lookup",
+      "title": "Master locations for the service catalog.",
+      "description": "Manage cities, airports, stations, and holy sites used by services, providers, fleets, and public filters.",
+      "empty": "No locations match the current filters.",
+      "pagination": "Showing {count} of {total} locations",
+      "fields": {
+        "location": "Location",
+        "type": "Type",
+        "country": "Country",
+        "usage": "Usage",
+        "services": "Services",
+        "providers": "Providers",
+        "isMaster": "Master location",
+        "action": "Action"
+      },
+      "types": {
+        "city": "City",
+        "airport": "Airport",
+        "trainStation": "Train station",
+        "holySite": "Holy site"
+      },
+      "statuses": {
+        "master": "Master",
+        "custom": "Custom"
+      },
+      "filters": {
+        "searchPlaceholder": "Search city, airport, or country code",
+        "perPage": "Rows"
+      },
+      "sort": {
+        "name": "Location name",
+        "type": "Location type",
+        "country": "Country code",
+        "latest": "Latest",
+        "asc": "A–Z",
+        "desc": "Z–A"
+      },
+      "actions": {
+        "edit": "Edit",
+        "delete": "Delete"
+      },
+      "form": {
+        "createTitle": "Add location",
+        "createDescription": "Add a new location for routes, provider profiles, and catalog filters.",
+        "editEyebrow": "Edit location",
+        "editTitle": "Edit {location}",
+        "editDescription": "Name or type changes affect every service relation using this location.",
+        "name": "Location name",
+        "namePlaceholder": "Example: Jeddah Airport",
+        "countryPlaceholder": "SA",
+        "save": "Save",
+        "cancel": "Cancel"
+      },
+      "delete": {
+        "title": "Delete this location?",
+        "description": "Deleted locations are no longer available for new relations. Make sure it is not used by active services before continuing."
       }
     }
   },
@@ -842,7 +1030,8 @@
       "submitting": "Processing...",
       "errors": {
         "generic": "The request could not be processed. Check your data and try again.",
-        "network": "Network issue. Please try again shortly."
+        "network": "Network issue. Please try again shortly.",
+        "providerBusinessEmail": "Provider registration requires a business email with an organization domain. Personal and temporary email addresses cannot be used."
       },
       "forgotPassword": "Forgot password",
       "fields": {
@@ -852,12 +1041,17 @@
         "emailPlaceholder": "name@email.com",
         "passwordLabel": "Password",
         "passwordPlaceholder": "Minimum 8 characters",
-        "roleLabel": "Register as"
+        "roleLabel": "Register as",
+        "businessEmailPlaceholder": "name@company-domain.com"
       },
       "roles": {
         "JAMAAH": "Pilgrim",
         "MUTHAWIF": "Muthawif",
         "PROVIDER": "Provider"
+      },
+      "providerNotice": {
+        "title": "Business email is required for providers",
+        "description": "Use an official company domain. Personal email such as Gmail/Yahoo/Outlook and temporary email addresses will be rejected. Provider accounts still require company profile verification by Wif-Me Admin."
       }
     },
     "verifyEmail": {
@@ -894,6 +1088,7 @@
     "title": "Choose a category, then review available services.",
     "description": "Each category contains service details pilgrims can compare before booking.",
     "serviceCount": "{count} services",
+    "providerCountLabel": "{count} providers",
     "detailMeta": "{category} | Wif-Me Services",
     "detailEyebrow": "Category detail",
     "back": "Back to categories",
@@ -921,9 +1116,9 @@
     },
     "categories": {
       "muthawifPersonal": {
-        "title": "Personal Muthawif",
-        "desc": "Personal companion for independent pilgrims, families, and small groups.",
-        "detail": "Worship assistance by personal muthawif that can follow pilgrim conditions, schedule, and guidance needs."
+        "title": "Muthawif",
+        "desc": "Personal guides and provider-supplied muthawif in one catalog.",
+        "detail": "Worship assistance from personal muthawif or provider muthawif teams, with a clear source label so pilgrims know who supplies the service."
       },
       "providerMuthawif": {
         "title": "Muthawif Provider",
@@ -994,7 +1189,27 @@
     },
     "registerToBook": "Register to book",
     "durationFlexible": "Flexible",
-    "emptyOfferings": "Active services for this category are not available yet. Choose another category or check again later."
+    "emptyOfferings": "No services match the current filters. Try resetting filters or using another keyword.",
+    "sources": {
+      "direct": "Personal",
+      "providerStaff": "From provider",
+      "providerFleet": "Provider fleet"
+    },
+    "resultSummary": "Showing {count} of {total} services",
+    "filters": {
+      "search": "Find what you need",
+      "searchPlaceholder": "Service, route, or provider name",
+      "all": "All",
+      "source": "Muthawif source",
+      "personal": "Personal",
+      "provider": "Provider ({count} registered)",
+      "vehicle": "Vehicle model",
+      "location": "Trip location",
+      "anyLocation": "Any location",
+      "apply": "Apply filters",
+      "reset": "Reset filters"
+    },
+    "categoryNavLabel": "Service categories"
   },
   "Jamaah": {
     "common": {
@@ -1016,7 +1231,7 @@
       "next": "Next",
       "pageSummary": "Page {page} of {pageCount} • {total} records",
       "serviceTypes": {
-        "MUTHAWIF_PERSONAL": "Personal muthawif",
+        "MUTHAWIF_PERSONAL": "Muthawif",
         "PROVIDER_MUTHAWIF": "Muthawif provider",
         "TRANSPORTATION": "Transportation",
         "VISA_PROCESSING": "Visa processing",
@@ -1071,9 +1286,14 @@
       "description": "Use search to compare active muthawif, transportation, visa, and supporting services.",
       "searchPlaceholder": "Search service or provider name",
       "book": "Book",
+      "notAvailable": "Not Available",
       "empty": {
         "title": "No services found",
         "description": "Try changing the keyword or selecting another service type."
+      },
+      "sources": {
+        "providerStaff": "From provider",
+        "providerFleet": "Provider fleet"
       }
     },
     "checkout": {
@@ -1084,7 +1304,8 @@
       "fields": {
         "date": "Service date",
         "notes": "Notes for provider",
-        "notesPlaceholder": "Write pilgrim count, location, or special needs if any."
+        "notesPlaceholder": "Write pilgrim count, location, or special needs if any.",
+        "dateHelper": "If the date is already booked by another pilgrim, the system will ask you to choose another date."
       },
       "submit": "Create booking and continue payment",
       "summary": {
@@ -1094,7 +1315,8 @@
         "escrowValue": "Wif-Me escrow",
         "total": "Payment total",
         "note": "Amount is stored in IDR. Card or personal bank data is not stored on Wif-Me servers."
-      }
+      },
+      "availabilityNote": "Service date must be confirmed. Muthawif and transportation can only accept one booking on the same date."
     },
     "bookings": {
       "eyebrow": "My bookings",
@@ -1126,7 +1348,8 @@
         "amount": "Amount",
         "bookingId": "Booking ID",
         "method": "Method",
-        "account": "Destination account"
+        "account": "Destination account",
+        "orderId": "Order ID"
       },
       "bankTransfer": "Bank transfer",
       "instructions": {
@@ -1137,11 +1360,33 @@
           "After confirmation, funds enter escrow and booking is confirmed."
         ]
       },
-      "confirm": "Confirm sandbox payment",
+      "confirm": "Upload transfer proof",
       "escrow": {
         "title": "Funds are held in escrow",
         "description": "Payment is not sent directly to the provider. Admin can monitor funds until the service follows the agreement.",
-        "note": "This MVP uses sandbox confirmation without storing card or personal bank data."
+        "note": "Payment is verified from transfer proof and enters escrow after admin approval."
+      },
+      "titleReview": "Transfer proof is waiting for verification.",
+      "descriptionReview": "Wif-Me admin will review the transfer proof before funds enter escrow and bookings are confirmed.",
+      "bank": {
+        "bankName": "Bank",
+        "accountName": "Account name",
+        "accountNumber": "Account number",
+        "branch": "Branch"
+      },
+      "proof": {
+        "title": "Transfer proof",
+        "description": "Upload your transfer proof after making the payment.",
+        "waitingReview": "Proof has been received and is being reviewed by admin.",
+        "helper": "JPG, PNG, WEBP, or PDF. Maximum 5 MB.",
+        "upload": "Upload proof",
+        "replace": "Replace proof",
+        "submit": "Submit proof",
+        "view": "View proof",
+        "uploadedNotice": "Transfer proof was submitted. Admin will verify it.",
+        "invalidNotice": "Invalid transfer proof. Use JPG, PNG, WEBP, or PDF up to 5 MB.",
+        "reviewStatus": "Waiting for verification",
+        "rejectedStatus": "Proof rejected"
       }
     },
     "profile": {
@@ -1190,6 +1435,428 @@
         "ruleLetters": "Use mixed uppercase and lowercase letters when possible.",
         "ruleNumbers": "Add numbers to make the password harder to guess.",
         "rulePrivate": "Do not share your password with providers or anyone else."
+      }
+    }
+  },
+  "Partner": {
+    "common": {
+      "search": "Search",
+      "status": "Status",
+      "sort": "Sort",
+      "apply": "Apply",
+      "all": "All",
+      "latest": "Latest",
+      "schedule": "Schedule",
+      "amount": "Amount",
+      "reference": "Reference",
+      "service": "Service",
+      "customer": "Pilgrim",
+      "detail": "Detail",
+      "previous": "Previous",
+      "next": "Next",
+      "bookings": "Bookings",
+      "route": "Route",
+      "active": "Active",
+      "draft": "Draft",
+      "pageSummary": "Showing {total} records",
+      "metrics": {
+        "verification": "Verification status",
+        "services": "Services",
+        "activeBookings": "Active bookings",
+        "escrow": "Escrow funds"
+      },
+      "verification": {
+        "DRAFT": "Draft",
+        "PENDING": "Review",
+        "APPROVED": "Verified",
+        "REJECTED": "Rejected"
+      },
+      "withdrawalStatuses": {
+        "REVIEW": "Review",
+        "APPROVED": "Approved",
+        "PAID": "Paid",
+        "REJECTED": "Rejected"
+      }
+    },
+    "muthawif": {
+      "dashboard": {
+        "eyebrow": "Summary",
+        "title": "Your Dashboard",
+        "description": "Monitor your services, schedule, and earnings in one place.",
+        "scheduleCta": "View Schedule",
+        "availability": {
+          "available": "Available",
+          "notAvailable": "Not available",
+          "toggleLabel": "Availability Status",
+          "activeBookingsWarning": "You still have active or unfinished services. Please make sure to complete your responsibilities to the jamaah."
+        },
+        "upcoming": {
+          "title": "Upcoming schedule",
+          "empty": "No active bookings for your services yet."
+        },
+        "quick": {
+          "schedule": {
+            "title": "My Schedule",
+            "description": "Review pilgrim bookings, service dates, and payment status."
+          },
+          "earnings": {
+            "title": "Earnings",
+            "description": "Track escrow funds and released payments."
+          }
+        }
+      },
+      "schedule": {
+        "eyebrow": "Muthawif schedule",
+        "title": "Pilgrim bookings for personal services.",
+        "description": "Bookings received through the services you manage.",
+        "searchPlaceholder": "Search service or pilgrim",
+        "empty": {
+          "title": "No schedule yet",
+          "description": "Bookings will appear after pilgrims request your service."
+        }
+      },
+      "earnings": {
+        "eyebrow": "Muthawif earnings",
+        "title": "Track payments and escrow.",
+        "description": "Every payment linked to pilgrim bookings is shown with fund status.",
+        "searchPlaceholder": "Search service or reference",
+        "detailLabel": "Service funds",
+        "summary": {
+          "escrow": "Held in escrow",
+          "released": "Released"
+        },
+        "empty": {
+          "title": "No earnings yet",
+          "description": "Earnings will appear after pilgrim payments are processed."
+        }
+      },
+      "profile": {
+        "eyebrow": "Muthawif profile",
+        "title": "Manage assistance profile and account security.",
+        "description": "Complete the information pilgrims review before choosing your service.",
+        "tabs": {
+          "general": "General profile",
+          "security": "Change password"
+        },
+        "fields": {
+          "name": "Account name",
+          "displayName": "Display name",
+          "email": "Email",
+          "phone": "Phone number",
+          "phonePlaceholder": "+62 812 3456 7890",
+          "baseCity": "Base city",
+          "baseCityPlaceholder": "Makkah, Madinah, or Jeddah",
+          "languages": "Languages",
+          "languagesPlaceholder": "Indonesian, Arabic, English",
+          "bio": "Short bio",
+          "bioPlaceholder": "Write your assistance experience, communication style, and service area."
+        },
+        "emailHelper": "Email is used for login and cannot be changed from this page.",
+        "actions": {
+          "saveProfile": "Save profile",
+          "savePassword": "Save password"
+        },
+        "notices": {
+          "saved": "Muthawif profile updated successfully.",
+          "invalid": "Profile data is not valid yet. Check required fields.",
+          "passwordSaved": "Password updated successfully.",
+          "currentInvalid": "Current password does not match.",
+          "passwordInvalid": "New password is not valid yet or confirmation does not match."
+        },
+        "summary": {
+          "title": "Profile summary",
+          "verification": "Verification status",
+          "city": "Base city",
+          "languages": "Languages",
+          "email": "Email verification",
+          "verified": "Verified",
+          "notVerified": "Not verified"
+        },
+        "security": {
+          "title": "Change password",
+          "description": "Use a strong new password to protect muthawif account access.",
+          "currentPassword": "Current password",
+          "newPassword": "New password",
+          "confirmPassword": "Confirm new password",
+          "helper": "Minimum 8 characters and must contain letters and numbers.",
+          "infoTitle": "Security notes",
+          "infoDescription": "Passwords are processed on the server and never stored as plain text.",
+          "ruleLetters": "Use mixed uppercase and lowercase letters when possible.",
+          "ruleNumbers": "Add numbers to make the password harder to guess.",
+          "rulePrivate": "Do not share your password with pilgrims, providers, or anyone else."
+        }
+      },
+      "withdrawals": {
+        "eyebrow": "Fund withdrawal",
+        "title": "Request an earnings withdrawal.",
+        "description": "Funds released from escrow can be requested to your bank account. Wif-Me admin will review each request.",
+        "summary": {
+          "available": "Available to withdraw",
+          "released": "Total released",
+          "inReview": "In process",
+          "paid": "Paid"
+        },
+        "form": {
+          "title": "Request withdrawal",
+          "description": "Use an account under your name or registered organization. Account numbers are stored encrypted.",
+          "amount": "Withdrawal amount",
+          "bankName": "Bank name",
+          "accountName": "Account holder name",
+          "accountNumber": "Account number",
+          "note": "Note",
+          "submit": "Submit request"
+        },
+        "history": "Withdrawal history",
+        "columns": {
+          "bank": "Bank account"
+        },
+        "empty": {
+          "title": "No withdrawals yet",
+          "description": "Withdrawal history appears after you submit a request."
+        },
+        "notices": {
+          "requested": "Withdrawal request submitted.",
+          "invalid": "Withdrawal data is invalid. Check the amount and bank account.",
+          "insufficient": "Amount exceeds your available balance."
+        }
+      }
+    },
+    "provider": {
+      "dashboard": {
+        "eyebrow": "Provider dashboard",
+        "title": "Manage provider services in one place.",
+        "description": "Track B2B services, transportation, active bookings, and escrow funds.",
+        "staffCta": "Manage staff",
+        "upcoming": {
+          "title": "Upcoming bookings",
+          "empty": "No active bookings for provider services yet."
+        },
+        "quick": {
+          "staff": {
+            "title": "Staff Management",
+            "description": "Track muthawif supply services and B2B bookings."
+          },
+          "fleet": {
+            "title": "Fleet",
+            "description": "Review route transportation services and active status."
+          },
+          "earnings": {
+            "title": "Earnings",
+            "description": "Track provider escrow funds and payments."
+          }
+        }
+      },
+      "staff": {
+        "eyebrow": "Staff management",
+        "title": "Provider muthawif supply services.",
+        "description": "Manage B2B offers for travel agencies, communities, or groups.",
+        "searchPlaceholder": "Search staff service",
+        "empty": {
+          "title": "No staff yet",
+          "description": "Add staff so each provider has its own team list."
+        },
+        "add": "Add staff",
+        "edit": "Edit",
+        "delete": "Delete",
+        "invite": {
+          "share": "WhatsApp",
+          "copyLink": "Copy Link",
+          "copied": "Copied",
+          "pending": "Invite Sent"
+        },
+        "form": {
+          "addTitle": "Add provider staff",
+          "editTitle": "Edit provider staff",
+          "deleteTitle": "Delete staff {name}",
+          "deleteDescription": "Deleted staff will no longer appear in this provider list.",
+          "name": "Staff name",
+          "roleTitle": "Role",
+          "email": "Email",
+          "phone": "Phone number",
+          "languages": "Languages",
+          "status": "Status",
+          "notes": "Notes",
+          "submitCreate": "Save staff",
+          "submitUpdate": "Save changes",
+          "cancel": "Cancel",
+          "confirmDelete": "Delete staff",
+          "basePrice": "Staff price"
+        },
+        "statuses": {
+          "ACTIVE": "Active",
+          "ON_DUTY": "On duty",
+          "INACTIVE": "Inactive"
+        },
+        "columns": {
+          "name": "Name",
+          "role": "Role",
+          "languages": "Languages",
+          "status": "Status",
+          "action": "Action",
+          "price": "Price"
+        }
+      },
+      "fleet": {
+        "eyebrow": "Transportation fleet",
+        "title": "Provider route and fleet services.",
+        "description": "Track active transportation services for pilgrims and groups.",
+        "searchPlaceholder": "Search route or service",
+        "empty": {
+          "title": "No fleet yet",
+          "description": "Add vehicles so fleet lists stay separate per provider."
+        },
+        "add": "Add fleet",
+        "edit": "Edit",
+        "delete": "Delete",
+        "form": {
+          "addTitle": "Add provider fleet",
+          "editTitle": "Edit provider fleet",
+          "deleteTitle": "Delete fleet {name}",
+          "deleteDescription": "Deleted fleet will no longer appear in this provider list.",
+          "vehicleName": "Vehicle name",
+          "vehicleType": "Vehicle type",
+          "plateNumber": "Plate number",
+          "capacity": "Capacity",
+          "baseCity": "Base city",
+          "status": "Status",
+          "notes": "Notes",
+          "submitCreate": "Save fleet",
+          "submitUpdate": "Save changes",
+          "cancel": "Cancel",
+          "confirmDelete": "Delete fleet",
+          "basePrice": "Fleet price"
+        },
+        "statuses": {
+          "AVAILABLE": "Available",
+          "ASSIGNED": "Assigned",
+          "MAINTENANCE": "Maintenance"
+        },
+        "columns": {
+          "vehicle": "Vehicle",
+          "type": "Type",
+          "capacity": "Capacity",
+          "city": "City",
+          "status": "Status",
+          "action": "Action",
+          "price": "Price"
+        }
+      },
+      "earnings": {
+        "eyebrow": "Provider earnings",
+        "title": "Track provider payments.",
+        "description": "Review provider transactions from escrow status to released funds.",
+        "searchPlaceholder": "Search service or reference",
+        "detailLabel": "Service funds",
+        "summary": {
+          "escrow": "Held in escrow",
+          "released": "Released"
+        },
+        "empty": {
+          "title": "No earnings yet",
+          "description": "Earnings will appear after provider booking payments are processed."
+        }
+      },
+      "profile": {
+        "eyebrow": "Provider profile",
+        "title": "Manage company profile and account security.",
+        "description": "Complete official information reviewed by pilgrims and the Wif-Me team during partnership workflows.",
+        "tabs": {
+          "general": "General profile",
+          "security": "Change password"
+        },
+        "fields": {
+          "name": "Account name",
+          "displayName": "Display name",
+          "companyName": "Company name",
+          "companyType": "Company type",
+          "companyTypePlaceholder": "travel, transport, visa, or organization",
+          "registrationNumber": "Registration number",
+          "taxId": "Tax number",
+          "email": "Email",
+          "phone": "Phone number",
+          "whatsapp": "Operational WhatsApp",
+          "phonePlaceholder": "+966 50 000 0000",
+          "baseCity": "Base city",
+          "baseCityPlaceholder": "Makkah, Madinah, or Jeddah",
+          "country": "Country code",
+          "website": "Website",
+          "websitePlaceholder": "https://company-name.com",
+          "address": "Operational address",
+          "addressPlaceholder": "Office address or primary operational point.",
+          "languages": "Service languages",
+          "languagesPlaceholder": "Indonesian, Arabic, English",
+          "bio": "Company description",
+          "bioPlaceholder": "Write the main services, operational areas, and partnership experience."
+        },
+        "emailHelper": "Email is used for login and cannot be changed from this page.",
+        "actions": {
+          "saveProfile": "Save profile",
+          "savePassword": "Save password"
+        },
+        "notices": {
+          "saved": "Provider profile updated successfully.",
+          "invalid": "Profile data is not valid yet. Check required fields.",
+          "passwordSaved": "Password updated successfully.",
+          "currentInvalid": "Current password does not match.",
+          "passwordInvalid": "New password is not valid yet or confirmation does not match."
+        },
+        "summary": {
+          "title": "Provider summary",
+          "verification": "Verification status",
+          "city": "Base city",
+          "languages": "Languages",
+          "website": "Website",
+          "email": "Email verification",
+          "verified": "Verified",
+          "notVerified": "Not verified"
+        },
+        "security": {
+          "title": "Change password",
+          "description": "Use a strong new password to protect provider account access.",
+          "currentPassword": "Current password",
+          "newPassword": "New password",
+          "confirmPassword": "Confirm new password",
+          "helper": "Minimum 8 characters and must contain letters and numbers.",
+          "infoTitle": "Security notes",
+          "infoDescription": "Passwords are processed on the server and never stored as plain text.",
+          "ruleLetters": "Use mixed uppercase and lowercase letters when possible.",
+          "ruleNumbers": "Add numbers to make the password harder to guess.",
+          "rulePrivate": "Do not share your password with pilgrims, staff, or anyone else."
+        }
+      },
+      "withdrawals": {
+        "eyebrow": "Fund withdrawal",
+        "title": "Request an earnings withdrawal.",
+        "description": "Funds released from escrow can be requested to your bank account. Wif-Me admin will review each request.",
+        "summary": {
+          "available": "Available to withdraw",
+          "released": "Total released",
+          "inReview": "In process",
+          "paid": "Paid"
+        },
+        "form": {
+          "title": "Request withdrawal",
+          "description": "Use an account under your name or registered organization. Account numbers are stored encrypted.",
+          "amount": "Withdrawal amount",
+          "bankName": "Bank name",
+          "accountName": "Account holder name",
+          "accountNumber": "Account number",
+          "note": "Note",
+          "submit": "Submit request"
+        },
+        "history": "Withdrawal history",
+        "columns": {
+          "bank": "Bank account"
+        },
+        "empty": {
+          "title": "No withdrawals yet",
+          "description": "Withdrawal history appears after you submit a request."
+        },
+        "notices": {
+          "requested": "Withdrawal request submitted.",
+          "invalid": "Withdrawal data is invalid. Check the amount and bank account.",
+          "insufficient": "Amount exceeds your available balance."
+        }
       }
     }
   }

@@ -1,6 +1,6 @@
 "use client";
 
-import { BriefcaseBusiness, Building2, CalendarDays, CreditCard, House, LayoutGrid, LogOut, Percent, ReceiptText, Search, UserCheck, Users, WalletCards, X, type LucideIcon } from "lucide-react";
+import { BriefcaseBusiness, Building2, CalendarDays, CarFront, CreditCard, House, LayoutGrid, LogOut, MapPin, Percent, ReceiptText, Search, UserCheck, Users, WalletCards, X, type LucideIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useEffect, useState, type ReactElement } from "react";
 import { Link, usePathname } from "@/i18n/routing";
@@ -20,6 +20,7 @@ const ADMIN_SHEET_ITEMS: readonly MobileNavItem[] = [
   { href: "/admin", labelKey: "roles.admin.overview", icon: House },
   { href: "/admin/services/categories", labelKey: "roles.admin.serviceCategories", icon: BriefcaseBusiness },
   { href: "/admin/services/items", labelKey: "roles.admin.serviceItems", icon: LayoutGrid },
+  { href: "/admin/lookup/locations", labelKey: "roles.admin.locationLookup", icon: MapPin },
   { href: "/admin/partners/muthawif", labelKey: "roles.admin.muthawif", icon: UserCheck },
   { href: "/admin/partners/providers", labelKey: "roles.admin.providers", icon: Building2 },
   { href: "/admin/transactions", labelKey: "roles.admin.transactions", icon: ReceiptText },
@@ -42,6 +43,36 @@ const JAMAAH_SHEET_ITEMS: readonly MobileNavItem[] = [
   { href: "/jamaah/search", labelKey: "roles.jamaah.search", icon: Search },
   { href: "/jamaah/bookings", labelKey: "roles.jamaah.bookings", icon: CalendarDays },
   { href: "/jamaah/payments", labelKey: "roles.jamaah.payments", icon: CreditCard },
+];
+
+const MUTHAWIF_PRIMARY_ITEMS: readonly MobileNavItem[] = [
+  { href: "/muthawif", labelKey: "roles.muthawif.overview", icon: House },
+  { href: "/muthawif/schedule", labelKey: "roles.muthawif.schedule", icon: CalendarDays },
+  { href: "CENTER", labelKey: "more", icon: LayoutGrid },
+  { href: "/muthawif/earnings", labelKey: "roles.muthawif.earnings", icon: CreditCard },
+];
+
+const MUTHAWIF_SHEET_ITEMS: readonly MobileNavItem[] = [
+  { href: "/muthawif", labelKey: "roles.muthawif.overview", icon: House },
+  { href: "/muthawif/schedule", labelKey: "roles.muthawif.schedule", icon: CalendarDays },
+  { href: "/muthawif/earnings", labelKey: "roles.muthawif.earnings", icon: CreditCard },
+  { href: "/muthawif/withdrawals", labelKey: "roles.muthawif.withdrawals", icon: WalletCards },
+];
+
+const PROVIDER_PRIMARY_ITEMS: readonly MobileNavItem[] = [
+  { href: "/provider", labelKey: "roles.provider.overview", icon: House },
+  { href: "/provider/staff", labelKey: "roles.provider.staff", icon: Users },
+  { href: "CENTER", labelKey: "more", icon: LayoutGrid },
+  { href: "/provider/fleet", labelKey: "roles.provider.fleet", icon: CarFront },
+  { href: "/provider/earnings", labelKey: "roles.provider.earnings", icon: CreditCard },
+];
+
+const PROVIDER_SHEET_ITEMS: readonly MobileNavItem[] = [
+  { href: "/provider", labelKey: "roles.provider.overview", icon: House },
+  { href: "/provider/staff", labelKey: "roles.provider.staff", icon: Users },
+  { href: "/provider/fleet", labelKey: "roles.provider.fleet", icon: CarFront },
+  { href: "/provider/earnings", labelKey: "roles.provider.earnings", icon: CreditCard },
+  { href: "/provider/withdrawals", labelKey: "roles.provider.withdrawals", icon: WalletCards },
 ];
 
 export function DashboardMobileNav(): ReactElement | null {
@@ -83,12 +114,14 @@ export function DashboardMobileNav(): ReactElement | null {
 }
 
 function MobileTab({ item, pathname, label }: { readonly item: MobileNavItem; readonly pathname: string; readonly label: string }): ReactElement {
-  const isActive = item.href === "/admin" || item.href === "/jamaah" ? pathname === item.href : pathname.startsWith(item.href);
+  const isActive = item.href === "/admin" || item.href === "/jamaah" || item.href === "/muthawif" || item.href === "/provider" ? pathname === item.href : pathname.startsWith(item.href);
   return <Link href={item.href} className={cn("flex h-full flex-1 flex-col items-center justify-center gap-1 rounded-2xl text-[0.63rem] font-extrabold", isActive ? "text-[var(--emerald)]" : "text-[var(--text-muted)]")}><item.icon className="size-5" aria-hidden="true" /><span className="max-w-14 truncate">{label}</span></Link>;
 }
 
 function getNavConfig(pathname: string): { readonly primary: readonly MobileNavItem[]; readonly sheet: readonly MobileNavItem[]; readonly titleKey: string } | null {
   if (pathname.startsWith("/admin")) return { primary: ADMIN_PRIMARY_ITEMS, sheet: ADMIN_SHEET_ITEMS, titleKey: "roles.admin.overview" };
   if (pathname.startsWith("/jamaah")) return { primary: JAMAAH_PRIMARY_ITEMS, sheet: JAMAAH_SHEET_ITEMS, titleKey: "roles.jamaah.overview" };
+  if (pathname.startsWith("/muthawif")) return { primary: MUTHAWIF_PRIMARY_ITEMS, sheet: MUTHAWIF_SHEET_ITEMS, titleKey: "roles.muthawif.overview" };
+  if (pathname.startsWith("/provider")) return { primary: PROVIDER_PRIMARY_ITEMS, sheet: PROVIDER_SHEET_ITEMS, titleKey: "roles.provider.overview" };
   return null;
 }

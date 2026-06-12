@@ -1,8 +1,9 @@
-import { OtpPurpose } from "@prisma/client";
+import { OtpPurpose, UserRole } from "@prisma/client";
 import { getPrismaClient } from "@/lib/db/prisma";
 import { createAndSendOtp } from "@/lib/auth/otp";
 import { hashPassword } from "@/lib/security/password";
-import { conflictProblem, serverProblem, validationProblem } from "@/lib/http/problem";
+import { conflictProblem, problemResponse, serverProblem, validationProblem } from "@/lib/http/problem";
+import { validateProviderBusinessEmail } from "@/lib/security/business-email";
 import { registerSchema } from "@/lib/validators/auth";
 
 export const runtime = "nodejs";
@@ -19,6 +20,18 @@ export async function POST(request: Request): Promise<Response> {
 
   if (!parsed.success) {
     return validationProblem("Name, valid email, role, and password with letters and numbers are required.");
+  }
+
+  if (parsed.data.role === UserRole.PROVIDER) {
+    const businessEmail = validateProviderBusinessEmail(parsed.data.email);
+    if (!businessEmail.accepted) {
+      return problemResponse({
+        type: "https://wifme.id/problems/provider-business-email-required",
+        title: "Business Email Required",
+        status: 422,
+        detail: "Provider registration requires a business email with an organization domain.",
+      });
+    }
   }
 
   const prisma = getPrismaClient();

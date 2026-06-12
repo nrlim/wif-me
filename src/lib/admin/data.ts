@@ -28,7 +28,12 @@ export type ServiceItemRow = {
   readonly categoryTitle: string | null;
   readonly ownerName: string;
   readonly basePrice: string;
+  readonly basePriceIdr?: number;
+  readonly baseCurrency: import("@prisma/client").CurrencyCode | null;
+  readonly originalPrice: number | null;
   readonly isActive: boolean;
+  readonly status: "active" | "draft";
+  readonly baseLocationId: string | null;
 };
 
 export type PartnerListRow = {
@@ -43,11 +48,18 @@ export type PartnerListRow = {
 
 export type TransactionListRow = {
   readonly id: string;
-  readonly bookingId: string;
-  readonly serviceKey: ServiceType;
+  readonly paymentId: string;
+  readonly orderId: string;
+  readonly serviceKey: ServiceType | "MULTIPLE";
   readonly customerName: string;
   readonly amount: string;
   readonly status: PaymentStatus;
+  readonly proofUrl: string | null;
+  readonly proofFileName: string | null;
+  readonly proofMimeType: string | null;
+  readonly proofUploadedAt: string | null;
+  readonly proofRejectedAt: string | null;
+  readonly proofReviewNote: string | null;
 };
 
 export type WithdrawalListRow = {
@@ -214,25 +226,28 @@ export async function getServiceItemById(id: string): Promise<ServiceItemRow | n
 }
 
 function toServiceItemRow(row: Prisma.ServiceOfferingGetPayload<{ include: { owner: true; category: true } }>, index: number): ServiceItemRow {
-  return { id: row.id, code: `SRV-${String(index + 1).padStart(3, "0")}`, title: row.title, description: row.description, type: row.type, categoryKey: row.category?.key ?? null, categoryTitle: row.category?.title ?? null, ownerName: row.owner.name, basePrice: formatIdr(row.basePriceIdr), isActive: row.isActive };
+  return { id: row.id, code: `SRV-${String(index + 1).padStart(3, "0")}`, title: row.title, description: row.description, type: row.type, categoryKey: row.category?.key ?? null, categoryTitle: row.category?.title ?? null, ownerName: row.owner.name, basePrice: formatIdr(row.basePriceIdr), basePriceIdr: Number(row.basePriceIdr), baseCurrency: row.baseCurrency ?? null, originalPrice: row.originalPrice ? Number(row.originalPrice) : null, isActive: row.isActive, status: row.isActive ? "active" : "draft", baseLocationId: row.baseLocationId };
 }
 
 export async function getPartners(type: "personal" | "provider"): Promise<readonly PartnerListRow[]> {
   const prisma = getPrismaClient();
   const role = type === "personal" ? UserRole.MUTHAWIF : UserRole.PROVIDER;
-  const rows = await prisma.user.findMany({ where: { role }, include: { providerProfile: true, offeredServices: { include: { bookings: true } } }, orderBy: { createdAt: "desc" } });
-  return rows.map((row) => ({ id: row.id, name: row.providerProfile?.displayName ?? row.name, type, serviceKey: row.offeredServices[0]?.type ?? (type === "personal" ? ServiceType.MUTHAWIF_PERSONAL : ServiceType.PROVIDER_MUTHAWIF), city: row.providerProfile?.baseCity ?? "-", bookings: row.offeredServices.reduce((total, service) => total + service.bookings.length, 0), status: row.providerProfile?.verificationStatus ?? VerificationStatus.DRAFT }));
+  const rows = await prisma.user.findMany({ where: { role }, include: { providerProfile: { include: { baseLocation: true } }, offeredServices: { include: { bookings: true } } }, orderBy: { createdAt: "desc" } });
+  return rows.map((row) => ({ id: row.id, name: row.providerProfile?.displayName ?? row.name, type, serviceKey: row.offeredServices[0]?.type ?? (type === "personal" ? ServiceType.MUTHAWIF_PERSONAL : ServiceType.PROVIDER_MUTHAWIF), city: row.providerProfile?.baseLocation?.name ?? "-", bookings: row.offeredServices.reduce((total, service) => total + service.bookings.length, 0), status: row.providerProfile?.verificationStatus ?? VerificationStatus.DRAFT }));
 }
 
 export async function getTransactions(): Promise<readonly TransactionListRow[]> {
   const prisma = getPrismaClient();
-  const rows = await prisma.payment.findMany({ include: { booking: { include: { customer: true, serviceOffering: true } } }, orderBy: { createdAt: "desc" } });
-  return rows.map((row) => ({ id: row.gatewayReference ?? row.id, bookingId: row.bookingId, serviceKey: row.booking.serviceOffering.type, customerName: row.booking.customer.name, amount: formatIdr(row.amountIdr), status: row.status }));
+  const rows = await prisma.payment.findMany({ include: { order: { include: { customer: true, bookings: { include: { serviceOffering: true } } } } }, orderBy: { createdAt: "desc" } });
+  return rows.map((row) => {
+    const serviceKey = row.order.bookings.length > 1 ? "MULTIPLE" : row.order.bookings[0]?.serviceOffering.type;
+    return { id: row.gatewayReference ?? row.id, paymentId: row.id, orderId: row.orderId, serviceKey, customerName: row.order.customer.name, amount: formatIdr(row.amountIdr), status: row.status, proofUrl: row.proofUrl, proofFileName: row.proofFileName, proofMimeType: row.proofMimeType, proofUploadedAt: row.proofUploadedAt?.toISOString() ?? null, proofRejectedAt: row.proofRejectedAt?.toISOString() ?? null, proofReviewNote: row.proofReviewNote };
+  });
 }
 
 export async function getTransactionByReference(reference: string): Promise<TransactionListRow | null> {
   const rows = await getTransactions();
-  return rows.find((row) => row.id === reference || row.bookingId === reference) ?? null;
+  return rows.find((row) => row.id === reference || row.orderId === reference) ?? null;
 }
 
 export async function getEscrows(): Promise<readonly TransactionListRow[]> {
@@ -266,4 +281,15 @@ export async function getFinanceRule(kind: FinanceRuleKind, key: string): Promis
 export function formatIdr(value: Prisma.Decimal | number | null | undefined): string {
   const numeric = typeof value === "number" ? value : Number(value ?? 0);
   return new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 }).format(numeric);
+}
+
+export type ProviderDetail = Prisma.ProviderProfileGetPayload<{ include: { user: true; baseLocation: true } }>;
+
+export async function getProviderDetail(id: string): Promise<ProviderDetail | null> {
+  const prisma = getPrismaClient();
+  // Here `id` could be the user ID, since the admin partner list uses `row.id` (which is User ID)
+  return await prisma.providerProfile.findUnique({
+    where: { userId: id },
+    include: { user: true, baseLocation: true }
+  });
 }

@@ -3,14 +3,27 @@
 import { useState, useRef, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/routing";
-import { Bell, Search, User, KeyRound, LogOut, ChevronDown, CheckCheck, Clock } from "lucide-react";
+import { Bell, Search, User, KeyRound, LogOut, ChevronDown, CheckCheck, Clock, ShoppingCart } from "lucide-react";
 import { ROLE_NAV_ITEMS } from "@/lib/constants/navigation";
+import { useCartStore } from "@/hooks/use-cart-store";
+import { CartDrawer } from "@/components/cart/cart-drawer";
+import { useSyncExternalStore } from "react";
+
+function subscribeToHydration(): () => void {
+  return () => undefined;
+}
+function getClientSnapshot(): boolean {
+  return true;
+}
+function getServerSnapshot(): boolean {
+  return false;
+}
 
 const DASHBOARD_ROLES = ["jamaah", "muthawif", "provider", "admin"] as const;
 
 type DashboardRole = (typeof DASHBOARD_ROLES)[number];
 
-export function DashboardHeader() {
+export function DashboardHeader({ userName }: { readonly userName?: string }) {
   const pathname = usePathname();
   const t = useTranslations("Dashboard.header");
   const navT = useTranslations("Dashboard.nav");
@@ -27,6 +40,9 @@ export function DashboardHeader() {
   const [isNotifOpen, setIsNotifOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const cartItems = useCartStore((state) => state.items);
+  const mounted = useSyncExternalStore(subscribeToHydration, getClientSnapshot, getServerSnapshot);
   
   const dropdownRef = useRef<HTMLDivElement>(null);
   const notifRef = useRef<HTMLDivElement>(null);
@@ -103,6 +119,21 @@ export function DashboardHeader() {
           )}
         </form>
         <div className="flex items-center gap-x-4 lg:gap-x-6">
+          {currentRole === "jamaah" && (
+            <button
+              onClick={() => setIsCartOpen(true)}
+              className="relative -m-2.5 p-2.5 text-gray-400 hover:text-[var(--emerald)] transition-colors"
+              aria-label="Keranjang Belanja"
+            >
+              <ShoppingCart className="size-6" aria-hidden="true" />
+              {mounted && cartItems.length > 0 && (
+                <span className="absolute right-1 top-1 flex size-4 items-center justify-center rounded-full bg-[var(--gold)] text-[10px] font-bold text-white shadow-sm ring-2 ring-white">
+                  {cartItems.reduce((acc, item) => acc + item.quantity, 0)}
+                </span>
+              )}
+            </button>
+          )}
+
           <div className="relative" ref={notifRef}>
             <button 
               type="button" 
@@ -163,7 +194,7 @@ export function DashboardHeader() {
                 {t(`roles.${currentRole}`).charAt(0).toUpperCase()}
               </div>
               <span className="hidden items-center gap-2 text-sm font-bold leading-6 text-gray-900 lg:flex">
-                {t("userName", { role: t(`roles.${currentRole}`) })}
+                {userName || t("userName", { role: t(`roles.${currentRole}`) })}
                 <ChevronDown className="size-4 text-gray-500" aria-hidden="true" />
               </span>
             </button>
@@ -171,27 +202,29 @@ export function DashboardHeader() {
             {isDropdownOpen && (
               <div className="absolute right-0 top-full mt-2 w-56 origin-top-right rounded-xl border border-[var(--border)] bg-white py-2 shadow-lg ring-1 ring-black/5 focus:outline-none">
                 <div className="px-4 py-3 border-b border-[var(--border)]">
-                  <p className="text-sm font-extrabold text-[var(--charcoal)]">{t("userName", { role: t(`roles.${currentRole}`) })}</p>
+                  <p className="text-sm font-extrabold text-[var(--charcoal)]">{userName || t("userName", { role: t(`roles.${currentRole}`) })}</p>
                   <p className="text-xs font-bold text-[var(--text-muted)] truncate">{t(`roles.${currentRole}`)}</p>
                 </div>
-                <div className="p-2">
-                  <Link 
-                    href={`/${currentRole}/profile`} 
-                    onClick={() => setIsDropdownOpen(false)}
-                    className="group flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm font-bold text-[var(--charcoal)] transition-all hover:bg-[var(--emerald)]/10 hover:text-[var(--emerald)]"
-                  >
-                    <User className="size-4 shrink-0 text-gray-400 group-hover:text-[var(--emerald)]" />
-                    {t("profileGeneral")}
-                  </Link>
-                  <Link 
-                    href={`/${currentRole}/profile/security`} 
-                    onClick={() => setIsDropdownOpen(false)}
-                    className="group flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm font-bold text-[var(--charcoal)] transition-all hover:bg-[var(--emerald)]/10 hover:text-[var(--emerald)]"
-                  >
-                    <KeyRound className="size-4 shrink-0 text-gray-400 group-hover:text-[var(--emerald)]" />
-                    {t("changePassword")}
-                  </Link>
-                </div>
+                {currentRole === "admin" || currentRole === "jamaah" || currentRole === "muthawif" || currentRole === "provider" ? (
+                  <div className="p-2">
+                    <Link 
+                      href={`/${currentRole}/profile`} 
+                      onClick={() => setIsDropdownOpen(false)}
+                      className="group flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm font-bold text-[var(--charcoal)] transition-all hover:bg-[var(--emerald)]/10 hover:text-[var(--emerald)]"
+                    >
+                      <User className="size-4 shrink-0 text-gray-400 group-hover:text-[var(--emerald)]" />
+                      {t("profileGeneral")}
+                    </Link>
+                    <Link 
+                      href={`/${currentRole}/profile/security`} 
+                      onClick={() => setIsDropdownOpen(false)}
+                      className="group flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm font-bold text-[var(--charcoal)] transition-all hover:bg-[var(--emerald)]/10 hover:text-[var(--emerald)]"
+                    >
+                      <KeyRound className="size-4 shrink-0 text-gray-400 group-hover:text-[var(--emerald)]" />
+                      {t("changePassword")}
+                    </Link>
+                  </div>
+                ) : null}
                 <div className="border-t border-[var(--border)] p-2">
                   <Link 
                     href="/" 
@@ -207,6 +240,7 @@ export function DashboardHeader() {
           </div>
         </div>
       </div>
+      <CartDrawer open={isCartOpen} onOpenChange={setIsCartOpen} />
     </header>
   );
 }

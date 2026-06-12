@@ -1,7 +1,8 @@
 import type { ReactElement } from "react";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { KeyRound, ShieldCheck } from "lucide-react";
+import { ShieldCheck, KeyRound } from "lucide-react";
+import { PasswordInput } from "@/components/shared/password-input";
 
 export const metadata: Metadata = {
   title: "Admin Keamanan & Password",
@@ -26,15 +27,15 @@ export default async function AdminSecurityPage(): Promise<ReactElement> {
         <form className="mt-6 grid gap-5" action="#">
           <label className="grid gap-2 text-sm font-extrabold text-[var(--charcoal)]">
             {t("changePassword.current")}
-            <input className="auth-input pl-4" type="password" autoComplete="current-password" />
+            <PasswordInput id="currentPassword" name="currentPassword" required className="auth-input pl-4" autoComplete="current-password" />
           </label>
           <label className="grid gap-2 text-sm font-extrabold text-[var(--charcoal)]">
             {t("changePassword.next")}
-            <input className="auth-input pl-4" type="password" autoComplete="new-password" />
+            <PasswordInput id="newPassword" name="newPassword" required className="auth-input pl-4" autoComplete="new-password" minLength={8} />
           </label>
           <label className="grid gap-2 text-sm font-extrabold text-[var(--charcoal)]">
             {t("changePassword.confirm")}
-            <input className="auth-input pl-4" type="password" autoComplete="new-password" />
+            <PasswordInput id="confirmPassword" name="confirmPassword" required className="auth-input pl-4" autoComplete="new-password" minLength={8} />
           </label>
           <p className="text-sm leading-6 text-[var(--text-muted)]">{t("changePassword.helper")}</p>
           <button type="submit" className="min-h-11 w-fit rounded-xl bg-[var(--emerald)] px-5 text-sm font-extrabold text-white">

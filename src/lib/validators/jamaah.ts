@@ -11,6 +11,7 @@ export const serviceSearchQuerySchema = z.object({
   perPage: perPageSchema.catch(10),
   sort: z.enum(["latest", "price", "title"]).default("latest").catch("latest"),
   order: z.enum(["asc", "desc"]).default("desc").catch("desc"),
+  locationId: z.string().uuid().optional().catch(undefined),
 });
 
 export const bookingListQuerySchema = z.object({
@@ -31,13 +32,24 @@ export const paymentListQuerySchema = z.object({
   order: z.enum(["asc", "desc"]).default("desc").catch("desc"),
 });
 
-export const createBookingSchema = z.object({
-  serviceId: z.uuid(),
-  scheduledStart: z.iso.date(),
-  notes: z.string().trim().max(800).optional(),
+const uuidPattern = "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}";
+const providerResourceIdSchema = z.string().regex(new RegExp(`^(staff|fleet):${uuidPattern}$`));
+
+export const createOrderSchema = z.object({
+  items: z.array(z.object({
+    serviceId: z.union([z.uuid(), providerResourceIdSchema]),
+    scheduledStart: z.iso.date(),
+    quantity: z.number().int().min(1).max(50).default(1),
+    notes: z.string().trim().max(800).optional(),
+  })).min(1),
+  voucherCode: z.string().trim().optional(),
 });
 
 export const paymentIdSchema = z.object({
+  paymentId: z.uuid(),
+});
+
+export const paymentProofSchema = z.object({
   paymentId: z.uuid(),
 });
 
@@ -53,5 +65,6 @@ export const jamaahPasswordSchema = z.object({
 }).refine((value) => value.newPassword === value.confirmPassword, { path: ["confirmPassword"] });
 
 export type ServiceSearchQuery = z.infer<typeof serviceSearchQuerySchema>;
+export type CreateOrderInput = z.input<typeof createOrderSchema>;
 export type BookingListQuery = z.infer<typeof bookingListQuerySchema>;
 export type PaymentListQuery = z.infer<typeof paymentListQuerySchema>;

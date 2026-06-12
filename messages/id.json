@@ -25,14 +25,14 @@
   "Landing": {
     "meta": {
       "title": "Wif-Me | Platform Pendamping Ibadah Umrah",
-      "description": "Marketplace multi-service untuk muthawif personal, provider muthawif, transportasi, visa, dan layanan pendukung jamaah umrah mandiri."
+      "description": "Marketplace multi-service untuk muthawif terverifikasi, transportasi, visa, dan layanan pendukung jamaah umrah mandiri."
     },
     "hero": {
       "bismillah": "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيم",
       "eyebrow": "Platform Pendamping Ibadah Umrah",
       "titlePrefix": "Satu Platform untuk",
       "titleHighlight": "Muthawif, Visa, dan Transportasi",
-      "description": "Wif-Me menghubungkan jamaah umrah mandiri dengan muthawif personal, provider, transportasi rute ibadah, visa processing, dan layanan pendukung dalam ekosistem terverifikasi.",
+      "description": "Wif-Me menghubungkan jamaah umrah mandiri dengan muthawif terverifikasi, armada transportasi rute ibadah, visa processing, dan layanan pendukung dalam ekosistem partner yang tervalidasi.",
       "primaryCta": "Susun Kebutuhan",
       "secondaryCta": "Lihat Layanan",
       "stats": {
@@ -60,20 +60,20 @@
       "description": "Setiap layanan dapat berdiri sendiri, namun dirancang saling berelasi agar persiapan ibadah lebih tertata.",
       "items": [
         {
-          "title": "Muthawif Personal",
-          "desc": "Booking pembimbing ibadah perorangan yang terverifikasi untuk jamaah mandiri, keluarga, atau rombongan kecil."
-        },
-        {
-          "title": "Provider Muthawif",
-          "desc": "Kerja sama B2B untuk travel, komunitas, dan organisasi yang membutuhkan suplai muthawif terpercaya."
+          "title": "Muthawif",
+          "desc": "Bandingkan muthawif personal maupun muthawif dari provider terverifikasi dalam satu daftar."
         },
         {
           "title": "Transportasi",
-          "desc": "Penyewaan kendaraan berbasis rute: bandara, Makkah, Madinah, ziarah, dan perjalanan antar kota."
+          "desc": "Pilih armada dan rute: bandara, Makkah, Madinah, ziarah, dan perjalanan antar kota."
         },
         {
           "title": "Visa Processing",
           "desc": "Pengurusan visa umrah dan dokumen pendukung dengan status proses yang mudah dipantau."
+        },
+        {
+          "title": "Layanan Tambahan",
+          "desc": "Kebutuhan pendukung yang melengkapi rencana ibadah dan dapat disambungkan ke booking utama."
         }
       ]
     },
@@ -86,7 +86,7 @@
         {
           "step": "01",
           "title": "Pilih layanan",
-          "desc": "Tentukan kebutuhan: muthawif, provider, transportasi, visa, atau layanan tambahan."
+          "desc": "Tentukan kebutuhan: muthawif, transportasi, visa, atau layanan tambahan."
         },
         {
           "step": "02",
@@ -136,7 +136,7 @@
         },
         {
           "title": "Provider",
-          "desc": "Mengelola layanan B2B untuk rombongan, travel, dan organisasi."
+          "desc": "Mengelola tim muthawif, armada, atau layanan pendukung yang dipasok sebagai partner Wif-Me."
         }
       ]
     },
@@ -151,10 +151,12 @@
           "desc": "Cari layanan pendampingan ibadah, transportasi, visa, dan kebutuhan tambahan dalam satu platform."
         },
         {
-          "title": "Saya Penyedia",
-          "desc": "Daftarkan layanan sebagai muthawif personal atau provider untuk kebutuhan jamaah dan kerja sama B2B."
+          "title": "Saya Muthawif",
+          "desc": "Daftarkan diri sebagai muthawif personal untuk mendampingi jamaah mandiri selama ibadah di Tanah Suci."
         }
-      ]
+      ],
+      "providerLink": "Apakah Anda instansi penyedia layanan (Travel/Transportasi)?",
+      "providerAction": "Daftar sebagai Provider"
     },
     "cta": {
       "title": "Persiapan ibadah lebih tertata",
@@ -192,14 +194,17 @@
           "overview": "Overview",
           "schedule": "Jadwal Saya",
           "earnings": "Pendapatan",
-          "settings": "Pengaturan"
+          "settings": "Pengaturan",
+          "profile": "Profil",
+          "withdrawals": "Penarikan"
         },
         "provider": {
           "overview": "Overview",
           "staff": "Manajemen Staf",
           "fleet": "Armada",
           "earnings": "Pendapatan",
-          "settings": "Pengaturan"
+          "settings": "Pengaturan",
+          "withdrawals": "Penarikan"
         },
         "admin": {
           "overview": "Overview",
@@ -217,7 +222,8 @@
           "withdrawals": "Penarikan",
           "fees": "Komisi & fee",
           "charges": "Charge tambahan",
-          "financeSettings": "Biaya & charge"
+          "financeSettings": "Biaya & charge",
+          "locationLookup": "Lookup lokasi"
         }
       },
       "more": "Menu",
@@ -637,6 +643,56 @@
       "delete": {
         "title": "Hapus {name}?",
         "description": "Tindakan ini akan menghapus data dari daftar operasional admin. Pastikan tidak ada proses verifikasi atau booking aktif yang masih berjalan."
+      },
+      "review": {
+        "muthawifEyebrow": "Review muthawif",
+        "providerEyebrow": "Review provider",
+        "muthawifDescription": "Tinjau profil, lokasi, layanan, dan status verifikasi muthawif personal sebelum keputusan admin.",
+        "providerDescription": "Tinjau profil legal, kontak, logo, dan kesiapan operasional provider sebelum keputusan admin.",
+        "backToMuthawif": "Kembali ke muthawif",
+        "backToProviders": "Kembali ke provider",
+        "legalTitle": "Informasi legal",
+        "contactTitle": "Kontak dan lokasi",
+        "profileTitle": "Profil operasional",
+        "logoTitle": "Logo atau identitas visual",
+        "actionTitle": "Aksi peninjauan",
+        "approve": "Setujui",
+        "reject": "Tolak pengajuan",
+        "rejectionReason": "Alasan penolakan",
+        "rejectionPlaceholder": "Tuliskan bagian yang harus dilengkapi sebelum pengajuan ulang.",
+        "currentStatus": "Status saat ini",
+        "noLogo": "Belum ada logo",
+        "empty": "-",
+        "fields": {
+          "companyType": "Tipe usaha",
+          "registrationNumber": "Nomor registrasi",
+          "taxId": "Nomor pajak",
+          "status": "Status verifikasi",
+          "email": "Email pendaftar",
+          "phone": "Nomor telepon",
+          "whatsapp": "WhatsApp",
+          "website": "Website",
+          "baseLocation": "Kota basis",
+          "address": "Alamat",
+          "services": "Jenis layanan",
+          "languages": "Bahasa",
+          "bookings": "Total booking",
+          "staff": "Staf provider",
+          "fleet": "Armada provider"
+        }
+      },
+      "verificationStatuses": {
+        "draft": "Draft",
+        "pending": "Menunggu review",
+        "approved": "Disetujui",
+        "rejected": "Ditolak"
+      },
+      "serviceTypes": {
+        "muthawifPersonal": "Muthawif Personal",
+        "providerMuthawif": "Provider Muthawif",
+        "transportation": "Transportasi",
+        "visaProcessing": "Visa Processing",
+        "additionalServices": "Layanan Tambahan"
       }
     },
     "escrow": {
@@ -676,7 +732,8 @@
         "providerMuthawif": "Provider Muthawif",
         "transportation": "Transportasi",
         "visaProcessing": "Visa Processing",
-        "additionalServices": "Layanan Tambahan"
+        "additionalServices": "Layanan Tambahan",
+        "multiple": "Layanan Beragam"
       },
       "customers": {
         "keluargaRahman": "Keluarga Rahman",
@@ -692,7 +749,31 @@
         "description": "Periksa bukti layanan dan status booking sebelum dana escrow dirilis.",
         "back": "Kembali",
         "release": "Release dana",
-        "title": "Review escrow {id}"
+        "title": "Review escrow {id}",
+        "itemsTitle": "Layanan dalam escrow",
+        "itemsDescription": "Review item, penyedia, jadwal, dan catatan jamaah sebelum dana dicairkan.",
+        "summaryTitle": "Ringkasan escrow",
+        "summaryDescription": "Dana hanya boleh dirilis setelah layanan selesai dan tidak ada sengketa aktif.",
+        "customerEmail": "Email jamaah",
+        "releaseTitle": "Release dana",
+        "releaseDescription": "Dana akan dicatat sebagai dirilis dan booking terkait ditandai selesai.",
+        "releaseUnavailable": "Dana tidak bisa dirilis karena status escrow sudah berubah atau belum memenuhi syarat.",
+        "releaseHelper": "Pastikan bukti layanan dan konfirmasi pihak terkait sudah lengkap sebelum merilis dana.",
+        "releasedNotice": "Dana escrow berhasil dirilis ke penyedia.",
+        "schedule": "Tanggal layanan",
+        "bookingStatus": "Status booking",
+        "location": "Lokasi / rute",
+        "vehicleType": "Jenis kendaraan",
+        "notes": "Catatan jamaah",
+        "noNotes": "Tidak ada catatan",
+        "bookingStatuses": {
+          "DRAFT": "Draft",
+          "PENDING_PAYMENT": "Menunggu pembayaran",
+          "CONFIRMED": "Terkonfirmasi",
+          "IN_PROGRESS": "Berjalan",
+          "COMPLETED": "Selesai",
+          "CANCELLED": "Dibatalkan"
+        }
       }
     },
     "list": {
@@ -733,7 +814,25 @@
         "title": "Penarikan dana penyedia.",
         "description": "Review permintaan pencairan dari muthawif dan provider sebelum dana dirilis.",
         "reviewDescription": "Validasi rekening, nominal, dan status penyelesaian layanan sebelum menyetujui penarikan.",
-        "reviewTitle": "Review penarikan {id}"
+        "reviewTitle": "Review penarikan {id}",
+        "bank": "Rekening tujuan",
+        "partnerEmail": "Email penyedia",
+        "accountName": "Nama rekening",
+        "accountNumber": "Nomor rekening",
+        "requestedNote": "Catatan pengajuan",
+        "actionTitle": "Tindakan admin",
+        "actionDescription": "Setujui setelah rekening valid. Tandai dibayar setelah transfer operasional selesai.",
+        "markPaid": "Tandai dibayar",
+        "reviewNote": "Catatan review",
+        "reject": "Tolak pengajuan",
+        "finalState": "Pengajuan ini sudah selesai diproses.",
+        "notices": {
+          "approved": "Pengajuan penarikan disetujui.",
+          "paid": "Penarikan ditandai sudah dibayar.",
+          "rejected": "Pengajuan penarikan ditolak.",
+          "note-required": "Catatan wajib diisi untuk penolakan.",
+          "invalid": "Data pengajuan tidak valid."
+        }
       },
       "fees": {
         "eyebrow": "Pengaturan biaya",
@@ -796,7 +895,9 @@
         "paid": "Dibayar",
         "escrow": "Escrow",
         "completed": "Selesai",
-        "refunded": "Refund"
+        "refunded": "Refund",
+        "pending": "Menunggu transfer",
+        "paymentReview": "Perlu verifikasi"
       },
       "withdrawalStatuses": {
         "review": "Review",
@@ -818,7 +919,8 @@
         "providerMuthawif": "Provider Muthawif",
         "transportation": "Transportasi",
         "visaProcessing": "Visa Processing",
-        "additionalServices": "Layanan Tambahan"
+        "additionalServices": "Layanan Tambahan",
+        "multiple": "Layanan Beragam"
       },
       "customers": {
         "keluargaRahman": "Keluarga Rahman",
@@ -833,7 +935,93 @@
       },
       "detail": {
         "title": "Detail transaksi {id}",
-        "description": "Ringkasan transaksi, layanan, jamaah, nominal, dan status pembayaran."
+        "description": "Ringkasan transaksi, layanan, jamaah, nominal, dan status pembayaran.",
+        "itemsTitle": "Layanan yang dipesan",
+        "itemsDescription": "Cocokkan bukti transfer dengan item, jadwal, penyedia, dan total layanan sebelum verifikasi.",
+        "customerEmail": "Email jamaah",
+        "provider": "Penyedia",
+        "schedule": "Tanggal layanan",
+        "bookingStatus": "Status booking",
+        "location": "Lokasi / rute",
+        "vehicleType": "Jenis kendaraan",
+        "notes": "Catatan jamaah",
+        "noNotes": "Tidak ada catatan"
+      },
+      "manualPayment": {
+        "proofTitle": "Bukti transfer",
+        "proofUploaded": "Bukti sudah diunggah jamaah.",
+        "noProof": "Jamaah belum mengunggah bukti transfer.",
+        "viewProof": "Lihat bukti transfer",
+        "verify": "Verifikasi pembayaran",
+        "reject": "Tolak bukti",
+        "rejectNote": "Catatan penolakan"
+      },
+      "bookingStatuses": {
+        "DRAFT": "Draft",
+        "PENDING_PAYMENT": "Menunggu pembayaran",
+        "CONFIRMED": "Terkonfirmasi",
+        "IN_PROGRESS": "Berjalan",
+        "COMPLETED": "Selesai",
+        "CANCELLED": "Dibatalkan"
+      }
+    },
+    "locations": {
+      "eyebrow": "Lookup lokasi",
+      "title": "Master lokasi untuk katalog layanan.",
+      "description": "Kelola kota, bandara, stasiun, dan titik ibadah yang dipakai oleh layanan, provider, armada, dan filter publik.",
+      "empty": "Belum ada lokasi yang cocok dengan filter saat ini.",
+      "pagination": "Menampilkan {count} dari {total} lokasi",
+      "fields": {
+        "location": "Lokasi",
+        "type": "Tipe",
+        "country": "Negara",
+        "usage": "Pemakaian",
+        "services": "Layanan",
+        "providers": "Penyedia",
+        "isMaster": "Lokasi master",
+        "action": "Aksi"
+      },
+      "types": {
+        "city": "Kota",
+        "airport": "Bandara",
+        "trainStation": "Stasiun kereta",
+        "holySite": "Tempat ibadah"
+      },
+      "statuses": {
+        "master": "Master",
+        "custom": "Kustom"
+      },
+      "filters": {
+        "searchPlaceholder": "Cari kota, bandara, atau kode negara",
+        "perPage": "Jumlah data"
+      },
+      "sort": {
+        "name": "Nama lokasi",
+        "type": "Tipe lokasi",
+        "country": "Kode negara",
+        "latest": "Terbaru",
+        "asc": "A–Z",
+        "desc": "Z–A"
+      },
+      "actions": {
+        "edit": "Edit",
+        "delete": "Hapus"
+      },
+      "form": {
+        "createTitle": "Tambah lokasi",
+        "createDescription": "Tambahkan lokasi baru agar bisa dipakai di rute, profil provider, dan filter katalog.",
+        "editEyebrow": "Edit lokasi",
+        "editTitle": "Edit {location}",
+        "editDescription": "Perubahan nama atau tipe lokasi akan memengaruhi semua relasi layanan yang memakai lokasi ini.",
+        "name": "Nama lokasi",
+        "namePlaceholder": "Contoh: Jeddah Airport",
+        "countryPlaceholder": "SA",
+        "save": "Simpan",
+        "cancel": "Batal"
+      },
+      "delete": {
+        "title": "Hapus lokasi ini?",
+        "description": "Lokasi yang dihapus tidak lagi tersedia untuk relasi baru. Pastikan tidak dipakai pada layanan aktif sebelum melanjutkan."
       }
     }
   },
@@ -842,7 +1030,8 @@
       "submitting": "Memproses...",
       "errors": {
         "generic": "Permintaan belum dapat diproses. Periksa data lalu coba lagi.",
-        "network": "Koneksi bermasalah. Coba beberapa saat lagi."
+        "network": "Koneksi bermasalah. Coba beberapa saat lagi.",
+        "providerBusinessEmail": "Pendaftaran provider wajib memakai email bisnis dengan domain instansi. Email personal dan email sementara tidak dapat digunakan."
       },
       "forgotPassword": "Lupa kata sandi",
       "fields": {
@@ -852,12 +1041,17 @@
         "emailPlaceholder": "nama@email.com",
         "passwordLabel": "Kata sandi",
         "passwordPlaceholder": "Minimal 8 karakter",
-        "roleLabel": "Daftar sebagai"
+        "roleLabel": "Daftar sebagai",
+        "businessEmailPlaceholder": "nama@domain-instansi.com"
       },
       "roles": {
         "JAMAAH": "Jamaah",
         "MUTHAWIF": "Muthawif",
         "PROVIDER": "Provider"
+      },
+      "providerNotice": {
+        "title": "Email bisnis wajib untuk provider",
+        "description": "Gunakan domain resmi instansi. Email personal seperti Gmail/Yahoo/Outlook dan email sementara akan ditolak. Akun provider tetap melalui verifikasi profil perusahaan oleh Admin Wif-Me."
       }
     },
     "verifyEmail": {
@@ -894,6 +1088,7 @@
     "title": "Pilih kategori, lalu lihat layanan yang tersedia.",
     "description": "Setiap kategori berisi layanan detail yang bisa dibandingkan jamaah sebelum booking.",
     "serviceCount": "{count} layanan",
+    "providerCountLabel": "{count} penyedia",
     "detailMeta": "{category} | Layanan Wif-Me",
     "detailEyebrow": "Detail kategori",
     "back": "Kembali ke kategori",
@@ -921,9 +1116,9 @@
     },
     "categories": {
       "muthawifPersonal": {
-        "title": "Muthawif Personal",
-        "desc": "Pendamping personal untuk jamaah mandiri, keluarga, dan rombongan kecil.",
-        "detail": "Layanan pendampingan ibadah oleh muthawif personal yang dapat disesuaikan dengan kondisi jamaah, jadwal, dan kebutuhan bimbingan."
+        "title": "Muthawif",
+        "desc": "Pendamping personal dan muthawif dari provider terverifikasi dalam satu katalog.",
+        "detail": "Layanan pendampingan ibadah dari muthawif personal maupun tim muthawif provider, dengan label sumber agar jamaah tahu siapa yang memprovide layanan."
       },
       "providerMuthawif": {
         "title": "Provider Muthawif",
@@ -994,7 +1189,27 @@
     },
     "registerToBook": "Daftar untuk booking",
     "durationFlexible": "Fleksibel",
-    "emptyOfferings": "Layanan aktif untuk kategori ini belum tersedia. Silakan pilih kategori lain atau cek kembali nanti."
+    "emptyOfferings": "Tidak ada layanan yang cocok dengan filter saat ini. Coba reset filter atau gunakan kata kunci lain.",
+    "sources": {
+      "direct": "Personal",
+      "providerStaff": "Dari provider",
+      "providerFleet": "Armada provider"
+    },
+    "resultSummary": "Menampilkan {count} dari {total} layanan",
+    "filters": {
+      "search": "Cari kebutuhan",
+      "searchPlaceholder": "Nama layanan, rute, atau penyedia",
+      "all": "Semua",
+      "source": "Sumber muthawif",
+      "personal": "Personal",
+      "provider": "Provider ({count} terdaftar)",
+      "vehicle": "Model kendaraan",
+      "location": "Lokasi perjalanan",
+      "anyLocation": "Semua lokasi",
+      "apply": "Terapkan filter",
+      "reset": "Reset filter"
+    },
+    "categoryNavLabel": "Kategori layanan"
   },
   "Jamaah": {
     "common": {
@@ -1016,7 +1231,7 @@
       "next": "Berikutnya",
       "pageSummary": "Halaman {page} dari {pageCount} • {total} data",
       "serviceTypes": {
-        "MUTHAWIF_PERSONAL": "Muthawif personal",
+        "MUTHAWIF_PERSONAL": "Muthawif",
         "PROVIDER_MUTHAWIF": "Provider muthawif",
         "TRANSPORTATION": "Transportasi",
         "VISA_PROCESSING": "Visa processing",
@@ -1034,8 +1249,8 @@
       },
       "payment": {
         "PENDING": "Belum dibayar",
-        "HELD_IN_ESCROW": "Sudah dibayar (Escrow)",
-        "RELEASED": "Selesai (Completed)",
+        "HELD_IN_ESCROW": "Sudah dibayar",
+        "RELEASED": "Completed",
         "REFUNDED": "Dikembalikan",
         "FAILED": "Gagal"
       }
@@ -1071,9 +1286,14 @@
       "description": "Gunakan pencarian untuk membandingkan muthawif, transportasi, visa, dan layanan pendukung yang aktif.",
       "searchPlaceholder": "Cari nama layanan atau penyedia",
       "book": "Booking",
+      "notAvailable": "Tidak Tersedia",
       "empty": {
         "title": "Layanan tidak ditemukan",
         "description": "Coba ubah kata kunci atau pilih jenis layanan lain."
+      },
+      "sources": {
+        "providerStaff": "Dari provider",
+        "providerFleet": "Armada provider"
       }
     },
     "checkout": {
@@ -1084,7 +1304,8 @@
       "fields": {
         "date": "Tanggal layanan",
         "notes": "Catatan untuk penyedia",
-        "notesPlaceholder": "Tulis jumlah jamaah, lokasi, atau kebutuhan khusus bila ada."
+        "notesPlaceholder": "Tulis jumlah jamaah, lokasi, atau kebutuhan khusus bila ada.",
+        "dateHelper": "Jika tanggal sudah dipakai jamaah lain, sistem akan meminta Anda memilih tanggal berbeda."
       },
       "submit": "Buat booking dan lanjut bayar",
       "summary": {
@@ -1094,7 +1315,8 @@
         "escrowValue": "Escrow Wif-Me",
         "total": "Total pembayaran",
         "note": "Nominal disimpan dalam IDR. Data kartu atau rekening pribadi tidak disimpan di server Wif-Me."
-      }
+      },
+      "availabilityNote": "Tanggal layanan wajib dipastikan. Muthawif dan transportasi hanya dapat menerima satu booking pada tanggal yang sama."
     },
     "bookings": {
       "eyebrow": "Booking saya",
@@ -1130,7 +1352,8 @@
         "amount": "Nominal",
         "bookingId": "ID booking",
         "method": "Metode",
-        "account": "Rekening tujuan"
+        "account": "Rekening tujuan",
+        "orderId": "ID order"
       },
       "bankTransfer": "Transfer bank",
       "instructions": {
@@ -1141,11 +1364,33 @@
           "Setelah pembayaran dikonfirmasi, dana masuk escrow dan booking menjadi terkonfirmasi."
         ]
       },
-      "confirm": "Konfirmasi pembayaran sandbox",
+      "confirm": "Unggah bukti transfer",
       "escrow": {
         "title": "Dana ditahan di escrow",
         "description": "Pembayaran tidak langsung diteruskan ke penyedia. Admin dapat memantau dana sampai layanan berjalan sesuai kesepakatan.",
-        "note": "MVP ini menggunakan konfirmasi sandbox tanpa menyimpan data kartu atau rekening pribadi."
+        "note": "Pembayaran diverifikasi berdasarkan bukti transfer dan masuk escrow setelah admin menyetujui."
+      },
+      "titleReview": "Bukti transfer menunggu verifikasi.",
+      "descriptionReview": "Admin Wif-Me akan memeriksa bukti transfer sebelum dana masuk escrow dan booking dikonfirmasi.",
+      "bank": {
+        "bankName": "Bank",
+        "accountName": "Nama rekening",
+        "accountNumber": "Nomor rekening",
+        "branch": "Cabang"
+      },
+      "proof": {
+        "title": "Bukti transfer",
+        "description": "Unggah bukti transfer setelah pembayaran dilakukan.",
+        "waitingReview": "Bukti sudah diterima dan sedang direview admin.",
+        "helper": "Format JPG, PNG, WEBP, atau PDF. Maksimal 5 MB.",
+        "upload": "Unggah bukti",
+        "replace": "Unggah ulang bukti",
+        "submit": "Kirim bukti",
+        "view": "Lihat bukti",
+        "uploadedNotice": "Bukti transfer berhasil dikirim. Admin akan melakukan verifikasi.",
+        "invalidNotice": "Bukti transfer tidak valid. Gunakan JPG, PNG, WEBP, atau PDF maksimal 5 MB.",
+        "reviewStatus": "Menunggu verifikasi",
+        "rejectedStatus": "Bukti ditolak"
       }
     },
     "profile": {
@@ -1194,6 +1439,428 @@
         "ruleLetters": "Gunakan kombinasi huruf besar dan kecil bila memungkinkan.",
         "ruleNumbers": "Tambahkan angka agar password lebih sulit ditebak.",
         "rulePrivate": "Jangan bagikan password kepada penyedia layanan atau pihak lain."
+      }
+    }
+  },
+  "Partner": {
+    "common": {
+      "search": "Cari",
+      "status": "Status",
+      "sort": "Urutkan",
+      "apply": "Terapkan",
+      "all": "Semua",
+      "latest": "Terbaru",
+      "schedule": "Jadwal",
+      "amount": "Nominal",
+      "reference": "Referensi",
+      "service": "Layanan",
+      "customer": "Jamaah",
+      "detail": "Detail",
+      "previous": "Sebelumnya",
+      "next": "Berikutnya",
+      "bookings": "Booking",
+      "route": "Rute",
+      "active": "Aktif",
+      "draft": "Draft",
+      "pageSummary": "Menampilkan {total} data",
+      "metrics": {
+        "verification": "Status verifikasi",
+        "services": "Layanan",
+        "activeBookings": "Booking aktif",
+        "escrow": "Dana escrow"
+      },
+      "verification": {
+        "DRAFT": "Draft",
+        "PENDING": "Review",
+        "APPROVED": "Terverifikasi",
+        "REJECTED": "Ditolak"
+      },
+      "withdrawalStatuses": {
+        "REVIEW": "Review",
+        "APPROVED": "Disetujui",
+        "PAID": "Dibayar",
+        "REJECTED": "Ditolak"
+      }
+    },
+    "muthawif": {
+      "dashboard": {
+        "eyebrow": "Ringkasan",
+        "title": "Dashboard Anda",
+        "description": "Pantau layanan, jadwal, dan pendapatan Anda di satu tempat.",
+        "scheduleCta": "Lihat Jadwal",
+        "availability": {
+          "available": "Tersedia",
+          "notAvailable": "Tidak tersedia",
+          "toggleLabel": "Status Ketersediaan",
+          "activeBookingsWarning": "Anda masih memiliki layanan yang sedang berjalan atau belum selesai. Harap pastikan untuk menyelesaikan tanggung jawab Anda kepada jamaah."
+        },
+        "upcoming": {
+          "title": "Jadwal mendatang",
+          "empty": "Belum ada booking aktif untuk layanan Anda."
+        },
+        "quick": {
+          "schedule": {
+            "title": "Jadwal Saya",
+            "description": "Lihat booking jamaah, tanggal layanan, dan status pembayaran."
+          },
+          "earnings": {
+            "title": "Pendapatan",
+            "description": "Pantau dana escrow dan pembayaran yang sudah dirilis."
+          }
+        }
+      },
+      "schedule": {
+        "eyebrow": "Jadwal muthawif",
+        "title": "Booking jamaah untuk layanan personal.",
+        "description": "Daftar booking yang masuk melalui layanan yang Anda kelola.",
+        "searchPlaceholder": "Cari layanan atau jamaah",
+        "empty": {
+          "title": "Belum ada jadwal",
+          "description": "Booking akan muncul setelah jamaah mengajukan layanan Anda."
+        }
+      },
+      "earnings": {
+        "eyebrow": "Pendapatan muthawif",
+        "title": "Pantau pembayaran dan escrow.",
+        "description": "Setiap pembayaran terkait booking jamaah ditampilkan dengan status dana.",
+        "searchPlaceholder": "Cari layanan atau referensi",
+        "detailLabel": "Dana layanan",
+        "summary": {
+          "escrow": "Masih di escrow",
+          "released": "Sudah dirilis"
+        },
+        "empty": {
+          "title": "Belum ada pendapatan",
+          "description": "Pendapatan akan muncul setelah pembayaran jamaah diproses."
+        }
+      },
+      "profile": {
+        "eyebrow": "Profil muthawif",
+        "title": "Kelola profil pendampingan dan keamanan akun.",
+        "description": "Lengkapi informasi yang dilihat jamaah sebelum memilih layanan Anda.",
+        "tabs": {
+          "general": "General profile",
+          "security": "Change password"
+        },
+        "fields": {
+          "name": "Nama akun",
+          "displayName": "Nama tampilan",
+          "email": "Email",
+          "phone": "Nomor telepon",
+          "phonePlaceholder": "+62 812 3456 7890",
+          "baseCity": "Kota basis",
+          "baseCityPlaceholder": "Makkah, Madinah, atau Jeddah",
+          "languages": "Bahasa",
+          "languagesPlaceholder": "Indonesia, Arab, Inggris",
+          "bio": "Bio singkat",
+          "bioPlaceholder": "Tuliskan pengalaman pendampingan, gaya komunikasi, dan area layanan."
+        },
+        "emailHelper": "Email digunakan untuk login dan tidak dapat diubah dari halaman ini.",
+        "actions": {
+          "saveProfile": "Simpan profil",
+          "savePassword": "Simpan password"
+        },
+        "notices": {
+          "saved": "Profil muthawif berhasil diperbarui.",
+          "invalid": "Data profil belum valid. Periksa kembali field wajib.",
+          "passwordSaved": "Password berhasil diperbarui.",
+          "currentInvalid": "Password saat ini tidak sesuai.",
+          "passwordInvalid": "Password baru belum valid atau konfirmasi tidak sama."
+        },
+        "summary": {
+          "title": "Ringkasan profil",
+          "verification": "Status verifikasi",
+          "city": "Kota basis",
+          "languages": "Bahasa",
+          "email": "Verifikasi email",
+          "verified": "Terverifikasi",
+          "notVerified": "Belum terverifikasi"
+        },
+        "security": {
+          "title": "Ubah password",
+          "description": "Gunakan password baru yang kuat untuk menjaga akses akun muthawif.",
+          "currentPassword": "Password saat ini",
+          "newPassword": "Password baru",
+          "confirmPassword": "Konfirmasi password baru",
+          "helper": "Minimal 8 karakter dan wajib mengandung huruf serta angka.",
+          "infoTitle": "Catatan keamanan",
+          "infoDescription": "Password diproses di server dan tidak disimpan dalam bentuk teks asli.",
+          "ruleLetters": "Gunakan kombinasi huruf besar dan kecil bila memungkinkan.",
+          "ruleNumbers": "Tambahkan angka agar password lebih sulit ditebak.",
+          "rulePrivate": "Jangan bagikan password kepada jamaah, provider, atau pihak lain."
+        }
+      },
+      "withdrawals": {
+        "eyebrow": "Penarikan dana",
+        "title": "Ajukan penarikan pendapatan.",
+        "description": "Dana yang sudah dirilis dari escrow dapat diajukan ke rekening Anda. Pengajuan akan direview admin Wif-Me.",
+        "summary": {
+          "available": "Dapat ditarik",
+          "released": "Total dirilis",
+          "inReview": "Dalam proses",
+          "paid": "Sudah dibayar"
+        },
+        "form": {
+          "title": "Ajukan penarikan",
+          "description": "Masukkan rekening atas nama Anda atau instansi terdaftar. Nomor rekening disimpan terenkripsi.",
+          "amount": "Nominal penarikan",
+          "bankName": "Nama bank",
+          "accountName": "Nama pemilik rekening",
+          "accountNumber": "Nomor rekening",
+          "note": "Catatan",
+          "submit": "Kirim pengajuan"
+        },
+        "history": "Riwayat penarikan",
+        "columns": {
+          "bank": "Rekening"
+        },
+        "empty": {
+          "title": "Belum ada penarikan",
+          "description": "Riwayat penarikan akan muncul setelah Anda mengirim pengajuan."
+        },
+        "notices": {
+          "requested": "Pengajuan penarikan berhasil dikirim.",
+          "invalid": "Data penarikan belum valid. Periksa nominal dan rekening.",
+          "insufficient": "Nominal melebihi saldo yang dapat ditarik."
+        }
+      }
+    },
+    "provider": {
+      "dashboard": {
+        "eyebrow": "Dashboard provider",
+        "title": "Kelola layanan provider dalam satu tempat.",
+        "description": "Pantau layanan B2B, transportasi, booking aktif, dan dana escrow.",
+        "staffCta": "Kelola staf",
+        "upcoming": {
+          "title": "Booking mendatang",
+          "empty": "Belum ada booking aktif untuk layanan provider."
+        },
+        "quick": {
+          "staff": {
+            "title": "Manajemen Staf",
+            "description": "Pantau layanan suplai muthawif dan booking B2B."
+          },
+          "fleet": {
+            "title": "Armada",
+            "description": "Lihat layanan transportasi rute dan status aktifnya."
+          },
+          "earnings": {
+            "title": "Pendapatan",
+            "description": "Pantau dana escrow dan pembayaran provider."
+          }
+        }
+      },
+      "staff": {
+        "eyebrow": "Manajemen staf",
+        "title": "Layanan suplai muthawif provider.",
+        "description": "Kelola penawaran B2B untuk travel, komunitas, atau rombongan.",
+        "searchPlaceholder": "Cari layanan staf",
+        "empty": {
+          "title": "Belum ada staf",
+          "description": "Tambahkan staf agar setiap provider memiliki daftar tim sendiri."
+        },
+        "add": "Tambah staf",
+        "edit": "Edit",
+        "delete": "Hapus",
+        "invite": {
+          "share": "WhatsApp",
+          "copyLink": "Salin Link",
+          "copied": "Tersalin",
+          "pending": "Undangan Terkirim"
+        },
+        "form": {
+          "addTitle": "Tambah staf provider",
+          "editTitle": "Edit staf provider",
+          "deleteTitle": "Hapus staf {name}",
+          "deleteDescription": "Staf yang dihapus tidak akan muncul lagi di daftar provider ini.",
+          "name": "Nama staf",
+          "roleTitle": "Peran",
+          "email": "Email",
+          "phone": "Nomor telepon",
+          "languages": "Bahasa",
+          "status": "Status",
+          "notes": "Catatan",
+          "submitCreate": "Simpan staf",
+          "submitUpdate": "Simpan perubahan",
+          "cancel": "Batal",
+          "confirmDelete": "Hapus staf",
+          "basePrice": "Biaya staf"
+        },
+        "statuses": {
+          "ACTIVE": "Aktif",
+          "ON_DUTY": "Bertugas",
+          "INACTIVE": "Nonaktif"
+        },
+        "columns": {
+          "name": "Nama",
+          "role": "Peran",
+          "languages": "Bahasa",
+          "status": "Status",
+          "action": "Aksi",
+          "price": "Biaya"
+        }
+      },
+      "fleet": {
+        "eyebrow": "Armada transportasi",
+        "title": "Layanan rute dan armada provider.",
+        "description": "Pantau layanan transportasi yang aktif untuk jamaah dan rombongan.",
+        "searchPlaceholder": "Cari rute atau layanan",
+        "empty": {
+          "title": "Belum ada armada",
+          "description": "Tambahkan kendaraan agar daftar armada terpisah per provider."
+        },
+        "add": "Tambah armada",
+        "edit": "Edit",
+        "delete": "Hapus",
+        "form": {
+          "addTitle": "Tambah armada provider",
+          "editTitle": "Edit armada provider",
+          "deleteTitle": "Hapus armada {name}",
+          "deleteDescription": "Armada yang dihapus tidak akan muncul lagi di daftar provider ini.",
+          "vehicleName": "Nama kendaraan",
+          "vehicleType": "Tipe kendaraan",
+          "plateNumber": "Nomor plat",
+          "capacity": "Kapasitas",
+          "baseCity": "Kota basis",
+          "status": "Status",
+          "notes": "Catatan",
+          "submitCreate": "Simpan armada",
+          "submitUpdate": "Simpan perubahan",
+          "cancel": "Batal",
+          "confirmDelete": "Hapus armada",
+          "basePrice": "Biaya armada"
+        },
+        "statuses": {
+          "AVAILABLE": "Tersedia",
+          "ASSIGNED": "Bertugas",
+          "MAINTENANCE": "Perawatan"
+        },
+        "columns": {
+          "vehicle": "Kendaraan",
+          "type": "Tipe",
+          "capacity": "Kapasitas",
+          "city": "Kota",
+          "status": "Status",
+          "action": "Aksi",
+          "price": "Biaya"
+        }
+      },
+      "earnings": {
+        "eyebrow": "Pendapatan provider",
+        "title": "Pantau pembayaran provider.",
+        "description": "Lihat transaksi layanan provider dari status escrow sampai dana dirilis.",
+        "searchPlaceholder": "Cari layanan atau referensi",
+        "detailLabel": "Dana layanan",
+        "summary": {
+          "escrow": "Masih di escrow",
+          "released": "Sudah dirilis"
+        },
+        "empty": {
+          "title": "Belum ada pendapatan",
+          "description": "Pendapatan akan muncul setelah pembayaran booking provider diproses."
+        }
+      },
+      "profile": {
+        "eyebrow": "Profil provider",
+        "title": "Kelola profil instansi dan keamanan akun.",
+        "description": "Lengkapi informasi resmi yang dilihat jamaah dan tim Wif-Me saat proses kerja sama.",
+        "tabs": {
+          "general": "General profile",
+          "security": "Change password"
+        },
+        "fields": {
+          "name": "Nama akun",
+          "displayName": "Nama tampilan",
+          "companyName": "Nama instansi",
+          "companyType": "Tipe instansi",
+          "companyTypePlaceholder": "travel, transport, visa, atau organisasi",
+          "registrationNumber": "Nomor registrasi",
+          "taxId": "Nomor pajak",
+          "email": "Email",
+          "phone": "Nomor telepon",
+          "whatsapp": "WhatsApp operasional",
+          "phonePlaceholder": "+966 50 000 0000",
+          "baseCity": "Kota basis",
+          "baseCityPlaceholder": "Makkah, Madinah, atau Jeddah",
+          "country": "Kode negara",
+          "website": "Website",
+          "websitePlaceholder": "https://nama-instansi.com",
+          "address": "Alamat operasional",
+          "addressPlaceholder": "Alamat kantor atau titik operasional utama.",
+          "languages": "Bahasa layanan",
+          "languagesPlaceholder": "Indonesia, Arab, Inggris",
+          "bio": "Deskripsi instansi",
+          "bioPlaceholder": "Tuliskan layanan utama, area operasional, dan pengalaman kerja sama."
+        },
+        "emailHelper": "Email digunakan untuk login dan tidak dapat diubah dari halaman ini.",
+        "actions": {
+          "saveProfile": "Simpan profil",
+          "savePassword": "Simpan password"
+        },
+        "notices": {
+          "saved": "Profil provider berhasil diperbarui.",
+          "invalid": "Data profil belum valid. Periksa kembali field wajib.",
+          "passwordSaved": "Password berhasil diperbarui.",
+          "currentInvalid": "Password saat ini tidak sesuai.",
+          "passwordInvalid": "Password baru belum valid atau konfirmasi tidak sama."
+        },
+        "summary": {
+          "title": "Ringkasan provider",
+          "verification": "Status verifikasi",
+          "city": "Kota basis",
+          "languages": "Bahasa",
+          "website": "Website",
+          "email": "Verifikasi email",
+          "verified": "Terverifikasi",
+          "notVerified": "Belum terverifikasi"
+        },
+        "security": {
+          "title": "Ubah password",
+          "description": "Gunakan password baru yang kuat untuk menjaga akses akun provider.",
+          "currentPassword": "Password saat ini",
+          "newPassword": "Password baru",
+          "confirmPassword": "Konfirmasi password baru",
+          "helper": "Minimal 8 karakter dan wajib mengandung huruf serta angka.",
+          "infoTitle": "Catatan keamanan",
+          "infoDescription": "Password diproses di server dan tidak disimpan dalam bentuk teks asli.",
+          "ruleLetters": "Gunakan kombinasi huruf besar dan kecil bila memungkinkan.",
+          "ruleNumbers": "Tambahkan angka agar password lebih sulit ditebak.",
+          "rulePrivate": "Jangan bagikan password kepada jamaah, staf, atau pihak lain."
+        }
+      },
+      "withdrawals": {
+        "eyebrow": "Penarikan dana",
+        "title": "Ajukan penarikan pendapatan.",
+        "description": "Dana yang sudah dirilis dari escrow dapat diajukan ke rekening Anda. Pengajuan akan direview admin Wif-Me.",
+        "summary": {
+          "available": "Dapat ditarik",
+          "released": "Total dirilis",
+          "inReview": "Dalam proses",
+          "paid": "Sudah dibayar"
+        },
+        "form": {
+          "title": "Ajukan penarikan",
+          "description": "Masukkan rekening atas nama Anda atau instansi terdaftar. Nomor rekening disimpan terenkripsi.",
+          "amount": "Nominal penarikan",
+          "bankName": "Nama bank",
+          "accountName": "Nama pemilik rekening",
+          "accountNumber": "Nomor rekening",
+          "note": "Catatan",
+          "submit": "Kirim pengajuan"
+        },
+        "history": "Riwayat penarikan",
+        "columns": {
+          "bank": "Rekening"
+        },
+        "empty": {
+          "title": "Belum ada penarikan",
+          "description": "Riwayat penarikan akan muncul setelah Anda mengirim pengajuan."
+        },
+        "notices": {
+          "requested": "Pengajuan penarikan berhasil dikirim.",
+          "invalid": "Data penarikan belum valid. Periksa nominal dan rekening.",
+          "insufficient": "Nominal melebihi saldo yang dapat ditarik."
+        }
       }
     }
   }

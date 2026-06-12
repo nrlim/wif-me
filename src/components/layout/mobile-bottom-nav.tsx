@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect, type ReactElement } from "react";
+import { useEffect, useState, useSyncExternalStore, type ReactElement } from "react";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils/cn";
 import {
@@ -15,15 +15,18 @@ import {
   CircleHelp,
   Star,
   Users,
+  ShoppingCart,
 } from "lucide-react";
+import { useCartStore } from "@/hooks/use-cart-store";
+import { CartDrawer } from "@/components/cart/cart-drawer";
 
 const MOBILE_NAV_ITEMS = [
   { href: "/", label: "Beranda", icon: House },
   { href: "/#search", label: "Cari", icon: Search },
   { href: "CENTER", label: "Menu", icon: LayoutGrid }, // Placeholder for center button
-  { href: "/#cara-kerja", label: "Panduan", icon: ClipboardList },
+  { href: "CART", label: "Keranjang", icon: ShoppingCart },
   { href: "/login", label: "Masuk", icon: LogIn },
-] as const;
+];
 
 const BOTTOM_SHEET_ITEMS = [
   { href: "/#search", label: "Cari Muthawif", icon: Search },
@@ -36,7 +39,10 @@ const BOTTOM_SHEET_ITEMS = [
 
 export function MobileBottomNav(): ReactElement {
   const [isSheetOpen, setIsSheetOpen] = useState(false);
+  const [isCartOpen, setIsCartOpen] = useState(false);
   const pathname = usePathname();
+  const cartItems = useCartStore((state) => state.items);
+  const mounted = useSyncExternalStore(subscribeToHydration, getClientSnapshot, getServerSnapshot);
 
   // Prevent body scroll when sheet is open
   useEffect(() => {
@@ -72,6 +78,29 @@ export function MobileBottomNav(): ReactElement {
                   <item.icon className="size-[28px]" strokeWidth={2.5} />
                 </button>
               </div>
+            );
+          }
+
+          if (item.href === "CART") {
+            return (
+              <button
+                key={item.label}
+                onClick={() => setIsCartOpen(true)}
+                className={cn(
+                  "relative flex h-full flex-1 flex-col items-center justify-center gap-1 text-[0.625rem] font-bold transition-all duration-200 text-gray-400"
+                )}
+                aria-label="Keranjang Belanja"
+              >
+                <div className="relative">
+                  <item.icon className="size-6" strokeWidth={2} />
+                  {mounted && cartItems.length > 0 && (
+                    <span className="absolute -right-2 -top-1.5 flex size-4 items-center justify-center rounded-full bg-[var(--gold)] text-[0.5rem] font-bold text-white shadow-sm">
+                      {cartItems.reduce((acc, cartItem) => acc + cartItem.quantity, 0)}
+                    </span>
+                  )}
+                </div>
+                <span>{item.label}</span>
+              </button>
             );
           }
 
@@ -146,6 +175,20 @@ export function MobileBottomNav(): ReactElement {
           ))}
         </div>
       </div>
+
+      <CartDrawer open={isCartOpen} onOpenChange={setIsCartOpen} />
     </>
   );
+}
+
+function subscribeToHydration(): () => void {
+  return () => undefined;
+}
+
+function getClientSnapshot(): boolean {
+  return true;
+}
+
+function getServerSnapshot(): boolean {
+  return false;
 }

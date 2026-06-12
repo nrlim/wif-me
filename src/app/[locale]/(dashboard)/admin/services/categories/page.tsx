@@ -1,7 +1,7 @@
 import type { ReactElement } from "react";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { CarFront, FileCheck2, Handshake, Plus, UserCheck } from "lucide-react";
+import { CarFront, FileCheck2, Handshake, Plus, UserCheck, Layers } from "lucide-react";
 import { Link } from "@/i18n/routing";
 import { DataListPagination } from "@/components/shared/data-list-pagination";
 import { DataListToolbar } from "@/components/shared/data-list-toolbar";
@@ -10,7 +10,7 @@ import { serviceTypeToKey } from "@/lib/admin/mappers";
 
 export const metadata: Metadata = { title: "Kategori Layanan" };
 
-const CATEGORY_ICONS = { muthawifPersonal: UserCheck, providerMuthawif: Handshake, transportation: CarFront, visaProcessing: FileCheck2, additionalServices: Plus } as const;
+const CATEGORY_ICONS = { muthawifPersonal: UserCheck, providerMuthawif: Handshake, transportation: CarFront, visaProcessing: FileCheck2, additionalServices: Plus, multiple: Layers } as const;
 const PRICE_MODEL_LABELS = { CURRENCY: "IDR / SAR", B2B: "B2B", ROUTE: "Rute", DOCUMENT: "Dokumen", CUSTOM: "Kustom" } as const;
 
 export default async function AdminServiceCategoriesPage(): Promise<ReactElement> {

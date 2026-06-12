@@ -1,12 +1,14 @@
 import { PaymentStatus, ServiceType, VerificationStatus, WithdrawalStatus } from "@prisma/client";
 
-export function serviceTypeToKey(type: ServiceType): "muthawifPersonal" | "providerMuthawif" | "transportation" | "visaProcessing" | "additionalServices" {
+export function serviceTypeToKey(type: ServiceType | "MULTIPLE"): "muthawifPersonal" | "providerMuthawif" | "transportation" | "visaProcessing" | "additionalServices" | "multiple" {
   switch (type) {
     case ServiceType.MUTHAWIF_PERSONAL: return "muthawifPersonal";
     case ServiceType.PROVIDER_MUTHAWIF: return "providerMuthawif";
     case ServiceType.TRANSPORTATION: return "transportation";
     case ServiceType.VISA_PROCESSING: return "visaProcessing";
     case ServiceType.ADDITIONAL_SERVICE: return "additionalServices";
+    case "MULTIPLE": return "multiple";
+    default: return "multiple";
   }
 }
 

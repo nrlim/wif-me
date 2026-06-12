@@ -2,10 +2,9 @@
 
 import { useMemo, useState, type ReactElement } from "react";
 import { Link } from "@/i18n/routing";
-import type { PartnerCityKey, PartnerRow, PartnerServiceKey, PartnerStatusKey, PartnerType } from "@/lib/constants/partners";
+import type { PartnerRow, PartnerServiceKey, PartnerStatusKey, PartnerType } from "@/lib/constants/partners";
 
 const SERVICE_OPTIONS: readonly PartnerServiceKey[] = ["muthawifPersonal", "providerMuthawif", "transportation"];
-const CITY_OPTIONS: readonly PartnerCityKey[] = ["makkah", "jeddah", "madinah"];
 const STATUS_OPTIONS: readonly PartnerStatusKey[] = ["verified", "review", "paused"];
 
 type PartnerFormText = {
@@ -17,7 +16,6 @@ type PartnerFormText = {
   readonly submit: string;
   readonly cancel: string;
   readonly services: Record<PartnerServiceKey, string>;
-  readonly cities: Record<PartnerCityKey, string>;
   readonly statuses: Record<PartnerStatusKey, string>;
 };
 
@@ -28,9 +26,10 @@ type PartnerFormProps = {
   readonly text: PartnerFormText;
   readonly partner?: PartnerRow;
   readonly initialName?: string;
+  readonly locations: readonly { readonly id: string; readonly name: string }[];
 };
 
-export function PartnerForm({ locale, type, action, text, partner, initialName = "" }: PartnerFormProps): ReactElement {
+export function PartnerForm({ locale, type, action, text, partner, initialName = "", locations }: PartnerFormProps): ReactElement {
   const [name, setName] = useState(initialName);
   const generatedKey = useMemo(() => toCamelCase(name || partner?.key || "partner"), [name, partner?.key]);
 
@@ -50,10 +49,11 @@ export function PartnerForm({ locale, type, action, text, partner, initialName =
             {SERVICE_OPTIONS.map((option) => <option key={option} value={option}>{text.services[option]}</option>)}
           </select>
         </label>
-        <label className="grid gap-1.5 text-xs font-extrabold text-[var(--charcoal)]" htmlFor="cityKey">
+        <label className="grid gap-1.5 text-xs font-extrabold text-[var(--charcoal)]" htmlFor="baseLocationId">
           {text.city}
-          <select id="cityKey" name="cityKey" defaultValue={partner?.cityKey ?? "makkah"} className="auth-select" required>
-            {CITY_OPTIONS.map((option) => <option key={option} value={option}>{text.cities[option]}</option>)}
+          <select id="baseLocationId" name="baseLocationId" defaultValue={partner?.baseLocationId ?? ""} className="auth-select" required>
+            <option value="">Pilih Lokasi</option>
+            {locations.map((loc) => <option key={loc.id} value={loc.id}>{loc.name}</option>)}
           </select>
         </label>
         <label className="grid gap-1.5 text-xs font-extrabold text-[var(--charcoal)]" htmlFor="bookings">

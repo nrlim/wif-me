@@ -10,6 +10,7 @@ export type PartnerRow = {
   readonly type: PartnerType;
   readonly serviceKey: PartnerServiceKey;
   readonly cityKey: PartnerCityKey;
+  readonly baseLocationId?: string;
   readonly bookings: number;
   readonly status: PartnerStatusKey;
 };

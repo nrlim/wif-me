@@ -4,6 +4,7 @@ import { BookingStatus, PaymentStatus, Prisma, ServiceType } from "@prisma/clien
 import { getPrismaClient } from "@/lib/db/prisma";
 import { formatCurrency } from "@/lib/currency/formatters";
 import { FALLBACK_RATES } from "@/lib/currency/rates";
+import { getBookableCatalogRowById, getBookableCatalogRows, type CatalogSource } from "@/lib/services/bookable-catalog";
 import type { BookingListQuery, PaymentListQuery, ServiceSearchQuery } from "@/lib/validators/jamaah";
 
 export type PaginatedResult<T> = {
@@ -21,9 +22,12 @@ export type JamaahServiceRow = {
   readonly type: ServiceType;
   readonly categoryTitle: string;
   readonly ownerName: string;
+  readonly ownerLogoUrl: string;
+  readonly source: CatalogSource;
   readonly routeLabel: string | null;
   readonly basePrice: string;
   readonly basePriceIdr: number;
+  readonly ownerAvailable: boolean;
 };
 
 export type JamaahBookingRow = {
@@ -39,12 +43,18 @@ export type JamaahBookingRow = {
 
 export type JamaahPaymentRow = {
   readonly id: string;
-  readonly bookingId: string;
+  readonly orderId: string;
   readonly reference: string;
-  readonly serviceTitle: string;
+  readonly orderTitle: string;
   readonly status: PaymentStatus;
   readonly amount: string;
   readonly createdAt: string;
+  readonly proofUrl: string | null;
+  readonly proofFileName: string | null;
+  readonly proofMimeType: string | null;
+  readonly proofUploadedAt: string | null;
+  readonly proofRejectedAt: string | null;
+  readonly proofReviewNote: string | null;
 };
 
 export type JamaahProfile = {
@@ -77,18 +87,6 @@ export async function getJamaahProfile(userId: string): Promise<JamaahProfile | 
   };
 }
 
-const serviceSelect = {
-  id: true,
-  title: true,
-  description: true,
-  type: true,
-  basePriceIdr: true,
-  routeFrom: true,
-  routeTo: true,
-  owner: { select: { name: true, providerProfile: { select: { displayName: true } } } },
-  category: { select: { title: true } },
-} as const satisfies Prisma.ServiceOfferingSelect;
-
 export async function getJamaahOverview(userId: string): Promise<{
   readonly activeBookings: number;
   readonly pendingPayments: number;
@@ -98,11 +96,11 @@ export async function getJamaahOverview(userId: string): Promise<{
   const prisma = getPrismaClient();
   const [activeBookings, pendingPayments, escrowPayments, upcoming] = await Promise.all([
     prisma.booking.count({ where: { customerId: userId, status: { in: [BookingStatus.CONFIRMED, BookingStatus.IN_PROGRESS] } } }),
-    prisma.payment.count({ where: { booking: { customerId: userId }, status: PaymentStatus.PENDING } }),
-    prisma.payment.count({ where: { booking: { customerId: userId }, status: PaymentStatus.HELD_IN_ESCROW } }),
+    prisma.payment.count({ where: { order: { customerId: userId }, status: PaymentStatus.PENDING } }),
+    prisma.payment.count({ where: { order: { customerId: userId }, status: PaymentStatus.HELD_IN_ESCROW } }),
     prisma.booking.findFirst({
       where: { customerId: userId, status: { in: [BookingStatus.PENDING_PAYMENT, BookingStatus.CONFIRMED, BookingStatus.IN_PROGRESS] } },
-      include: { serviceOffering: { include: { owner: { include: { providerProfile: true } } } }, payment: true },
+      include: { serviceOffering: { include: { owner: { include: { providerProfile: true } } } }, order: { include: { payment: true } } },
       orderBy: { scheduledStart: "asc" },
     }),
   ]);
@@ -111,34 +109,13 @@ export async function getJamaahOverview(userId: string): Promise<{
 }
 
 export async function searchJamaahServices(query: ServiceSearchQuery): Promise<PaginatedResult<JamaahServiceRow>> {
-  const prisma = getPrismaClient();
-  const where: Prisma.ServiceOfferingWhereInput = {
-    isActive: true,
-    category: { status: "ACTIVE" },
-    ...(query.serviceType ? { type: query.serviceType } : {}),
-    ...(query.q
-      ? {
-          OR: [
-            { title: { contains: query.q, mode: "insensitive" } },
-            { description: { contains: query.q, mode: "insensitive" } },
-            { owner: { name: { contains: query.q, mode: "insensitive" } } },
-          ],
-        }
-      : {}),
-  };
-  const orderBy = serviceOrderBy(query.sort, query.order);
-  const [total, services] = await Promise.all([
-    prisma.serviceOffering.count({ where }),
-    prisma.serviceOffering.findMany({ where, select: serviceSelect, orderBy, skip: (query.page - 1) * query.perPage, take: query.perPage }),
-  ]);
-
-  return toPaginatedResult(services.map(toServiceRow), total, query.page, query.perPage);
+  const rows = await getBookableCatalogRows(query);
+  const offset = (query.page - 1) * query.perPage;
+  return toPaginatedResult(rows.slice(offset, offset + query.perPage), rows.length, query.page, query.perPage);
 }
 
 export async function getServiceForCheckout(serviceId: string): Promise<JamaahServiceRow | null> {
-  const prisma = getPrismaClient();
-  const service = await prisma.serviceOffering.findFirst({ where: { id: serviceId, isActive: true }, select: serviceSelect });
-  return service ? toServiceRow(service) : null;
+  return getBookableCatalogRowById(serviceId);
 }
 
 export async function getJamaahBookings(userId: string, query: BookingListQuery): Promise<PaginatedResult<JamaahBookingRow>> {
@@ -150,7 +127,7 @@ export async function getJamaahBookings(userId: string, query: BookingListQuery)
   };
   const [total, rows] = await Promise.all([
     prisma.booking.count({ where }),
-    prisma.booking.findMany({ where, include: { serviceOffering: { include: { owner: { include: { providerProfile: true } } } }, payment: true }, orderBy: bookingOrderBy(query.sort, query.order), skip: (query.page - 1) * query.perPage, take: query.perPage }),
+    prisma.booking.findMany({ where, include: { serviceOffering: { include: { owner: { include: { providerProfile: true } } } }, order: { include: { payment: true } } }, orderBy: bookingOrderBy(query.sort, query.order), skip: (query.page - 1) * query.perPage, take: query.perPage }),
   ]);
 
   return toPaginatedResult(rows.map(toBookingRow), total, query.page, query.perPage);
@@ -159,12 +136,12 @@ export async function getJamaahBookings(userId: string, query: BookingListQuery)
 export async function getJamaahPayments(userId: string, query: PaymentListQuery): Promise<PaginatedResult<JamaahPaymentRow>> {
   const prisma = getPrismaClient();
   const where: Prisma.PaymentWhereInput = {
-    booking: { customerId: userId, ...(query.q ? { serviceOffering: { title: { contains: query.q, mode: "insensitive" } } } : {}) },
+    order: { customerId: userId, ...(query.q ? { bookings: { some: { serviceOffering: { title: { contains: query.q, mode: "insensitive" } } } } } : {}) },
     ...(query.status ? { status: query.status } : {}),
   };
   const [total, rows] = await Promise.all([
     prisma.payment.count({ where }),
-    prisma.payment.findMany({ where, include: { booking: { include: { serviceOffering: true } } }, orderBy: paymentOrderBy(query.sort, query.order), skip: (query.page - 1) * query.perPage, take: query.perPage }),
+    prisma.payment.findMany({ where, include: { order: { include: { bookings: { include: { serviceOffering: true } } } } }, orderBy: paymentOrderBy(query.sort, query.order), skip: (query.page - 1) * query.perPage, take: query.perPage }),
   ]);
 
   return toPaginatedResult(rows.map(toPaymentRow), total, query.page, query.perPage);
@@ -172,14 +149,8 @@ export async function getJamaahPayments(userId: string, query: PaymentListQuery)
 
 export async function getJamaahPaymentDetail(userId: string, paymentId: string): Promise<JamaahPaymentRow | null> {
   const prisma = getPrismaClient();
-  const payment = await prisma.payment.findFirst({ where: { id: paymentId, booking: { customerId: userId } }, include: { booking: { include: { serviceOffering: true } } } });
+  const payment = await prisma.payment.findFirst({ where: { id: paymentId, order: { customerId: userId } }, include: { order: { include: { bookings: { include: { serviceOffering: true } } } } } });
   return payment ? toPaymentRow(payment) : null;
-}
-
-function serviceOrderBy(sort: ServiceSearchQuery["sort"], order: ServiceSearchQuery["order"]): Prisma.ServiceOfferingOrderByWithRelationInput {
-  if (sort === "price") return { basePriceIdr: order };
-  if (sort === "title") return { title: order };
-  return { createdAt: order };
 }
 
 function bookingOrderBy(sort: BookingListQuery["sort"], order: BookingListQuery["order"]): Prisma.BookingOrderByWithRelationInput {
@@ -193,21 +164,7 @@ function paymentOrderBy(sort: PaymentListQuery["sort"], order: PaymentListQuery[
   return { createdAt: order };
 }
 
-function toServiceRow(service: Prisma.ServiceOfferingGetPayload<{ select: typeof serviceSelect }>): JamaahServiceRow {
-  return {
-    id: service.id,
-    title: service.title,
-    description: service.description,
-    type: service.type,
-    categoryTitle: service.category?.title ?? "-",
-    ownerName: service.owner.providerProfile?.displayName ?? service.owner.name,
-    routeLabel: service.routeFrom && service.routeTo ? `${service.routeFrom} → ${service.routeTo}` : null,
-    basePrice: formatCurrency(Number(service.basePriceIdr), "IDR", FALLBACK_RATES),
-    basePriceIdr: Number(service.basePriceIdr),
-  };
-}
-
-function toBookingRow(row: Prisma.BookingGetPayload<{ include: { serviceOffering: { include: { owner: { include: { providerProfile: true } } } }; payment: true } }>): JamaahBookingRow {
+function toBookingRow(row: Prisma.BookingGetPayload<{ include: { serviceOffering: { include: { owner: { include: { providerProfile: true } } } }; order: { include: { payment: true } } } }>): JamaahBookingRow {
   return {
     id: row.id,
     serviceTitle: row.serviceOffering.title,
@@ -215,20 +172,31 @@ function toBookingRow(row: Prisma.BookingGetPayload<{ include: { serviceOffering
     status: row.status,
     scheduledStart: row.scheduledStart.toISOString(),
     totalPrice: formatCurrency(Number(row.totalPriceIdr), "IDR", FALLBACK_RATES),
-    paymentId: row.payment?.id ?? null,
-    paymentStatus: row.payment?.status ?? null,
+    paymentId: row.order?.payment?.id ?? null,
+    paymentStatus: row.order?.payment?.status ?? null,
   };
 }
 
-function toPaymentRow(row: Prisma.PaymentGetPayload<{ include: { booking: { include: { serviceOffering: true } } } }>): JamaahPaymentRow {
+function toPaymentRow(row: Prisma.PaymentGetPayload<{ include: { order: { include: { bookings: { include: { serviceOffering: true } } } } } }>): JamaahPaymentRow {
+  const bookingsCount = row.order.bookings.length;
+  const title = bookingsCount === 1 
+    ? row.order.bookings[0].serviceOffering.title 
+    : `${bookingsCount} Layanan (${row.order.bookings[0].serviceOffering.title} & lainnya)`;
+
   return {
     id: row.id,
-    bookingId: row.bookingId,
+    orderId: row.orderId,
     reference: row.gatewayReference ?? row.id.slice(0, 8).toUpperCase(),
-    serviceTitle: row.booking.serviceOffering.title,
+    orderTitle: title,
     status: row.status,
     amount: formatCurrency(Number(row.amountIdr), "IDR", FALLBACK_RATES),
     createdAt: row.createdAt.toISOString(),
+    proofUrl: row.proofUrl,
+    proofFileName: row.proofFileName,
+    proofMimeType: row.proofMimeType,
+    proofUploadedAt: row.proofUploadedAt?.toISOString() ?? null,
+    proofRejectedAt: row.proofRejectedAt?.toISOString() ?? null,
+    proofReviewNote: row.proofReviewNote,
   };
 }
 
