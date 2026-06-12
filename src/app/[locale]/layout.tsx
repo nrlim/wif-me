@@ -36,6 +36,19 @@ export const metadata: Metadata = {
   },
   description:
     "Platform multi-service untuk muthawif personal, provider, transportasi, dan pengurusan visa jamaah umrah mandiri.",
+  openGraph: {
+    title: "Wif-Me | Platform Pendamping Ibadah Umrah",
+    description: "Platform multi-service untuk muthawif personal, provider, transportasi, dan pengurusan visa jamaah umrah mandiri.",
+    url: "https://wifme.app",
+    siteName: "Wif-Me",
+    locale: "id_ID",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Wif-Me | Platform Pendamping Ibadah Umrah",
+    description: "Platform multi-service untuk muthawif personal, provider, transportasi, dan pengurusan visa jamaah umrah mandiri.",
+  },
 };
 
 export default async function RootLayout({
